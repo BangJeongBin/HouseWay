@@ -1,6 +1,38 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-    <header th:fragment="header">
-        <h1>SemiProject V1</h1>
-    </header>
-</html>
+
+
+<!-- Header Start -->
+<header id="header" class="header d-flex align-items-center sticky-top" th:fragment="header">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="assets/img/logo.png" alt=""> -->
+            <h1 class="sitename">HouseWay</h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="#hero" class="active">메인화면</a></li>
+                <li class="dropdown"><a href="about.html"><span>매물</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <ul>
+                        <li><a href="team.html">매물 찾기</a></li>
+
+                        <li><a href="testimonials.html">내가 관심있게 본 매물</a></li>
+
+                    </ul>
+                </li>
+                <li><a href="services.html">공지사항</a></li>
+                <li><a href="portfolio.html">동네 게시판</a></li>
+                <li><a href="pricing.html">마이페이지</a></li>
+
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <a class="btn-getstarted" href="about.html"> 로그인 </a>
+
+    </div>
+</header>
+<!-- header end -->

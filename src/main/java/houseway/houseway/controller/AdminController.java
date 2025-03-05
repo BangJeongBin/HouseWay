@@ -15,6 +15,27 @@ public class AdminController {
     }
 
 
+    // 로그아웃
+    @GetMapping("/logout")
+    public String logout() {
+        return "views/admin/login";
+    }
+
+
+    // 비밀번호 재설정
+    @GetMapping("/rePassword")
+    public String rePassword() {
+        return "views/admin/reset_password";
+    }
+
+
+    // 에러 페이지
+    @GetMapping("/error")
+    public String error() {
+        return "views/admin/error";
+    }
+
+
     // 메인 페이지
     @GetMapping("/index")
     public String index() {
@@ -68,6 +89,13 @@ public class AdminController {
     @GetMapping("/agent_view")
     public String agentView() {
         return "views/admin/agent_view";
+    }
+
+
+    // help - 삭제보류 중
+    @GetMapping("/help")
+    public String help() {
+        return "views/admin/help";
     }
 
 

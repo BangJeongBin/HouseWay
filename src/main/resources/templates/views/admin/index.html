@@ -24,6 +24,10 @@
 										  더보기 기능은 아직 계획중.
 										  뭘쓰지?
 									</div>
+
+									<input type="text" name="birthday" value="10/24/1984" />
+
+
 							    </div><!--//col-->
 							    <div class="col-12 col-lg-3">
 								    <a class="btn app-btn-primary" href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">
@@ -422,6 +426,22 @@
 	    </div><!--//app-content-->
     </div><!--//app-wrapper-->
 
+</th:block>
+
+<th:block layout:fragment="script">
+	<script>
+		$(function() {
+			$('input[name="birthday"]').daterangepicker({
+				singleDatePicker: true,
+				showDropdowns: true,
+				minYear: 1901,
+				maxYear: parseInt(moment().format('YYYY'),10)
+			}, function(start, end, label) {
+				var years = moment().diff(start, 'years');
+				alert("You are " + years + " years old!");
+			});
+		});
+	</script>
 </th:block>
 </html> 
 

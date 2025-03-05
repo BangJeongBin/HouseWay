@@ -70,6 +70,5 @@ public class AdminController {
         return "views/admin/agent_view";
     }
 
-    // body 페이지 상단이 해더에 가려 색도 안먹고 안보임 내일 바로 해결 요망
 
 }

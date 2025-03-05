@@ -12,14 +12,11 @@ import javax.servlet.http.HttpSession;
 
 @Slf4j  // lombok - logging객체 자동 생성
 @Controller
-@RequestMapping("/member") /* 이렇게 안쓴다면 아래에서 적용하면 됨 */
+@RequestMapping("/user") /* 이렇게 안쓴다면 아래에서 적용하면 됨 */
 @RequiredArgsConstructor
 public class UserController {
-
-
-
-
-
-
-
+    @GetMapping("/login")
+    public String login() {
+        return "views/user/login";
+    }
 }

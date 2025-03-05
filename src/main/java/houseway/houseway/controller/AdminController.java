@@ -99,4 +99,11 @@ public class AdminController {
     }
 
 
+    // charts - 삭제보류 중
+    @GetMapping("/charts")
+    public String charts() {
+        return "views/admin/charts";
+    }
+
+
 }

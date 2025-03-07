@@ -54,7 +54,7 @@ const submitLoginFrm = async (frm) => {
         body: formData
     }).then(async response => {
         if (response.ok) {  // 로그인을 성공했다면
-            alert('로그인을 성공했습니다.')
+            alert('관리자 로그인을 성공했습니다.')
             location.href = '/admin/index'
         } else if (response.status === 400){
             alert(await response.text());

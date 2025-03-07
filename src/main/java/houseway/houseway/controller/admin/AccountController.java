@@ -1,5 +1,8 @@
 package houseway.houseway.controller.admin;
 
+import houseway.houseway.domain.Admin;
+import houseway.houseway.repository.admin.AccountRepository;
+import houseway.houseway.service.admin.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +19,13 @@ import javax.servlet.http.HttpSession;
 public class AccountController {
 
     @PostMapping("/login")
-    public String loginOk(/*MemberDTO member,*/ HttpSession session) {
-        return "500";
+    public ResponseEntity<?> loginOk(Admin admin, HttpSession session) {
+        ResponseEntity<?> response = ResponseEntity.internalServerError().build();
+
+        log.info("submit된 회원정보 : {}", admin);
+
+
+
+        return response;
     }
 }

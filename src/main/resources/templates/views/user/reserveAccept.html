@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<style>
+  .reservation{
+    border: 1px solid gray;
+  }
+</style>
+
+<body>
+<th:block layout:fragment="content">
+  <main class="main">
+
+
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">예약현황</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">매물찾기</li>
+          </ol>
+        </nav>
+        
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Pricing Section -->
+    <br>
+      <div class="container my-3 reservation" >
+       <table class="table">
+          <colgroup>
+          <col style="width: 20%;">
+          <col style="width: 50%;">
+          <col style="width: 30%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col"></th>
+              <th scope="col">수락상태</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">예약자</th>
+              <td>Mark</td>
+              <td> 
+                <button type="button" class="btn btn-primary">수락</button> &nbsp;
+                <button type="button" class="btn btn-danger">거절</button>
+              </td>
+
+            </tr>
+            <tr>
+              <th scope="row">예약번호</th>
+              <td>Jacob</td>
+
+            </tr>
+
+            <tr>
+              <th scope="row">예약자 핸드폰번호</th>
+              <td>Jacob</td>
+
+            </tr>
+
+            <tr>
+              <th scope="row">날짜 및 시간</th>
+              <td> db</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+  </main>
+
+
+</th:block>
+
+
+</body>
+</html>

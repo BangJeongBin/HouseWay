@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<body>
+  <th:block layout:fragment="content">
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">예약완료</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">매물찾기</li>
+          </ol>
+        </nav>
+        
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Pricing Section -->
+    <br>
+      <div class="container my-3">
+        <h3>예약이 완료됐습니다.</h3> <br>
+
+        <table class="table">
+          <colgroup>
+          <col style="width: 40%;">
+          <col style="width: 60%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">First</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">예약자</th>
+              <td>Mark</td>
+
+
+            </tr>
+            <tr>
+              <th scope="row">예약번호</th>
+              <td>Jacob</td>
+
+            </tr>
+            <tr>
+              <th scope="row">날짜 및 시간</th>
+              <td> db</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+  </main>
+<br>
+
+
+
+  </th:block>
+
+
+</body>
+</html>

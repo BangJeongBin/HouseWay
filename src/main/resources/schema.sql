@@ -16,8 +16,8 @@ CREATE TABLE if not exists agent (
     agent_num       INT          AUTO_INCREMENT,    -- 공인중개사 번호
     agent_name      VARCHAR(64)  NOT NULL,          -- 공인중개사 이름(아이디)
     agent_phone     VARCHAR(64)  UNIQUE NOT NULL,   -- 공인중개사 연락처(비밀번호)
-    office_address  VARCHAR(128) NOT NULL,          -- 공인중개사 사무실 주소
     office_name     VARCHAR(64)  NOT NULL,          -- 공인중개사 사무실 이름
+    office_address  VARCHAR(128) NOT NULL,          -- 공인중개사 사무실 주소
     agent_local     VARCHAR(18)  NOT NULL,          -- 공인중개사 사무실(구)
     agent_intro     VARCHAR(225) NULL,              -- 공인중개사 설명
     agent_salecount Int          NULL    DEFAULT 0, -- 공인중개사 판매실적
@@ -45,17 +45,8 @@ CREATE TABLE if not exists user (
 CREATE TABLE if not exists estate (
     estate_id        VARCHAR(64),                        -- 매물 아이디
     agent_num        INT     NOT  NULL,                  -- 공인중개사 번호
-    estate_state     INT     NOT  NULL DEFAULT 1,        -- 매물 판매상태(판매시 0)
-    estate_type      VARCHAR(64)  NOT NULL,              -- 매물 전, 월새 구분
-    estate_service   VARCHAR(64)  NOT NULL,              -- 매물 타입
-    estate_roomType  VARCHAR(64)  NOT NULL,              -- 방 타입
     estate_title     VARCHAR(64)  NOT NULL,              -- 매물 이름
     estate_desc      VARCHAR(225) NOT NULL,              -- 매물 설명
-    estate_parking   VARCHAR(64)  NOT NULL,              -- 매물 주차여부
-    estate_elev      VARCHAR(64)  NOT NULL DEFAULT 'f',  -- 매물 엘리베이터 여부
-    estate_moveDate  VARCHAR(64)  NULL,                  -- 매물 입주 가능 날짜
-    estate_option    VARCHAR(64)  NULL,                  -- 매물 옵션
-    estate_viewCount INT          NOT NULL DEFAULT 0,    -- 매물 조회수
     estate_addr      VARCHAR(64)  NOT NULL,              -- 매물 full 주소
     estate_gu        VARCHAR(64)  NOT NULL,              -- 매물 주소(구)
     estate_lat       DOUBLE       NOT NULL,              -- 매물 위도
@@ -64,6 +55,15 @@ CREATE TABLE if not exists estate (
     estate_rent      INT          NOT NULL,              -- 매물 월세
     estate_area      VARCHAR(64)  NOT NULL,              -- 매물 전용면적
     estate_amount    VARCHAR(64)  NOT NULL,              -- 매물 관리비
+    estate_type      VARCHAR(64)  NOT NULL,              -- 매물 전, 월세 구분
+    estate_service   VARCHAR(64)  NOT NULL,              -- 매물 타입
+    estate_roomType  VARCHAR(64)  NOT NULL,              -- 방 타입
+    estate_parking   VARCHAR(64)  NOT NULL,              -- 매물 주차여부
+    estate_elev      VARCHAR(64)  NOT NULL DEFAULT 'f',  -- 매물 엘리베이터 여부
+    estate_moveDate  VARCHAR(64)  NULL,                  -- 매물 입주 가능 날짜
+    estate_option    VARCHAR(64)  NULL,                  -- 매물 옵션
+    estate_viewCount INT          NOT NULL DEFAULT 0,    -- 매물 조회수
+    estate_state     INT     NOT  NULL DEFAULT 1,        -- 매물 판매상태(판매시 0)
     PRIMARY KEY (estate_id),
     foreign key (agent_num) references agent (agent_num)
 );
@@ -91,13 +91,13 @@ CREATE TABLE if not exists image (
 -- 게시판
 CREATE TABLE if not exists board (
     board_num      INT           AUTO_INCREMENT,             -- 게시판 번호
-    user_id        INT           NOT NULL,                   -- 작성자 번호
+    user_id        VARCHAR(18)   NOT NULL,                   -- 작성자 번호
+    board_category VARCHAR(64)   NOT NULL,                   -- 게시판 동네
     board_title    VARCHAR(100)  NOT NULL,                   -- 게시판 제목
     board_cont     VARCHAR(225)  NOT NULL,                   -- 게시판 내용
     board_regdate  DATETIME      DEFAULT current_timestamp,  -- 게시판 작성일자
     board_update   DATETIME      NULL,                       -- 게시판 수정일자
     board_views    INT           NULL     DEFAULT 0,         -- 게시판 조회수
-    board_category VARCHAR(64)   NOT NULL,                   -- 게시판 동네
     board_rank     INT           NULL     DEFAULT 0,         -- 게시판 등급(공지사항은 1)
     PRIMARY KEY (board_num),
     foreign key (user_id) references user (user_id)
@@ -107,7 +107,7 @@ CREATE TABLE if not exists board (
 -- 북마크(관심목록)
 CREATE TABLE if not exists bookmark (
     bookmark_num INT         AUTO_INCREMENT,  -- 북마크 번호
-    user_id      INT         NOT NULL,        -- 북마크한 유저
+    user_id      VARCHAR(18) NOT NULL,        -- 북마크한 유저
     estate_id    VARCHAR(64) NOT NULL,        -- 북마크된 매물
     PRIMARY KEY (bookmark_num),
     foreign key (user_id) references user (user_id),
@@ -118,7 +118,7 @@ CREATE TABLE if not exists bookmark (
 -- 예약
 CREATE TABLE if not exists reserv (
     reserv_num     INT          AUTO_INCREMENT,             -- 예약 번호
-    user_id        INT          NOT NULL,                   -- 예약한 유저
+    user_id        VARCHAR(18)  NOT NULL,                   -- 예약한 유저
     estate_id      VARCHAR(64)  NOT NULL,                   -- 예약된 매물
     agent_num      INT          NOT NULL,                   -- 예약된 매물 공인중개사
     reserv_state   INT          NULL DEFAULT 1,             -- 예약 상태(예약검토, 예약반려, 예약성공)
@@ -133,7 +133,7 @@ CREATE TABLE if not exists reserv (
 -- 판매내역
 CREATE TABLE if not exists sales (
     sales_num   INT          AUTO_INCREMENT,             -- 판매 번호
-    user_id     INT          NOT NULL,                   -- 구매한 유저
+    user_id     VARCHAR(18)  NOT NULL,                   -- 구매한 유저
     estate_id   VARCHAR(64)  NOT NULL,                   -- 판매된 매물 번호
     sales_date  DATETIME     DEFAULT current_timestamp,  -- 판매 일시
     sales_price INT          NOT NULL,                   -- 판매 총 금액

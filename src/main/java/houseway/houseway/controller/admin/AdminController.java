@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -38,8 +40,13 @@ public class AdminController {
 
     // 메인 페이지
     @GetMapping("/index")
-    public String index() {
-        return "views/admin/index";
+    public String index(HttpSession session) {
+        String returnUrl = "views/admin/account/login";
+
+        if (session.getAttribute("loginAdmin") != null) {
+            returnUrl = "views/admin/index";
+        }
+        return returnUrl;
     }
 
 

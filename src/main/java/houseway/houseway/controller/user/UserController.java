@@ -11,8 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user") /* 이렇게 안쓴다면 아래에서 적용하면 됨 */
 @RequiredArgsConstructor
 public class UserController {
+
     @GetMapping("/login")
     public String login() {
         return "views/user/login";
     }
+
+    @GetMapping("/search")
+    public String find() {
+
+        return "views/user/search";
+    }
+
+    @GetMapping("/estateDetail")
+    public String estateDetail() {
+
+        return "views/user/estateDetail";
+    }
+
+    @GetMapping("/reservation")
+    public String reservOk() {
+
+        return "views/user/reservation";
+    }
+
+    @GetMapping("/index_demo")
+    public String indexDemo() {
+
+        return "views/user/index_demo";
+    }
+
 }

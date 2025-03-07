@@ -4,7 +4,13 @@ import houseway.houseway.service.admin.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @Controller
@@ -14,5 +20,25 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    // 회원 리스트
+    @GetMapping("/member")
+    public String member(Model m, @RequestParam(defaultValue = "1") int cpg, HttpServletResponse response) {
+        // 클라이언트 캐시 제어(글 선택 후 뒤로가기 키를 눌러도 상승한 조회수가 적용됨)
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
 
+        log.info("/admin/member 호출");
+
+        m.addAttribute("memberDto", memberService.readMember(cpg));
+
+        return "views/admin/member/member";
+    }
+
+
+    // 회원 상세
+    @GetMapping("/member_view")
+    public String memberView() {
+        return "views/admin/member/member_view";
+    }
 }

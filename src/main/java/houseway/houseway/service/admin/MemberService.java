@@ -1,8 +1,8 @@
 package houseway.houseway.service.admin;
 
-import houseway.houseway.domain.Admin;
+import houseway.houseway.domain.UserPageDTO;
 
 public interface MemberService {
 
-
+    UserPageDTO readMember(int cpg);
 }

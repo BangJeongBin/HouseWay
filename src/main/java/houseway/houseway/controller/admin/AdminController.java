@@ -64,20 +64,6 @@ public class AdminController {
     }
 
 
-    // 회원 리스트
-    @GetMapping("/member")
-    public String member() {
-        return "views/admin/member/member";
-    }
-
-
-    // 회원 상세
-    @GetMapping("/member_view")
-    public String memberView() {
-        return "views/admin/member/member_view";
-    }
-
-
     // 공인중개사 리스트
     @GetMapping("/agent")
     public String agent() {

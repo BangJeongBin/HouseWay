@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admin/account")
+@RequestMapping("/admin")
 public class AccountController {
 
     private final AccountService accountService;

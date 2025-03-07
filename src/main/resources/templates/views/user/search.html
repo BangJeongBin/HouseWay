@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<body>
+<th:block layout:fragment="content">
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">매물찾기</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index_demo.html">Home</a></li>
+            <li class="current">매물찾기</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Pricing Section -->
+
+    <div class="row mt-5 mb-3">
+      <div class="row offset-1 col-7">
+        <div class="col-3">
+          <select class="form-select" id="findtype">
+            <option selected="title">지역구 선택</option>
+            <option value="">성북구</option>
+            <option value="">강북구</option>
+          </select>
+        </div>
+
+        <div class="col-4">
+          <input type="text" class="form-control col-2" id="findkey">
+        </div>
+        <div class="col-3">
+          <button type="button" class="btn btn-success" id="findbtn">
+            <i class="fa-solid fa-magnifying-glass"></i> 검색하기</button>
+        </div>
+      </div>
+
+    </div><!-- 검색  --><br>
+
+         <!-- Recent Posts Widget -->
+         <div class="recent-posts-widget widget-item">
+
+          <h3 class="widget-title">전체 매물 목록</h3>
+
+          <div class="post-item">
+            <img src="assets/img/blog/blog-recent-1.jpg" alt="" class="flex-shrink-0">
+            <div>
+              <h4><a href="reservation.html">아파트 이름</a></h4>
+            </div>
+          </div><!-- End recent post item-->
+
+          <div class="post-item">
+            <img src="assets/img/blog/blog-recent-2.jpg" alt="" class="flex-shrink-0">
+            <div>
+              <h4><a href="blog-details.html">Quidem autem et impedit</a></h4>
+            </div>
+          </div><!-- End recent post item-->
+
+          <div class="post-item">
+            <img src="assets/img/blog/blog-recent-3.jpg" alt="" class="flex-shrink-0">
+            <div>
+              <h4><a href="blog-details.html">Id quia et et ut maxime similique occaecati ut</a></h4>
+              <time datetime="2020-01-01">Jan 1, 2020</time>
+            </div>
+          </div><!-- End recent post item-->
+
+          <div class="post-item">
+            <img src="assets/img/blog/blog-recent-4.jpg" alt="" class="flex-shrink-0">
+            <div>
+              <h4><a href="blog-details.html">Laborum corporis quo dara net para</a></h4>
+              <time datetime="2020-01-01">Jan 1, 2020</time>
+            </div>
+          </div><!-- End recent post item-->
+
+          <div class="post-item">
+            <img src="assets/img/blog/blog-recent-5.jpg" alt="" class="flex-shrink-0">
+            <div>
+              <h4><a href="blog-details.html">Et dolores corrupti quae illo quod dolor</a></h4>
+              <time datetime="2020-01-01">Jan 1, 2020</time>
+            </div>
+          </div><!-- End recent post item-->
+
+        </div><!--/Recent Posts Widget -->
+      </div>
+  </main>
+<br>
+
+
+</th:block>
+
+
+</body>
+</html>

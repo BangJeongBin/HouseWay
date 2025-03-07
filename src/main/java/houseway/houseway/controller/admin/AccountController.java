@@ -29,8 +29,8 @@ public class AccountController {
 
         try {
             // 정상적으로 처리되는 경우 상태코드 200으로 응답
-            Admin loginUser = accountService.loginAdmin(admin);
-            session.setAttribute("loginUser", loginUser);
+            Admin loginAdmin = accountService.loginAdmin(admin);
+            session.setAttribute("loginAdmin", loginAdmin);
             session.setMaxInactiveInterval(6000);    // 세션 유지 : 100분
 
             response =  ResponseEntity.ok().build();
@@ -44,7 +44,6 @@ public class AccountController {
             // 비정상 처리 시 상태코드 500으로 응답 - 서버 쟐못
             e.printStackTrace();
         }
-
         return response;
     }
 }

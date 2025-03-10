@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -38,7 +39,9 @@ public class MemberController {
 
     // 회원 상세
     @GetMapping("/member_view")
-    public String memberView() {
+    public String memberView(Model m, @PathVariable int user_num) {
+        m.addAttribute("memDTO", memberService.readOneMember(user_num));
+
         return "views/admin/member/member_view";
     }
 }

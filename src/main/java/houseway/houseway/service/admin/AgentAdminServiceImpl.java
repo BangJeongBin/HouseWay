@@ -5,6 +5,7 @@ import houseway.houseway.repository.admin.AgentAdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class AgentAdminServiceImpl implements AgentAdminService {
     @Value("10") private int pageSize;
 
 
-    // 멤버 리스트(페이지네이션)
+    // 공인중개사 리스트(페이지네이션)
     @Override
     public AgentPageDTO readAgent(int cpg) {
         // cpg에 따라 시작위치 값 계산
@@ -30,19 +31,17 @@ public class AgentAdminServiceImpl implements AgentAdminService {
     }
 
 
-    /*// 멤버 상세
+    // 공인중개사 상세
     @Transactional
     @Override
-    public UserInfoDTO readOneAgent(String userId) {
-        // 해당 멤버 상세정보
-        User userAllInfo = memberMapper.selectOneMember(userId);
-        // 해당 맴버 예약 리스트
-        List<Reserv> userReservList = memberMapper.selectMemberReserv(userId);
-        // 해당 멤버 구매 내역 리스트
-        List<Sales> userSalesList = memberMapper.selectMemberSales(userId);
-        // 해당 맴버 북마크 리스트
-        List<Bookmark> userBookmarkList = memberMapper.selectMemberBookmark(userId);
+    public AgentInfoDTO readOneAgent(int AgentNum) {
+        // 해당 공인중개사 상세정보
+        Agent agentAllInfo = agentMapper.selectOneAgent(AgentNum);
+        // 해당 공인중개사 예약 리스트
+        List<Reserv> agentReservList = agentMapper.selectAgentReserv(AgentNum);
+        // 해당 공인중개사 매물 리스트(매물 데이터 미 추가)
+        List<EstateAgentListDTO> agentEstateList = agentMapper.selectAgentestate(AgentNum);
 
-        return new UserInfoDTO(userAllInfo, userReservList, userSalesList, userBookmarkList);
-    }*/
+        return new AgentInfoDTO(agentAllInfo, agentReservList, agentEstateList);
+    }
 }

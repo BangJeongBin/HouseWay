@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,8 +29,9 @@ public class AgentAdminController {
 
 
     // 공인중개사 상세
-    @GetMapping("/agent_view")
-    public String agentView() {
+    @GetMapping("/agent_view/{agent_num}")
+    public String agentView(Model m, @PathVariable int agent_num) {
+        m.addAttribute("agentDto", agentAdminService.readOneAgent(agent_num));
         return "views/admin/agent/agent_view";
     }
 }

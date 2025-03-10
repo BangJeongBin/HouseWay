@@ -13,7 +13,19 @@ public interface AgentAdminRepository {
     @Select("select count(agent_num) from agent")
     int countAgent();
 
-    // 회원 리스트
+    // 공인중개사 리스트
     @Select("select agent_num, agent_name, agent_phone, agent_photo, office_name, office_address, agent_local, agent_salecount from agent order by agent_num desc limit #{strnum}, #{pageSize}")
     List<AgentListDTO> agentList(int strnum, int pageSize);
+
+    // 해당 공인중개사 상세정보
+    @Select("select * from agent where agent_num = #{agentNum}")
+    Agent selectOneAgent(int agentNum);
+
+    // 해당 공인중개사 예약 리스트
+    @Select("select * from reserv where agent_num = #{agentNum}")
+    List<Reserv> selectAgentReserv(int agentNum);
+
+    // 해당 공인중개사 매물 리스트
+    @Select("select (estate_id, estate_title, estate_addr, estate_deposit, estate_rent, estate_state) from estate where agent_num = #{agentNum}")
+    List<EstateAgentListDTO> selectAgentestate(int agentNum);
 }

@@ -16,6 +16,7 @@ CREATE TABLE if not exists agent (
     agent_num       INT          AUTO_INCREMENT,    -- 공인중개사 번호
     agent_name      VARCHAR(64)  NOT NULL,          -- 공인중개사 이름(아이디)
     agent_phone     VARCHAR(64)  UNIQUE NOT NULL,   -- 공인중개사 연락처(비밀번호)
+    agent_photo     VARCHAR(64)  NOT NULL,          -- 공인중개사 사진
     office_name     VARCHAR(64)  NOT NULL,          -- 공인중개사 사무실 이름
     office_address  VARCHAR(128) NOT NULL,          -- 공인중개사 사무실 주소
     agent_local     VARCHAR(18)  NOT NULL,          -- 공인중개사 사무실(구)

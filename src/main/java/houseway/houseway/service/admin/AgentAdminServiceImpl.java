@@ -44,4 +44,10 @@ public class AgentAdminServiceImpl implements AgentAdminService {
 
         return new AgentInfoDTO(agentAllInfo, agentReservList, agentEstateList);
     }
+
+    // 공인중개사 삭제
+    @Override
+    public int removeAgent(int agentNum) {
+        return agentMapper.deleteAgent(agentNum);
+    }
 }

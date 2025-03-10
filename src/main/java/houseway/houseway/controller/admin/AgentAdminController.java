@@ -34,4 +34,19 @@ public class AgentAdminController {
         m.addAttribute("agentDto", agentAdminService.readOneAgent(agent_num));
         return "views/admin/agent/agent_view";
     }
+
+
+    // 공인중개사 삭제
+    @GetMapping("/agent_remove")
+    public String agentRemove(Model m, @RequestParam("agent_num") int agent_num) {
+        String returnUrl = "redirect:/admin/agent_view/" + agent_num;
+
+        if (agentAdminService.removeAgent(agent_num) > 0) {
+            log.info(agent_num + "삭제 완료");
+            returnUrl = "redirect:/admin/agent";
+        } else {
+            log.info(agent_num + "삭제 실패");
+        }
+        return returnUrl;
+    }
 }

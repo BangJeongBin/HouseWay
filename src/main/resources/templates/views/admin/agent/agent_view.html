@@ -278,11 +278,30 @@
 					</div>
 					<!-- Estate 앱 카드 end -->
 
+					<div class="app-card-footer p-4 mt-auto" align="center">
+						<button type="button" class="btn btn-danger" id="rmvagnbtn">Delete</button>
+					</div>
+
 				</div><!--//row-->
 			</div><!--//container-fluid-->
 		</div><!--//app-content-->
 	</div><!--//app-wrapper-->
 
+</th:block>
+
+<th:block layout:fragment="script">
+	<script src="/js/admin/member.js"></script>
+	<script th:inline="javascript">
+		let rmvagnbtn = document.querySelector("#rmvagnbtn");
+
+		const agent_num = [[${agent_num}]];
+
+		rmvagnbtn.addEventListener('click', (e) => {
+			if (confirm('정말로 삭제 하시겠습니까?')) {
+				location.href = `/admin/agent_remove?agent_num=${agent_num}`;
+			}
+		});
+	</script>
 </th:block>
 </html>
 

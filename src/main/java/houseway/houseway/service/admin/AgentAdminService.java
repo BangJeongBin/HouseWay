@@ -10,4 +10,7 @@ public interface AgentAdminService {
 
     // 공인중개사 상세
     AgentInfoDTO readOneAgent(int agentNum);
+
+    // 공인중개사 삭제
+    int removeAgent(int agentNum);
 }

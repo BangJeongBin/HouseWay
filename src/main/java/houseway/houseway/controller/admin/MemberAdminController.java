@@ -36,4 +36,13 @@ public class MemberAdminController {
 
         return "views/admin/member/member_view";
     }
+
+
+    // 회원 삭제
+    @GetMapping("/member_remove")
+    public String memberRemove(Model m, @PathVariable String user_id) {
+        m.addAttribute("memDto", memberAdminService.readOneMember(user_id));
+
+        return "views/admin/member/member_view";
+    }
 }

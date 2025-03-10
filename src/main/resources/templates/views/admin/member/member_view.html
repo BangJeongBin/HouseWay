@@ -355,16 +355,19 @@
 </th:block>
 
 <th:block layout:fragment="script">
-	<script src="/js/board.js"></script>
-	<script th:inline="javascript">
-		let rmvmembtn = document.querySelector("#rmvmembtn");
+		<script src="/js/board.js"></script>
+		<script th:inline="javascript">
+			let rmvmembtn = document.querySelector("#rmvmembtn");
 
-		rmvbdbtn.addEventListener('click', (e) => {
-			if (confirm('정말로 삭제 하시겠습니까?')) {
-				location.href = `/board/remove?bno=${bno}`;
-			}
-		});
-	</script>
+			const user_id = [[${user_id}]];
+
+			rmvmembtn.addEventListener('click', (e) => {
+				if (confirm('정말로 삭제 하시겠습니까?')) {
+					location.href = `/admin/agent_remove?user_id=${user_id}`;
+				}
+			});
+		</script>
 </th:block>
+
 </html>
 

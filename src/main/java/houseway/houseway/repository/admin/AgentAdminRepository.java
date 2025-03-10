@@ -26,6 +26,6 @@ public interface AgentAdminRepository {
     List<Reserv> selectAgentReserv(int agentNum);
 
     // 해당 공인중개사 매물 리스트
-    @Select("select (estate_id, estate_title, estate_addr, estate_deposit, estate_rent, estate_state) from estate where agent_num = #{agentNum}")
-    List<EstateAgentListDTO> selectAgentestate(int agentNum);
+    @Select("select estate_id, estate_title, estate_addr, estate_deposit, estate_rent, estate_state from estate where agent_num = #{agentNum}")
+    List<Estate> selectAgentestate(int agentNum);
 }

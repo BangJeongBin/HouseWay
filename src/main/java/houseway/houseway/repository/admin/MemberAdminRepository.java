@@ -1,6 +1,7 @@
 package houseway.houseway.repository.admin;
 
 import houseway.houseway.domain.*;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -32,4 +33,8 @@ public interface MemberAdminRepository {
     // 해당 맴버 북마크 리스트
     @Select("select * from bookmark where user_id = #{userId}")
     List<Bookmark> selectMemberBookmark(String userId);
+
+    // 멤버 삭제
+    @Delete("delete from user where user_id = #{userId}")
+    int deleteMember(String userId);
 }

@@ -46,4 +46,10 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 
         return new UserInfoDTO(userAllInfo, userReservList, userSalesList, userBookmarkList);
     }
+
+    // 멤버 삭제
+    @Override
+    public int removeMember(String userId) {
+        return memberMapper.deleteMember(userId);
+    }
 }

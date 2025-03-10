@@ -40,9 +40,15 @@ public class MemberAdminController {
 
     // 회원 삭제
     @GetMapping("/member_remove")
-    public String memberRemove(Model m, @PathVariable String user_id) {
-        m.addAttribute("memDto", memberAdminService.readOneMember(user_id));
+    public String memberRemove(Model m, @RequestParam("user_id") String user_id) {
+        String returnUrl = "redirect:/admin/member_view/" + user_id;
 
-        return "views/admin/member/member_view";
+        if (memberAdminService.removeMember(user_id) > 0) {
+            log.info(user_id + "삭제 완료");
+            returnUrl = "redirect:/admin/member";
+        } else {
+            log.info(user_id + "삭제 실패");
+        }
+        return returnUrl;
     }
 }

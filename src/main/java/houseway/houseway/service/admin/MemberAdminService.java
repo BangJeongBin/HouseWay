@@ -10,4 +10,7 @@ public interface MemberAdminService {
 
     // 멤버 상세
     UserInfoDTO readOneMember(String userId);
+
+    // 멤버 삭제
+    int removeMember(String userId);
 }

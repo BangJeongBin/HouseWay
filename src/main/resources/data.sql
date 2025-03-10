@@ -6,6 +6,8 @@ insert into admin (admin_id, admin_password, admin_name, admin_photo)
 -- user 테이블
 insert into user (user_name, user_id, user_password, user_addr1, user_addr2, user_phone, user_email, user_gender)
     values ('홍길동', 'hong', 'hong', '마포구', '대흥동', '010-1111-1111', 'hong@gmail.com', '남');
+insert into user (user_name, user_id, user_password, user_addr1, user_addr2, user_phone, user_email, user_gender)
+    values ('강감찬', 'kang', 'kang', '관악구', '봉천동', '010-2222-2222', 'kang@gmail.com', '남');
 
 
 -- agent 테이블

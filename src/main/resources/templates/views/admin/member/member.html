@@ -68,15 +68,15 @@
 								<div class="table-responsive">
 									<table class="table app-table-hover mb-0 text-left">
 										<thead>
-										<tr>
-											<th class="cell">Number</th>
-											<th class="cell">Id</th>
-											<th class="cell">Name</th>
-											<th class="cell">Email</th>
-											<th class="cell">Gender</th>
-											<th class="cell">Date</th>
-											<th class="cell"></th>
-										</tr>
+											<tr>
+												<th class="cell">Number</th>
+												<th class="cell">Id</th>
+												<th class="cell">Name</th>
+												<th class="cell">Email</th>
+												<th class="cell">Gender</th>
+												<th class="cell">Date</th>
+												<th class="cell"></th>
+											</tr>
 										</thead>
 										<tbody>
 
@@ -85,7 +85,7 @@
 											<tr>
 												<td class="cell" th:text="${lists.user_num}"></td>
 												<td class="cell"><span class="truncate" th:text="${lists.user_id}"></span></td>
-												<td class="cell" th:text="${lists.user_name}"></td>
+												<td class="cell"><span class="truncate" th:text="${lists.user_name}"></span></td>
 												<td class="cell"><span th:text="${lists.user_email}"></span></td>
 												<td class="cell" th:text="${lists.user_gender}"></td>
 												<td class="cell" th:text="${lists.user_regdate}"></td>

@@ -21,6 +21,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+
     // 회원 리스트
     @GetMapping("/member")
     public String member(Model m, @RequestParam(defaultValue = "1") int cpg, HttpServletResponse response) {
@@ -38,9 +39,9 @@ public class MemberController {
 
 
     // 회원 상세
-    @GetMapping("/member_view")
-    public String memberView(Model m, @PathVariable int user_num) {
-        m.addAttribute("memDTO", memberService.readOneMember(user_num));
+    @GetMapping("/member_view/{user_id}")
+    public String memberView(Model m, @PathVariable String user_id) {
+        m.addAttribute("memDto", memberService.readOneMember(user_id));
 
         return "views/admin/member/member_view";
     }

@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
-public interface AccountRepository {
+public interface AccountAdminRepository {
 
     // 관리자 로그인
     @Select("select * from admin where admin_id = #{admin_id}")

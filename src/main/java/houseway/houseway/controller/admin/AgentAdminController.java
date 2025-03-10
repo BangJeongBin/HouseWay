@@ -1,5 +1,6 @@
 package houseway.houseway.controller.admin;
 
+import houseway.houseway.service.admin.AgentAdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -12,13 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin")
-public class AgentController {
+public class AgentAdminController {
 
+    private final AgentAdminService agentAdminService;
 
 
     // 공인중개사 리스트
     @GetMapping("/agent")
     public String agent(Model m, @RequestParam(defaultValue = "1") int cpg) {
+        log.info("/admin/agent 호출");
+        m.addAttribute("agentDto", agentAdminService.readAgent(cpg));
         return "views/admin/agent/agent";
     }
 

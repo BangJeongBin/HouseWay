@@ -1,15 +1,15 @@
 package houseway.houseway.service.admin;
 
 import houseway.houseway.domain.Admin;
-import houseway.houseway.repository.admin.AccountRepository;
+import houseway.houseway.repository.admin.AccountAdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AccountServiceImpl implements AccountService {
+public class AccountAdminServiceImpl implements AccountAdminService {
 
-    private final AccountRepository accountMapper;
+    private final AccountAdminRepository accountMapper;
 
 
     // 관리자 로그인

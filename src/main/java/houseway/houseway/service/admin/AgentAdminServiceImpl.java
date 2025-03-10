@@ -1,40 +1,39 @@
 package houseway.houseway.service.admin;
 
 import houseway.houseway.domain.*;
-import houseway.houseway.repository.admin.MemberRepository;
+import houseway.houseway.repository.admin.AgentAdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService {
+public class AgentAdminServiceImpl implements AgentAdminService {
 
-    private final MemberRepository memberMapper;
-    @Value("20") private int pageSize;
+    private final AgentAdminRepository agentMapper;
+    @Value("10") private int pageSize;
 
 
     // 멤버 리스트(페이지네이션)
     @Override
-    public UserPageDTO readMember(int cpg) {
+    public AgentPageDTO readAgent(int cpg) {
         // cpg에 따라 시작위치 값 계산
         int strnum = (cpg - 1) * pageSize;
         // 모든 회원 수
-        int totalCount = memberMapper.countBoard();
+        int totalCount = agentMapper.countAgent();
         // 회원 리스트
-        List<UserListDTO> userList = memberMapper.memberList(strnum, pageSize);
+        List<AgentListDTO> agentList = agentMapper.agentList(strnum, pageSize);
 
-        return new UserPageDTO(cpg, totalCount, pageSize, userList);
+        return new AgentPageDTO(cpg, totalCount, pageSize, agentList);
     }
 
 
-    // 멤버 상세
+    /*// 멤버 상세
     @Transactional
     @Override
-    public UserInfoDTO readOneMember(String userId) {
+    public UserInfoDTO readOneAgent(String userId) {
         // 해당 멤버 상세정보
         User userAllInfo = memberMapper.selectOneMember(userId);
         // 해당 맴버 예약 리스트
@@ -45,5 +44,5 @@ public class MemberServiceImpl implements MemberService {
         List<Bookmark> userBookmarkList = memberMapper.selectMemberBookmark(userId);
 
         return new UserInfoDTO(userAllInfo, userReservList, userSalesList, userBookmarkList);
-    }
+    }*/
 }

@@ -1,7 +1,7 @@
 package houseway.houseway.service.admin;
 
 import houseway.houseway.domain.*;
-import houseway.houseway.repository.admin.MemberRepository;
+import houseway.houseway.repository.admin.MemberAdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -11,9 +11,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AgentServiceImpl implements MemberService {
+public class MemberAdminServiceImpl implements MemberAdminService {
 
-    private final MemberRepository memberMapper;
+    private final MemberAdminRepository memberMapper;
     @Value("20") private int pageSize;
 
 
@@ -23,7 +23,7 @@ public class AgentServiceImpl implements MemberService {
         // cpg에 따라 시작위치 값 계산
         int strnum = (cpg - 1) * pageSize;
         // 모든 회원 수
-        int totalCount = memberMapper.countBoard();
+        int totalCount = memberMapper.countMember();
         // 회원 리스트
         List<UserListDTO> userList = memberMapper.memberList(strnum, pageSize);
 

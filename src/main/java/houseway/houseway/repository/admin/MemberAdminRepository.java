@@ -7,11 +7,11 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 @Mapper
-public interface MemberRepository {
+public interface MemberAdminRepository {
 
     // 모든 회원 수
     @Select("select count(user_num) from user")
-    int countBoard();
+    int countMember();
 
     // 회원 리스트
     @Select("select user_num, user_id, user_name, user_email, user_gender, user_regdate from user order by user_num desc limit #{strnum}, #{pageSize}")

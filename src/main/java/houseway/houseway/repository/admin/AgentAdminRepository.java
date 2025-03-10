@@ -14,6 +14,6 @@ public interface AgentAdminRepository {
     int countAgent();
 
     // 회원 리스트
-    @Select("select agent_num, agent_name, agent_phone, office_name, office_address, agent_local, agent_salecount from agent order by user_num desc limit #{strnum}, #{pageSize}")
+    @Select("select agent_num, agent_name, agent_phone, agent_photo, office_name, office_address, agent_local, agent_salecount from agent order by agent_num desc limit #{strnum}, #{pageSize}")
     List<AgentListDTO> agentList(int strnum, int pageSize);
 }

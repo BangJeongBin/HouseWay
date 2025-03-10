@@ -71,20 +71,6 @@ public class AdminController {
     }
 
 
-    // 공인중개사 리스트
-    @GetMapping("/agent")
-    public String agent() {
-        return "views/admin/agent/agent";
-    }
-
-
-    // 공인중개사 상세
-    @GetMapping("/agent_view")
-    public String agentView() {
-        return "views/admin/agent/agent_view";
-    }
-
-
     // help - 삭제보류 중
     @GetMapping("/help")
     public String help() {

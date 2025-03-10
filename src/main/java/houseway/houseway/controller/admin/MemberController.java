@@ -24,12 +24,7 @@ public class MemberController {
 
     // 회원 리스트
     @GetMapping("/member")
-    public String member(Model m, @RequestParam(defaultValue = "1") int cpg, HttpServletResponse response) {
-        // 클라이언트 캐시 제어(글 선택 후 뒤로가기 키를 눌러도 상승한 조회수가 적용됨)
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", 0);
-
+    public String member(Model m, @RequestParam(defaultValue = "1") int cpg) {
         log.info("/admin/member 호출");
 
         m.addAttribute("memberDto", memberService.readMember(cpg));

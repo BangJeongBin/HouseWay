@@ -344,11 +344,27 @@
 					</div>
 					<!-- Bookmark 앱 카드 end -->
 
+					<div class="app-card-footer p-4 mt-auto" align="center">
+						<button type="button" class="btn btn-danger" id="rmvmembtn">Delete</button>
+					</div><!--//app-card-footer-->
+
 				</div><!--//row-->
 			</div><!--//container-fluid-->
 		</div><!--//app-content-->
 	</div><!--//app-wrapper-->
+</th:block>
 
+<th:block layout:fragment="script">
+	<script src="/js/board.js"></script>
+	<script th:inline="javascript">
+		let rmvmembtn = document.querySelector("#rmvmembtn");
+
+		rmvbdbtn.addEventListener('click', (e) => {
+			if (confirm('정말로 삭제 하시겠습니까?')) {
+				location.href = `/board/remove?bno=${bno}`;
+			}
+		});
+	</script>
 </th:block>
 </html>
 

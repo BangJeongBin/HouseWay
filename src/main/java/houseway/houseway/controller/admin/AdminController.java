@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -38,22 +40,13 @@ public class AdminController {
 
     // 메인 페이지
     @GetMapping("/index")
-    public String index() {
-        return "views/admin/index";
-    }
+    public String index(HttpSession session) {
+        String returnUrl = "views/admin/account/login";
 
-
-    // 매물 리스트
-    @GetMapping("/product")
-    public String product() {
-        return "views/admin/estate/product";
-    }
-
-
-    // 매물 상세
-    @GetMapping("/product_view")
-    public String productView() {
-        return "views/admin/estate/product_view";
+        if (session.getAttribute("loginAdmin") != null) {
+            returnUrl = "views/admin/index";
+        }
+        return returnUrl;
     }
 
 
@@ -61,34 +54,6 @@ public class AdminController {
     @GetMapping("/book")
     public String book() {
         return "views/admin/estate/book";
-    }
-
-
-    // 회원 리스트
-    @GetMapping("/member")
-    public String member() {
-        return "views/admin/member/member";
-    }
-
-
-    // 회원 상세
-    @GetMapping("/member_view")
-    public String memberView() {
-        return "views/admin/member/member_view";
-    }
-
-
-    // 공인중개사 리스트
-    @GetMapping("/agent")
-    public String agent() {
-        return "views/admin/agent/agent";
-    }
-
-
-    // 공인중개사 상세
-    @GetMapping("/agent_view")
-    public String agentView() {
-        return "views/admin/agent/agent_view";
     }
 
 

@@ -121,6 +121,14 @@
 
 </th:block>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var myCarousel = new bootstrap.Carousel(document.getElementById('hero-carousel'), {
+      interval: 5000,  // 슬라이드 전환 시간 설정
+      ride: 'carousel'  // 자동으로 슬라이드 넘기기
+    });
+  });
+</script>
 
 </body>
 </html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+
+<style>
+  /* 전체 테이블 스타일 */
+  table {
+    width: 100%;
+    max-width: 600px; /* 달력 크기 */
+    border-collapse: collapse;
+    margin: 30px auto;
+    background: linear-gradient(135deg, #f7f7f7, #ffffff);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 셀 스타일 */
+  td {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* 마우스 오버 시 효과 */
+  td:hover {
+    background-color: #f0f0f0;
+    color: #333;
+    border-radius: 50%; /* 원형 테두리 */
+  }
+
+  /* 요일 이름 스타일 */
+  .calendar-day-name {
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+  }
+
+  /* 일요일 빨간색, 토요일 파란색 */
+  .sunday {
+    color: #f44336; /* 일요일 빨간색 */
+  }
+
+  .saturday {
+    color: #2196f3; /* 토요일 파란색 */
+  }
+
+  /* 선택된 날짜 스타일 */
+  .selected {
+    background-color: #2196f3; /* 선택된 날짜 색상 */
+    color: white;
+    font-weight: bold;
+    border-radius: 50%; /* 원형 선택 효과 */
+  }
+
+  /* 달력 헤더 스타일 */
+  .calendar-header {
+    font-size: 22px;
+    font-weight: 600;
+    padding: 12px;
+    text-align: center;
+    background-color: #ffffff;
+    color: #333;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  /* 이전/다음 버튼 스타일 */
+  .prev-next-btn {
+    font-size: 28px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+
+  .prev-next-btn:hover {
+    color: #2196f3; /* 버튼 색상 변경 */
+  }
+
+  /* 빈 셀 스타일 */
+  .empty {
+    background-color: #f9f9f9;
+  }
+
+  /* 시간 선택 버튼 스타일 */
+  .time-selector {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .time-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .time-btn:hover {
+    background-color: #e0e0e0;
+  }
+
+  .selected-time {
+    font-weight: bold;
+    color: #333; !important;
+  }
+</style>
+
+
+<body>
+<th:block layout:fragment="content">
+
+  <main class="main">
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">예약 페이지</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">매물찾기</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div>
+      <form class="container">
+        <div class="row mb-3">
+          <label for="reservName" class="col-sm-2 col-form-label">이름</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="reservName">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="reservPhone" class="col-sm-2 col-form-label">연락처</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="reservPhone">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="reservProperty" class="col-sm-2 col-form-label">매물정보</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="reservProperty">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="reservAgent" class="col-sm-2 col-form-label">Agent</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="reservAgent">
+          </div>
+        </div>
+      </form>
+
+      <!-- Calendar -->
+      <table id="calendar" th:align="center">
+        <tr>
+          <td th:align="center"><span class="prev-next-btn" onclick="prevCalendar()">◀</span></td>
+          <td colspan="5" class="calendar-header" id="calendarTitle"></td>
+          <td th:align="center"><span class="prev-next-btn" onclick="nextCalendar()">▶</span></td>
+        </tr>
+        <tr>
+          <td class="calendar-day-name">일</td>
+          <td class="calendar-day-name">월</td>
+          <td class="calendar-day-name">화</td>
+          <td class="calendar-day-name">수</td>
+          <td class="calendar-day-name">목</td>
+          <td class="calendar-day-name">금</td>
+          <td class="calendar-day-name">토</td>
+        </tr>
+      </table>
+     <br><br>
+      <!-- Time Selector UI -->
+      <div id="timeSelector" class="time-selector" style="display: none; text-align:center;">
+       <!-- <h3>시간 선택:</h3>-->
+        <button class="btn btn-primary" onclick="selectTime('10:00')">10:00</button>
+        <button class="btn btn-primary" onclick="selectTime('11:00')">11:00</button>
+        <button class="btn btn-primary" onclick="selectTime('12:00')">12:00</button>
+        <button class="btn btn-primary" onclick="selectTime('13:00')">13:00</button>
+      </div>
+      <br>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">예약 날짜 및 시간</label>
+          <div class="col-sm-10">
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="selectedTime" value=" " readonly>
+          </div>
+        </div>
+
+        <br>
+      </div>
+
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              예약 전 유의사항
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>예약 전 유의사항 필독</strong> <br>
+              신중하게 예약해라.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              승인 전까지 승인 된거 아님ㅋ
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>알겟냐</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary">예약하기</button>
+    </div>
+
+    <script>
+      var today = new Date();
+      var selectedDate = null;
+
+      function buildCalendar() {
+        var cnt = 0;
+        var calendarTable = document.getElementById("calendar");
+        var calendarTableTitle = document.getElementById("calendarTitle");
+
+        // 타이틀 (YYYY년 MM월)
+        calendarTableTitle.innerHTML = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월";
+
+        var firstDate = new Date(today.getFullYear(), today.getMonth(), 1);
+        var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+        // 기존 달력 내용 삭제 (헤더 제외)
+        while (calendarTable.rows.length > 2) {
+          calendarTable.deleteRow(2);
+        }
+
+        var row = calendarTable.insertRow(); // 첫 번째 주 row 생성
+
+        // 첫 번째 주의 빈칸 삽입
+        for (let i = 0; i < firstDate.getDay(); i++) {
+          let cell = row.insertCell();
+          cell.className = "empty"; // 빈칸 스타일 적용
+          cnt++;
+        }
+
+        // 날짜 채우기
+        for (let i = 1; i <= lastDate.getDate(); i++) {
+          let cell = row.insertCell();
+          cnt++;
+
+          cell.setAttribute('id', i);
+          cell.innerHTML = i;
+          cell.className = "day";
+
+          // 날짜 클릭 이벤트 추가
+          cell.onclick = function () {
+            var selectedCell = document.querySelector('.selected');
+            if (selectedCell) {
+              selectedCell.classList.remove('selected');
+            }
+
+            this.classList.add('selected');
+
+            selectedDate = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
+            document.getElementById('timeSelector').style.display = 'block';
+          }
+
+          // 일요일 빨간색, 토요일 파란색
+          if (cnt % 7 == 1) {
+            cell.classList.add("sunday");
+          }
+          if (cnt % 7 == 0) {
+            cell.classList.add("saturday");
+            row = calendarTable.insertRow(); // 새로운 행 추가
+          }
+        }
+
+        // 마지막 주의 빈칸 삽입
+        if (cnt % 7 !== 0) {
+          for (let i = 0; i < 7 - (cnt % 7); i++) {
+            let cell = row.insertCell();
+            cell.className = "empty"; // 빈칸 스타일 적용
+          }
+        }
+      }
+
+      function prevCalendar() {
+        today = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+        buildCalendar();
+      }
+
+      function nextCalendar() {
+        today = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+        buildCalendar();
+      }
+
+      function selectTime(time) {
+        // 선택된 날짜와 시간 정보를 input 필드의 value에 설정
+        document.getElementById('selectedTime').value = `${selectedDate} ${time}`;
+      }
+
+
+      buildCalendar();
+    </script>
+
+  </main>
+</th:block>
+
+
+</body>
+</html>

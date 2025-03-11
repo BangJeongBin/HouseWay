@@ -12,13 +12,19 @@
     <!-- FontAwesome JS-->
     <script defer src="/plugins/fontawesome/js/all.min.js"></script>
 
+    <!-- Date Range Picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 
     <th:block layout:fragment="css"></th:block>
     <style>
 
     </style>
 </head>
-<body>
+<body class="app">
 
     <!-- 웹페이지 레이아웃(가운데 정렬)을 위한 태그들 -->
     <div class="container">
@@ -36,7 +42,10 @@
     <!-- Charts JS -->
     <script src="/plugins/chart.js/chart.min.js"></script>
     <script src="/js/admin/index-charts.js"></script>
+    <script src="/js/admin/charts-demo.js"></script>
     <!-- Page Specific JS -->
     <script src="/js/admin/app.js"></script>
+
+
 </body>
 </html>

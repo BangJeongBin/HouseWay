@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EstateAdminServiceImpl implements EstateAdminService {
 
-    private final EstateAdminRepository memberMapper;
+    private final EstateAdminRepository estateMapper;
     @Value("10") private int pageSize;
 
 
@@ -23,11 +23,13 @@ public class EstateAdminServiceImpl implements EstateAdminService {
     public EstatePageDTO readProduct(int cpg) {
         // cpg에 따라 시작위치 값 계산
         int strnum = (cpg - 1) * pageSize;
-        // 모든 회원 수
-        int totalCount = memberMapper.countEstate();
-        // 회원 리스트
-        List<EstateListDTO> estateList = memberMapper.estateList(strnum, pageSize);
+        // 모든 매물 수
+        int totalCount = estateMapper.countEstate();
+        // 모든 매물 리스트
+        List<EstateListDTO> estateList = estateMapper.estateList(strnum, pageSize);
+        // 모든 매물 사진 리스트
+        List<Image> estateImageList = estateMapper.estateImageList();
 
-        return new EstatePageDTO(cpg, totalCount, pageSize, estateList);
+        return new EstatePageDTO(cpg, totalCount, pageSize, estateList, estateImageList);
     }
 }

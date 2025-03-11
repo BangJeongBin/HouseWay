@@ -15,8 +15,20 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/user") /* 이렇게 안쓴다면 아래에서 적용하면 됨 */
 @RequiredArgsConstructor
 public class UserController {
+    //로그인 페이지 이동
     @GetMapping("/login")
     public String login() {
-        return "views/user/login";
+        return "views/user/loginForm";
+    }
+
+    //회원가입 페이지 이동
+    @GetMapping("/join")
+    public String join(){
+        return "views/user/joinForm";
+    }
+
+    @GetMapping("/mypage")
+    public String mypage(){
+        return "views/user/mypage";
     }
 }

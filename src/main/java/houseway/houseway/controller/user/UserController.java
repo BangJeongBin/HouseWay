@@ -17,24 +17,12 @@ public class UserController {
         return "views/user/login";
     }
 
-    @GetMapping("/search")
-    public String find() {
 
-        return "views/user/search";
-    }
-
-    @GetMapping("/estateDetail")
-    public String estateDetail() {
-
-        return "views/user/estateDetail";
-    }
 
     @GetMapping("/reservation")
-    public String reservOk() {
-
+    public String reservationPage() {
         return "views/user/reservation";
     }
-
     @GetMapping("/index_demo")
     public String indexDemo() {
 

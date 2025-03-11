@@ -73,6 +73,20 @@
 											<img th:src="${img.img1}" class="card-img-top" alt="...">
 										</th:block>
 									</th:block>
+
+									<!-- 매물 이미지 뱃지 -->
+									<th:block th:if="${lists.estate_viewCount gt 10}">
+										<span class="badge bg-danger">HIT</span>
+									</th:block>
+
+									<th:block th:if="${lists.estate_state eq 1}">
+										<span class="badge bg-success">판매중</span>
+									</th:block>
+
+									<th:block th:if="${lists.estate_state eq 0}">
+										<span class="badge bg-warning">판매완료</span>
+									</th:block>
+
 								</div>
 								<div class="app-card-body p-3 has-card-actions">
 
@@ -132,15 +146,21 @@
 				<!-- 페이지네이션 start -->
 				<nav class="app-pagination mt-5">
 					<ul class="pagination justify-content-center">
-						<li class="page-item disabled">
-							<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+
+						<li class="page-item" th:if="${estateDto.cpg gt 5}">
+							<a th:href="|${pglink}${estateDto.cpg - 1}|" class="page-link">Prev</a>
 						</li>
-						<li class="page-item active"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
+
+						<th:block th:each="i : ${#numbers.sequence(estateDto.strBlock, estateDto.endBlock)}">
+							<li th:class="${(i ne estateDto.cpg) ? 'page-item' : 'page-item active'}">
+								<a th:href="|${pglink}${i}|" class="page-link" th:text="${i}"></a>
+							</li>
+						</th:block>
+
 						<li class="page-item">
-							<a class="page-link" href="#">Next</a>
+							<a th:href="|${pglink}${estateDto.cpg + 1}|" class="page-link">Next</a>
 						</li>
+
 					</ul>
 				</nav>
 				<!-- 페이지네이션 end -->

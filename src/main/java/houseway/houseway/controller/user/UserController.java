@@ -12,17 +12,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class UserController {
 
+    //로그인 페이지 이동
     @GetMapping("/login")
     public String login() {
-        return "views/user/login";
+        return "views/user/loginForm";
     }
 
+    //회원가입 페이지 이동
+    @GetMapping("/join")
+    public String join(){
+        return "views/user/joinForm";
+    }
 
+    @GetMapping("/mypage")
+    public String mypage(){
+        return "views/user/mypage";
+    }
+
+    //------------------------------
+
+    @GetMapping("/search")
+    public String find() {
+
+        return "views/user/search";
+    }
+
+    @GetMapping("/estateDetail")
+    public String estateDetail() {
+
+        return "views/user/estateDetail";
+    }
 
     @GetMapping("/reservation")
     public String reservationPage() {
         return "views/user/reservation";
     }
+
     @GetMapping("/index_demo")
     public String indexDemo() {
 

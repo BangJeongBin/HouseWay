@@ -49,7 +49,7 @@ const submitLoginFrm = async (frm) => {
 
     const formData = new FormData(frm);
 
-    fetch('/admin/account/login', {
+    fetch('/admin/login', {
         method: 'post',
         body: formData
     }).then(async response => {

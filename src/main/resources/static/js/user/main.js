@@ -63,6 +63,7 @@
    */
   const preloader = document.querySelector('#preloader');
   if (preloader) {
+    console.log(preloader);
     window.addEventListener('load', () => {
       preloader.remove();
     });

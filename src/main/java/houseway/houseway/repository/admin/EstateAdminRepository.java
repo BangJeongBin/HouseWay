@@ -15,7 +15,7 @@ public interface EstateAdminRepository {
     int countEstate();
 
     // 매물 리스트
-    @Select("select estate_id, estate_title, estate_addr, estate_deposit, estate_rent, estate_viewCount, estate_state from estate order by estate_id desc limit #{strnum}, #{pageSize}")
+    @Select("select estate_id, agent_num, estate_title, estate_addr, estate_deposit, estate_rent, estate_viewCount, estate_state from estate order by estate_id desc limit #{strnum}, #{pageSize}")
     List<EstateListDTO> estateList(int strnum, int pageSize);
 
     // 매물 사진 리스트

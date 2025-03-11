@@ -44,8 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/reservation")
-    public String reservOk() {
-
+    public String reservationPage() {
         return "views/user/reservation";
     }
 

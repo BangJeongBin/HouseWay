@@ -8,7 +8,6 @@ import lombok.Data;
 public class Image {
     private int image_num;
     private String estate_id;
-    private String images_thumb;
     private String img1;
     private String img2;
     private String img3;

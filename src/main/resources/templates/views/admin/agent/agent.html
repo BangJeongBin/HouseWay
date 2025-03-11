@@ -5,7 +5,10 @@
 
 <th:block layout:fragment="content">
 
-	<div class="app-wrapper">
+	<div class="app-wrapper"
+		 th:with="pglink=${(#strings.isEmpty(param.findkey)) ?
+                '/admin/agent?cpg=' : '/admin/agent_find?findtype=' + param.findtype + '&findkey=' + param.findkey + '&cpg='}">
+
 		<div class="app-content pt-3 p-md-3 p-lg-4">
 			<div class="container-xl">
 				<div class="position-relative mb-3">
@@ -24,7 +27,7 @@
 												<input type="text" id="search-docs" name="searchdocs" class="form-control search-docs" placeholder="Search">
 											</div>
 											<div class="col-auto">
-												<button type="submit" class="btn app-btn-secondary">Search</button>
+												<button type="submit" class="btn app-btn-primary">Search</button>
 											</div>
 										</form>
 										<!-- 상단 검색 form 영역 end -->
@@ -53,6 +56,12 @@
 						</div><!--//col-auto-->
 					</div>
 				</div>
+
+				<!-- 상단 sort 영역 start -->
+				<nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+					<a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">공인중개사</a>
+				</nav>
+				<!-- 상단 sort 영역 end -->
 
 				<!-- 공인중개사 app card start -->
 				<th:block th:each="lists : ${agentDto.agentList}">
@@ -92,7 +101,26 @@
 				</th:block>
 				<!-- 공인중개사 app card end -->
 
-				<div class="text-center mt-4"><a class="btn app-btn-secondary" href="#">Load more notifications</a></div>
+				<nav class="app-pagination">
+					<ul class="pagination justify-content-center">
+
+						<li class="page-item" th:if="${agentDto.cpg gt 5}">
+							<a th:href="|${pglink}${agentDto.cpg - 1}|" class="page-link">Prev</a>
+						</li>
+
+						<th:block th:each="i : ${#numbers.sequence(agentDto.strBlock, agentDto.endBlock)}">
+							<li th:class="${(i ne agentDto.cpg) ? 'page-item' : 'page-item active'}">
+								<a th:href="|${pglink}${i}|" class="page-link" th:text="${i}"></a>
+							</li>
+						</th:block>
+
+						<li class="page-item">
+							<a th:href="|${pglink}${agentDto.cpg + 1}|" class="page-link">Next</a>
+						</li>
+
+					</ul>
+				</nav><!--//app-pagination-->
+
 			</div><!--//container-fluid-->
 		</div><!--//app-content-->
 	</div><!--//app-wrapper-->

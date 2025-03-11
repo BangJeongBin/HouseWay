@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin")
-public class BoardController {
+public class BoardAdminController {
 
     // 공지사항 목록
     @GetMapping("/notice")

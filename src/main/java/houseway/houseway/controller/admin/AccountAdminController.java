@@ -1,8 +1,7 @@
 package houseway.houseway.controller.admin;
 
 import houseway.houseway.domain.Admin;
-import houseway.houseway.repository.admin.AccountRepository;
-import houseway.houseway.service.admin.AccountService;
+import houseway.houseway.service.admin.AccountAdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +15,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin")
-public class AccountController {
+public class AccountAdminController {
 
-    private final AccountService accountService;
+    private final AccountAdminService accountAdminService;
 
     // 관리자 로그인
     @PostMapping("/login")
@@ -29,7 +28,7 @@ public class AccountController {
 
         try {
             // 정상적으로 처리되는 경우 상태코드 200으로 응답
-            Admin loginAdmin = accountService.loginAdmin(admin);
+            Admin loginAdmin = accountAdminService.loginAdmin(admin);
             session.setAttribute("loginAdmin", loginAdmin);
             session.setMaxInactiveInterval(6000);    // 세션 유지 : 100분
 

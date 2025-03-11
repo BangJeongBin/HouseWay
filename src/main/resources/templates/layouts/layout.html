@@ -30,6 +30,10 @@
 
     <!-- Main CSS File -->
     <link href="/css/main.css" rel="stylesheet">
+
+    <!-- user CSS File -->
+    <link th:href="@{/css/user.css}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -47,7 +51,8 @@
 <th:block layout:fragment="script"></th:block>
 
 <!-- Main JS File -->
-<script src="/js/main.js"></script>
+<!--<script src="/js/user/main.js"></script>-->
+<script src="/js/user/user.js"></script>
 
 <!-- Vendor JS Files -->
 <script src="/vendor/aos/aos.js"></script>
@@ -60,12 +65,12 @@
 
 <!-- Carousel JavaScript 초기화 -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var myCarousel = new bootstrap.Carousel(document.getElementById('hero-carousel'), {
-            interval: 5000,  // 슬라이드 전환 시간 설정
-            ride: 'carousel'  // 자동으로 슬라이드 넘기기
-        });
-    });
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     var myCarousel = new bootstrap.Carousel(document.getElementById('hero-carousel'), {
+    //         interval: 5000,  // 슬라이드 전환 시간 설정
+    //         ride: 'carousel'  // 자동으로 슬라이드 넘기기
+    //     });
+    // });
 </script>
 
 <!-- Scroll Top -->

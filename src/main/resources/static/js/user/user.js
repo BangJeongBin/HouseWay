@@ -17,20 +17,12 @@ chgNavUser?.addEventListener('click', (e) => {
     agentLoginElement.replaceWith(userLoginElement)
 });
 
-// 로그인 화면에서 회원가입 버튼 클릭 시
+// 로그인 화면에서 회원가입 버튼 클릭 시 회원가입 페이지 이동
 let gojoinFrm = document.querySelector('.join');
 gojoinFrm?.addEventListener('click', (e) => {
+    alert('asdf');
     location.href = 'join';
 });
-
-// 로그인 버튼 클릭 시 유효성 검사
-let gologin = document.querySelector('.login');
-let id = document.getElementById('userid');
-let pwd = document.getElementById('userpwd');
-gologin?.addEventListener('click', (e) => {
-    if (id.value== '') { alert('아이디를 입력해주세요'); }
-    else if (pwd.value == '') { alert('비밀번호를 입력해주세요') }
-})
 
 // 아이디 찾기 버튼 클릭 시 팝업 찯
 let findID = document.getElementById('find_id');
@@ -130,11 +122,9 @@ const hashPassword = async (passwd) => {
     return hashHex;
 }
 
-// 회원가입 시 데이터 비동기 처리
+// 회원가입 폼 제출 - 비동기 처리
 const submitJoinfrm = async (frm) => {
-    alert('asdf');
     frm.user_password.value = await hashPassword(frm.user_password.value);
-    console.log(frm.user_password.value);
 
     const formData = new FormData(frm);
 
@@ -158,19 +148,54 @@ const submitJoinfrm = async (frm) => {
 
 // ------------------
 
+const loginfrm = document.querySelector('#login_Frm');
+
+loginfrm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    clearMessages(); //에러메세지 초기화
+
+    // 입력 요소 유효성 검사
+    let isValid = validLogin(e.target);
+    if(isValid) submitLoginfrm(e.target);
+});
+
+const loginMessages = [
+    '아이디를 올바르게 입력하세요',
+    '비밀번호를 올바르게 입력하세요',
+];
+
+// 로그인 폼 유효성 검사
+const validLogin = (form) => {
+    let isValid = true;
+
+    //로그인 폼 안의 모든 input 요소 수집
+    const inputs = form.querySelectorAll('input');
+
+    inputs.forEach((input, idx) => {//input 요소를 하나씩 검사
+        if (!input.checkValidity()) {//html5 태그를 이용한 유효성 검사
+            console.log('asdf');
+            displayErrorsMessages(input, loginMessages[idx]);
+            isValid = false;
+        }
+    });
+    return isValid;
+}
+
 
 //로그인 폼 제출
 const submitLoginfrm = async (frm) => {
-    frm.passwd.value = await hashPassword(frm.user_password.value);
+    frm.user_password.value = await hashPassword(frm.user_password.value);
+
     const formData = new FormData(frm);
 
-    fetch('/member/login', {
+    fetch('/user/login', {
         method : 'post',
         body : formData
     }).then(async response => {
         if(response.ok) {// 로그인이 성공했다면
             alert('로그인에 성공했습니다.');
-            location.href = '/member/myinfo';
+            location.href = '/user/index_demo';
         }else if(response.status === 400){
             alert(await response.text());
         }else {//로그인에 실패했다면

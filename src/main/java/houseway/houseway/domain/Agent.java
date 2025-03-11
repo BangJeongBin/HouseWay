@@ -17,5 +17,4 @@ public class Agent {
     private String agent_local;
     private String agent_intro;
     private int agent_salecount;
-    private String agent_photo;
 }

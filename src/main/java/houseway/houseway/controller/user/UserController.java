@@ -1,6 +1,8 @@
 package houseway.houseway.controller.user;
 
 import houseway.houseway.domain.User;
+import houseway.houseway.domain.UserInsertDTO;
+import houseway.houseway.domain.UserListDTO;
 import houseway.houseway.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Slf4j  // lombok - logging객체 자동 생성
 @Controller
@@ -35,23 +39,40 @@ public class UserController {
         return "views/user/mypage";
     }
 
-    // ResponseEntity 는 스프링에서 HTTP와 관련된 기능을 구현할 때 사용.
-    // 상태코드, HTTP 헤더, HTTP 본문 등을 명시적으로 설정 가능
     @PostMapping("/join")
-    public ResponseEntity<?> joinok(User user) {
-        // 회원 가입 처리시 기타 오류 발생에 대한 응답코드 설정
+    public ResponseEntity<?> joinok(UserInsertDTO user) {
         ResponseEntity<?> response = ResponseEntity.internalServerError().build();
 
         try{
-            // 정상 처리시 상태코드 200으로 응답
             userService.userJoin(user);
             response = ResponseEntity.ok().build();
         }catch(IllegalStateException e){
-            // 비 정상 처리시 상태코드 400으로 응답 - 클라이언트 잘못
-            // 중복 아이디나 중복 이메일 사용시
             response = ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            // 비정상 처리시 상태코드 500으로 응답 - 서버 잘못
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginok(UserInsertDTO user, HttpSession session) {
+        ResponseEntity<?> response = ResponseEntity.internalServerError().build();
+
+        log.info("submit 정보 : {}", user);
+
+        try{
+            // 정상 처리시 상태코드 200으로 응답
+            UserInsertDTO loginUser = userService.loginUser(user);
+            session.setAttribute("loginUser", loginUser);
+            session.setMaxInactiveInterval(600); // 세션 유지 10분
+
+//            세션확인용
+            System.err.println(session.getAttribute("loginUser"));
+
+            response = ResponseEntity.ok().build();
+        }catch(IllegalStateException e){
+            response = ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return response;

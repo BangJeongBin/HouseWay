@@ -31,6 +31,23 @@ public class MemberAdminServiceImpl implements MemberAdminService {
     }
 
 
+    // 정렬 멤버 리스트(페이지네이션)
+    @Override
+    public UserPageDTO readSortMember(int cpg, int sno) {
+        int strnum = (cpg - 1) * pageSize;
+        int totalCount = memberMapper.countMember();
+
+        if (sno == 1) {
+            List<UserListDTO> userList = memberMapper.memberLocalList(strnum, pageSize);
+            return new UserPageDTO(cpg, totalCount, pageSize, userList);
+        } else if (sno == 2) {
+            List<UserListDTO> userList = memberMapper.memberNameList(strnum, pageSize);
+            return new UserPageDTO(cpg, totalCount, pageSize, userList);
+        }
+        return null;
+    }
+
+
     // 멤버 상세
     @Transactional
     @Override

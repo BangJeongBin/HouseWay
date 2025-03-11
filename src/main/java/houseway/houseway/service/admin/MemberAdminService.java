@@ -8,6 +8,9 @@ public interface MemberAdminService {
     // 멤버 리스트(페이지네이션)
     UserPageDTO readMember(int cpg);
 
+    // 정렬 멤버 리스트(페이지네이션)
+    UserPageDTO readSortMember(int cpg, int sno);
+
     // 멤버 상세
     UserInfoDTO readOneMember(String userId);
 

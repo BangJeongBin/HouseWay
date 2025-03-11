@@ -29,6 +29,16 @@ public class MemberAdminController {
     }
 
 
+    // 회원 정렬 리스트
+    @GetMapping("/member_sort")
+    public String member(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam("sno") int sno) {
+        log.info("/admin/member_sort 호출");
+        m.addAttribute("memberDto", memberAdminService.readSortMember(cpg, sno));
+
+        return "views/admin/member/member";
+    }
+
+
     // 회원 상세
     @GetMapping("/member_view/{user_id}")
     public String memberView(Model m, @PathVariable String user_id) {

@@ -18,6 +18,14 @@ public interface MemberAdminRepository {
     @Select("select user_num, user_id, user_name, user_email, user_gender, user_regdate from user order by user_num desc limit #{strnum}, #{pageSize}")
     List<UserListDTO> memberList(int strnum, int pageSize);
 
+    // 정렬(local) 회원 리스트
+    @Select("select user_num, user_id, user_name, user_email, user_gender, user_regdate from user order by user_addr1 limit #{strnum}, #{pageSize}")
+    List<UserListDTO> memberLocalList(int strnum, int pageSize);
+
+    // 정렬(name) 회원 리스트
+    @Select("select user_num, user_id, user_name, user_email, user_gender, user_regdate from user order by user_name limit #{strnum}, #{pageSize}")
+    List<UserListDTO> memberNameList(int strnum, int pageSize);
+
     // 해당 멤버 상세정보
     @Select("select * from user where user_id = #{userId}")
     User selectOneMember(String userId);

@@ -19,8 +19,9 @@ CREATE TABLE if not exists agent (
     office_name     VARCHAR(64)  NOT NULL,          -- 공인중개사 사무실 이름
     office_address  VARCHAR(128) NOT NULL,          -- 공인중개사 사무실 주소
     agent_local     VARCHAR(18)  NOT NULL,          -- 공인중개사 사무실(구)
-    agent_intro     VARCHAR(225) NULL,              -- 공인중개사 설명
+    agent_intro     VARCHAR(1000)NULL,              -- 공인중개사 설명
     agent_salecount Int          NULL    DEFAULT 0, -- 공인중개사 판매실적
+    agent_photo     VARCHAR(225) NULL,              -- 공인중개사 사진
     PRIMARY KEY (agent_num)
 );
 
@@ -46,7 +47,7 @@ CREATE TABLE if not exists estate (
     estate_id        VARCHAR(64),                        -- 매물 아이디
     agent_num        INT     NOT  NULL,                  -- 공인중개사 번호
     estate_title     VARCHAR(64)  NOT NULL,              -- 매물 이름
-    estate_desc      VARCHAR(225) NOT NULL,              -- 매물 설명
+    estate_desc      VARCHAR(1000) NOT NULL,              -- 매물 설명
     estate_addr      VARCHAR(64)  NOT NULL,              -- 매물 full 주소
     estate_gu        VARCHAR(64)  NOT NULL,              -- 매물 주소(구)
     estate_lat       DOUBLE       NOT NULL,              -- 매물 위도
@@ -59,11 +60,11 @@ CREATE TABLE if not exists estate (
     estate_service   VARCHAR(64)  NOT NULL,              -- 매물 타입
     estate_roomType  VARCHAR(64)  NOT NULL,              -- 방 타입
     estate_parking   VARCHAR(64)  NOT NULL,              -- 매물 주차여부
-    estate_elev      VARCHAR(64)  NOT NULL DEFAULT 'f',  -- 매물 엘리베이터 여부
+    estate_elev      BOOLEAN  NOT NULL DEFAULT 0,        -- 매물 엘리베이터 여부(TRUE 0)
     estate_moveDate  VARCHAR(64)  NULL,                  -- 매물 입주 가능 날짜
     estate_option    VARCHAR(64)  NULL,                  -- 매물 옵션
     estate_viewCount INT          NOT NULL DEFAULT 0,    -- 매물 조회수
-    estate_state     INT     NOT  NULL DEFAULT 1,        -- 매물 판매상태(판매시 0)
+    estate_state     BOOLEAN      NOT NULL DEFAULT 1,   -- 매물 판매상태(판매시 0)
     PRIMARY KEY (estate_id),
     foreign key (agent_num) references agent (agent_num)
 );
@@ -73,18 +74,17 @@ CREATE TABLE if not exists estate (
 CREATE TABLE if not exists image (
     image_num    INT         AUTO_INCREMENT,  -- 매물 이미지 번호
     estate_id    VARCHAR(64) NOT NULL,        -- 매물 번호
-    images_thumb VARCHAR(64) NOT NULL,        -- 매물 이미지 썸네일
-    img1         VARCHAR(64) NOT NULL,        -- 매물 이미지 1
-    img2         VARCHAR(64) NULL,            -- 매물 이미지 2
-    img3         VARCHAR(64) NULL,            -- 매물 이미지 ...
-    img4         VARCHAR(64) NULL,
-    img5         VARCHAR(64) NULL,
-    img6         VARCHAR(64) NULL,
-    img7         VARCHAR(64) NULL,
-    img8         VARCHAR(64) NULL,
-    img9         VARCHAR(64) NULL,
-    PRIMARY KEY (image_num),
-    foreign key (estate_id) references estate (estate_id)
+    img1         VARCHAR(100) NOT NULL,        -- 매물 이미지 1
+    img2         VARCHAR(100) NULL,            -- 매물 이미지 2
+    img3         VARCHAR(100) NULL,            -- 매물 이미지 ...
+    img4         VARCHAR(100) NULL,
+    img5         VARCHAR(100) NULL,
+    img6         VARCHAR(100) NULL,
+    img7         VARCHAR(100) NULL,
+    img8         VARCHAR(100) NULL,
+    img9         VARCHAR(100) NULL,
+    PRIMARY KEY (image_num)
+--     foreign key (estate_id) references estate (estate_id)
 );
 
 

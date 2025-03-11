@@ -116,8 +116,6 @@
 					</div><!--//col-->
 					<!-- Estate 앱 카드 end -->
 
-					<hr class="my-4">
-
 					<!-- Payment 앱 카드 start -->
 					<div class="col-12 col-lg-6">
 						<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -184,6 +182,15 @@
 									</div>
 								</div><!-- estate_type -->
 
+								<div class="item border-bottom py-3">
+									<div class="row justify-content-between align-items-center">
+										<div class="col-auto">
+											<div class="item-label"><strong>Estate Sevice</strong></div>
+											<div class="item-data" th:text="${estDto.estateAllInfo.estate_service}"></div>
+										</div>
+									</div>
+								</div><!-- estate_service -->
+
 							</div>
 						</div>
 					</div>
@@ -191,7 +198,177 @@
 
 					<hr class="my-4">
 
+					<!-- Option 앱카드 start -->
+					<div class="row g-1 settings-section">
+						<div class="col-12 col-md-4">
+							<h3 class="section-title">Option</h3>
+							<div class="section-intro">각 매물의 타입과 옵션들을 고려하여 많은 정보로 소비자들의 구매 욕구를 상승시키는 비지니스 모델 <a href="help.html">Learn more</a></div>
+						</div>
+						<div class="col-12 col-md-8">
+							<div class="app-card app-card-settings shadow-sm p-4">
 
+								<div class="app-card-body">
+									<div class="mb-2"><strong>Status:</strong>
+
+										<th:block th:if="${estDto.estateAllInfo.estate_state eq 1}">
+											<span class="badge bg-success">판매중</span>
+										</th:block>
+
+										<th:block th:if="${estDto.estateAllInfo.estate_state eq 0}">
+											<span class="badge bg-danger">판매완료</span>
+										</th:block>
+
+									</div>
+									<div class="mb-2"><strong>Move Date:</strong> [[${estDto.estateAllInfo.estate_moveDate}]]</div>
+									<div class="mb-2"><strong>Option:</strong> [[${estDto.estateAllInfo.estate_option}]]</div>
+									<div class="mb-4"><strong>View Count:</strong> <a href="#">[[${estDto.estateAllInfo.estate_viewCount}]]</a></div>
+									<div class="row justify-content-between">
+										<div class="col-auto">
+											<a class="btn app-btn-primary" href="#">Show View</a>
+										</div>
+										<div class="col-auto">
+											<a class="btn app-btn-secondary" href="#">Reservation</a>
+										</div>
+									</div>
+
+								</div><!--//app-card-body-->
+
+							</div><!--//app-card-->
+						</div>
+					</div>
+					<!-- Option 앱카드 end -->
+
+					<hr class="my-4">
+
+					<!-- Reserved 앱 카드 start -->
+					<div class="col-12 col-lg-6">
+						<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+							<div class="app-card-header p-3 border-bottom-0">
+								<div class="row align-items-center gx-3">
+									<div class="col-auto">
+										<div class="app-icon-holder">
+											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-shield-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M5.443 1.991a60.17 60.17 0 0 0-2.725.802.454.454 0 0 0-.315.366C1.87 7.056 3.1 9.9 4.567 11.773c.736.94 1.533 1.636 2.197 2.093.333.228.626.394.857.5.116.053.21.089.282.11A.73.73 0 0 0 8 14.5c.007-.001.038-.005.097-.023.072-.022.166-.058.282-.111.23-.106.525-.272.857-.5a10.197 10.197 0 0 0 2.197-2.093C12.9 9.9 14.13 7.056 13.597 3.159a.454.454 0 0 0-.315-.366c-.626-.2-1.682-.526-2.725-.802C9.491 1.71 8.51 1.5 8 1.5c-.51 0-1.49.21-2.557.491zm-.256-.966C6.23.749 7.337.5 8 .5c.662 0 1.77.249 2.813.525a61.09 61.09 0 0 1 2.772.815c.528.168.926.623 1.003 1.184.573 4.197-.756 7.307-2.367 9.365a11.191 11.191 0 0 1-2.418 2.3 6.942 6.942 0 0 1-1.007.586c-.27.124-.558.225-.796.225s-.526-.101-.796-.225a6.908 6.908 0 0 1-1.007-.586 11.192 11.192 0 0 1-2.417-2.3C2.167 10.331.839 7.221 1.412 3.024A1.454 1.454 0 0 1 2.415 1.84a61.11 61.11 0 0 1 2.772-.815z"/>
+												<path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+											</svg>
+										</div><!--//icon-holder-->
+
+									</div><!--//col-->
+									<div class="col-auto">
+										<h4 class="app-card-title">Reserved</h4>
+									</div><!--//col-->
+								</div><!--//row-->
+							</div><!--//app-card-header-->
+							<div class="app-card-body px-4 w-100">
+
+								<div class="table-responsive">
+									<table class="table app-table-hover mb-0 text-left">
+										<thead>
+										<tr>
+											<th class="cell">Number</th>
+											<th class="cell">User</th>
+											<th class="cell">Agent</th>
+											<th class="cell">Date</th>
+											<th class="cell"></th>
+										</tr>
+										</thead>
+										<tbody>
+
+										<!-- 해당 회원 예약 리스트 start -->
+										<th:block th:if="${!#lists.isEmpty(estDto.estateReservState)}">
+												<tr>
+													<td class="cell"><span th:text="${estDto.estateReservState.reserv_num}"></span></td>
+													<td class="cell" th:text="${estDto.estateReservState.user_name}"></td>
+													<td class="cell"><span class="truncate" th:text="${estDto.estateReservState.agent_name}"></span></td>
+													<td class="cell" th:text="${estDto.estateReservState.reserv_regdate}"></td>
+
+													<th:block th:if="${estDto.estateReservState.reserv_state eq 1}">
+														<td class="cell"><span class="badge bg-warning">예약검토</span></td>
+													</th:block>
+
+													<th:block th:if="${estDto.estateReservState.reserv_state eq 2}">
+														<td class="cell"><span class="badge bg-danger">예약반려</span></td>
+													</th:block>
+
+													<th:block th:if="${estDto.estateReservState.reserv_state eq 3}">
+														<td class="cell"><span class="badge bg-success">예약성공</span></td>
+													</th:block>
+												</tr>
+										</th:block>
+
+										<th:block th:if="${#lists.isEmpty(estDto.estateReservState)}">
+											<tr>
+												<td class="cell" colspan="5">에약된 상태가 아닙니다.</td>
+											</tr>
+										</th:block>
+										<!-- 해당 회원 예약 리스트 end -->
+
+										</tbody>
+									</table>
+								</div><!--//table-responsive-->
+							</div><!--//app-card-body-->
+
+						</div><!--//app-card-->
+					</div>
+					<!-- Reserved 앱 카드 start -->
+
+					<!-- Bookmark 앱 카드 start -->
+					<div class="col-12 col-lg-6">
+						<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+							<div class="app-card-header p-3 border-bottom-0">
+								<div class="row align-items-center gx-3">
+									<div class="col-auto">
+										<div class="app-icon-holder">
+											<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+											</svg>
+										</div><!--//icon-holder-->
+
+									</div><!--//col-->
+									<div class="col-auto">
+										<h4 class="app-card-title">Bookmark</h4>
+									</div><!--//col-->
+								</div><!--//row-->
+							</div><!--//app-card-header-->
+							<div class="app-card-body px-4 w-100">
+
+								<div class="table-responsive">
+									<table class="table app-table-hover mb-0 text-left">
+										<thead>
+										<tr>
+											<th class="cell">Number</th>
+											<th class="cell">User.Id</th>
+										</tr>
+										</thead>
+										<tbody>
+
+										<!-- 해당 회원 구매내역 리스트 start -->
+										<th:block th:if="${!#lists.isEmpty(estDto.estateBookmarkList)}">
+											<th:block th:each="blists : ${estDto.estateBookmarkList}">
+												<tr>
+													<td class="cell" th:text="${blists.bookmark_num}"></td>
+													<td class="cell"><span class="truncate" th:text="${blists.user_id}"></span></td>
+												</tr>
+											</th:block>
+										</th:block>
+
+										<th:block th:if="${#lists.isEmpty(estDto.estateBookmarkList)}">
+											<tr>
+												<td class="cell" colspan="2">해당 매물의 북마크가 없습니다.</td>
+											</tr>
+										</th:block>
+										<!-- 해당 회원 구매내역 리스트 end -->
+
+										</tbody>
+									</table>
+								</div><!--//table-responsive-->
+							</div><!--//app-card-body-->
+
+						</div><!--//app-card-->
+					</div>
+					<!-- Bookmark 앱 카드 end -->
+
+					<hr class="my-4">
 
 					<div class="app-card-footer p-4 mt-auto" align="center">
 						<button type="button" class="btn btn-danger" id="rmvmembtn">Delete</button>

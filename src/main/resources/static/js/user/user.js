@@ -48,6 +48,19 @@ findPWd?.addEventListener('click', (e) => {
 
 
 //------------------------------ joinForm
+// 회원가입 버튼
+const joinfrm = document.querySelector('#joinform');
+
+// 회원가입 버튼 눌렀을 때
+joinfrm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    clearMessages();
+
+    // 입력 요소 유효성 검사
+    let isValid = validInputs(joinfrm);
+    if(isValid) submitJoinfrm(joinfrm);
+});
 
 const errorMessages = [
     '아이디는 소문자로 시작하고, 영문자와 숫자만 사용 가능합니다 (최소 6자 ~ 최대 18자)',
@@ -66,6 +79,13 @@ const patterns = [
     /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
     /^[가-힣]|[a-zA-Z]$/
 ];
+
+// 모든 error-message 요소의 내용을 초기화
+function clearMessages() {
+    document.querySelectorAll(".error-message")
+        .forEach(error => error.textContent = '');
+}
+
 // 회원가입 유효성 검사
 const validInputs = (form) => {
     let isValid = true;
@@ -89,25 +109,6 @@ const validInputs = (form) => {
     return isValid;
 }
 
-const joinfrm = document.querySelector('#joinfrm');
-
-// 회원가입 버튼 눌렀을 때
-joinfrm?.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    clearMessages();
-
-    // 입력 요소 유효성 검사
-    let isValid = validInputs(joinfrm);
-    if(isValid) submitJoinfrm(joinfrm);
-});
-
-// 모든 error-message 요소의 내용을 초기화
-function clearMessages() {
-    document.querySelectorAll(".error-message")
-        .forEach(error => error.textContent = '');
-}
-
 // 에러메세지 출력될 요소 생성
 const displayErrorsMessages = (input, message) => {
     let error = document.createElement('div');
@@ -116,44 +117,25 @@ const displayErrorsMessages = (input, message) => {
     input.parentElement.appendChild(error);
 }
 
-// 비밀번호 해싱
-// async와 await를 사용해야 하는 이유는 hashPassword 함수가 비동기적으로 동작하기 때문
-// 비동기 함수는 일반적으로 네트워크 요청, 파일 I/O, 암호화 작업 등 시간이 오래 걸리는 작업을 수행할 때 사용
-// 이러한 작업은 완료될 때까지 기다려야 하며, 이때 async와 await를 사용하여 코드의 가독성을 높이고 동기적인 코드처럼 작성할 수 있음
+// 비밀번호 해싱 처리
 const hashPassword = async (passwd) => {
-    // 문자열을 Uint8Array로 변환
     const encoder = new TextEncoder();  // TextEncoder 객체 생성
     const data = encoder.encode(passwd); // 비밀번호를 Uint8Array로 변환
 
-    // SHA-256 해시 생성
-    // crypto.subtle.digest는 비동기 함수이므로 await 또는 .then()을 사용하여 결과를 처리해야 함
-    // SHA-256은 암호학적으로 안전한 해시 함수이지만, 비밀번호 해시에는 추가적으로 솔트(salt)와 키 스트레칭(key stretching)을 사용하는 것이 좋음
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
 
-    // 해시 결과를 16진수 문자열로 변환
     const hashArray = Array.from(new Uint8Array(hashBuffer)); // Uint8Array를 배열로 변환
     const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // 16진수 문자열로 변환
 
     return hashHex;
 }
 
-//submit vs fetch
-// 폼 submit 방식 : 페이지 새로고침 발생, 에러 처리는 브라우저에 의존
-// fetch 방식 : 비동기 처리 가능, 에러처리는 세밀하게 조절 가능, 요청 데이터를 JSON으로 전송 가능, REST API/SPA/비동기 에서 주로 사용
-
-// 프라미스 (promise)
-// 자바스크립트에서 비동기 작업을 처리하기 위한 객체
-// 주로 비동기 작업의 성공/실패를 관리하고 결과를 처리하는데 사용
-// ES6에서 처음 도입 - 콜백 지옥을 해결, 비동기 처리코드를 깔끔하게 작성
-// async : 비동기 함수임을 선언 - 반환값은 프라미스.
-// await : 비동기 함수의 처리가 완료될때까지 기다렸다가 결과를 받아옴
+// 회원가입 시 데이터 비동기 처리
 const submitJoinfrm = async (frm) => {
-
-    // Web Crypto API로 비밀번호 암호화
+    alert('asdf');
     frm.user_password.value = await hashPassword(frm.user_password.value);
     console.log(frm.user_password.value);
 
-    // 폼에 입력된 데이터를 formData 객체로 초기화
     const formData = new FormData(frm);
 
     fetch('/user/join', {
@@ -173,31 +155,6 @@ const submitJoinfrm = async (frm) => {
         alert('서버와 통신중 오류가 발생했습니다. 관리자에게 문의하세요.');
     });
 }
-const joinform = document.querySelector('#joinform');
-console.log(joinform)
-
-joinform.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    clearMessages(); //에러메세지 초기화
-
-    // 입력 요소 유효성 검사
-    let isValid = validInputs(joinform);
-    if(isValid) submitJoinfrm(joinform);
-});
-
-
-const joinform = document.querySelector('#joinform');
-
-joinform.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    clearMessages(); //에러메세지 초기화
-
-    // 입력 요소 유효성 검사
-    let isValid = validInputs(joinfrm);
-    if(isValid) submitJoinfrm(joinfrm);
-});
 
 // ------------------
 

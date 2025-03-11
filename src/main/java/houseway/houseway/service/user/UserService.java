@@ -20,7 +20,7 @@ public class UserService {
         if(userMapper.countByEmail(user.getUser_email())>0){
             throw new IllegalStateException("이미 존재하는 이메일입니다.");
         }
-        int result = userMapper.insertMember(user);
+        int result = userMapper.insertUser(user);
         return result == 1;//회원정보가 테이블 저장되었는지 여부에 따라 true/false 반환
     }
 

@@ -29,6 +29,8 @@ public class UserController {
         return "views/user/mypage";
     }
 
+    //------------------------------
+
     @GetMapping("/search")
     public String find() {
 

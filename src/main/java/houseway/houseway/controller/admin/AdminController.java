@@ -50,20 +50,6 @@ public class AdminController {
     }
 
 
-    // 매물 리스트
-    @GetMapping("/product")
-    public String product() {
-        return "views/admin/estate/product";
-    }
-
-
-    // 매물 상세
-    @GetMapping("/product_view")
-    public String productView() {
-        return "views/admin/estate/product_view";
-    }
-
-
     // 예약 리스트
     @GetMapping("/book")
     public String book() {

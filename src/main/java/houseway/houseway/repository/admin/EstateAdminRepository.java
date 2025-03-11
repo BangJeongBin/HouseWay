@@ -11,38 +11,10 @@ import java.util.List;
 public interface EstateAdminRepository {
 
     // 모든 회원 수
-    @Select("select count(user_num) from user")
-    int countMember();
+    @Select("select count(estate_id) from estate")
+    int countEstate();
 
     // 회원 리스트
-    @Select("select user_num, user_id, user_name, user_email, user_gender, user_regdate from user order by user_num desc limit #{strnum}, #{pageSize}")
-    List<UserListDTO> memberList(int strnum, int pageSize);
-
-    // 정렬(local) 회원 리스트
-    @Select("select user_num, user_id, user_name, user_email, user_gender, user_regdate from user order by user_addr1 limit #{strnum}, #{pageSize}")
-    List<UserListDTO> memberLocalList(int strnum, int pageSize);
-
-    // 정렬(name) 회원 리스트
-    @Select("select user_num, user_id, user_name, user_email, user_gender, user_regdate from user order by user_name limit #{strnum}, #{pageSize}")
-    List<UserListDTO> memberNameList(int strnum, int pageSize);
-
-    // 해당 멤버 상세정보
-    @Select("select * from user where user_id = #{userId}")
-    User selectOneMember(String userId);
-
-    // 해당 맴버 예약 리스트
-    @Select("select * from reserv where user_id = #{userId}")
-    List<Reserv> selectMemberReserv(String userId);
-
-    // 해당 멤버 구매 내역 리스트
-    @Select("select * from sales where user_id = #{userId}")
-    List<Sales> selectMemberSales(String userId);
-
-    // 해당 맴버 북마크 리스트
-    @Select("select * from bookmark where user_id = #{userId}")
-    List<Bookmark> selectMemberBookmark(String userId);
-
-    // 멤버 삭제
-    @Delete("delete from user where user_id = #{userId}")
-    int deleteMember(String userId);
+    @Select("select estate_id, estate_title, estate_addr, estate_deposit, estate_rent, estate_state from estate order by estate_id desc limit #{strnum}, #{pageSize}")
+    List<EstateListDTO> estateList(int strnum, int pageSize);
 }

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,8 +30,9 @@ public class EstateAdminController {
 
 
     // 매물 상세
-    @GetMapping("/product_view")
-    public String productView() {
+    @GetMapping("/product_view/{estate_id}")
+    public String productView(Model m, @PathVariable String estate_id) {
+        m.addAttribute("estDto", estateAdminService.readOneProduct(estate_id));
         return "views/admin/estate/product_view";
     }
 }

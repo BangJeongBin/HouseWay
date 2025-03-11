@@ -32,4 +32,20 @@ public class EstateAdminServiceImpl implements EstateAdminService {
 
         return new EstatePageDTO(cpg, totalCount, pageSize, estateList, estateImageList);
     }
+
+    // 매물 상세
+    @Transactional
+    @Override
+    public EstateInfoDTO readOneProduct(String estate_id) {
+        // 해당 매물 상세정보
+        Estate estateAllInfo = estateMapper.selectOneEstate(estate_id);
+        // 모든 매물 사진들
+        Image estateImages = estateMapper.selectEstateImages(estate_id);
+        // 해당 매물 예약 상태
+        Reserv estateReservState = estateMapper.selectEstateReservState(estate_id);
+        // 해당 매물 북마크 리스트
+        List<Bookmark> estateBookmarkList = estateMapper.selectEstateBookmark(estate_id);
+
+        return new EstateInfoDTO(estateAllInfo, estateImages, estateReservState, estateBookmarkList);
+    }
 }

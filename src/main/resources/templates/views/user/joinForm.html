@@ -12,7 +12,7 @@
         <nav class="breadcrumbs">
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li class="current">Join Form___</li>
+            <li class="current">Join Form</li>
           </ol>
         </nav>
       </div>
@@ -27,29 +27,49 @@
         <div class="col-md-8 mx-auto">
           <form action="" method="post" name="joinfrm" id="joinfrm" novalidate>
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingInput" placeholder="아이디" required>
-              <label for="floatingInput">아이디</label>
+              <input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디" required>
+              <label for="user_id">아이디</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호" required>
-              <label for="floatingPassword">비밀번호</label>
+              <input type="text" class="form-control" name="user_name" id="user_name" placeholder="이름" required>
+              <label for="user_name">이름</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" name="user_password" id="user_password" placeholder="비밀번호" required>
+              <label for="user_password">비밀번호</label>
             </div>
             <div class="form-floating mb-3 pwd_icon">
               <input type="password" class="form-control" id="floatingRePwd" placeholder="비밀번호 확인" requiredv>
-              <div><i class="fa-solid fa-eye"></i></div>
+<!--              <div><i class="fa-solid fa-eye"></i></div>-->
               <label for="floatingRePwd">비밀번호 확인</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="floatingInputEmail" placeholder="이메일" required>
-              <label for="floatingInputEmail">이메일</label>
+              <input type="email" class="form-control" name="user_email" id="user_email" placeholder="이메일" required>
+              <label for="user_email">이메일</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingInputPhone" placeholder="휴대폰 번호" required>
-              <label for="floatingInputPhone">휴대폰 번호</label>
+              <input type="text" class="form-control" name="user_phone" id="user_phone" placeholder="휴대폰 번호" required>
+              <label for="user_phone">휴대폰 번호</label>
+            </div>
+            <div class="form-check d-inline-block">
+              <input class="form-check-input" type="radio" name="user_gender" id="male" value="male">
+              <label class="form-check-label" for="male">
+                남성
+              </label>
+            </div>
+            <div class="form-check d-inline-block ml-3">
+              <input class="form-check-input" type="radio" name="user_gender" id="female" value="female" checked>
+              <label class="form-check-label" for="female">
+                여성
+              </label>
             </div>
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingInputAddr" placeholder="주소" required>
-              <label for="floatingInputAddr">주소</label>
+              <input type="text" class="form-control" name="user_addr1" id="user_addr1" placeholder="주소" required>
+              <label for="user_addr1">주소</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" name="user_addr2" id="user_addr2" placeholder="상세주소" required>
+              <label for="user_addr2">상세주소</label>
             </div>
             <div class="text-center p-4">
               <input class="btn btn-outline-success" type="submit" value="회원가입"></input>

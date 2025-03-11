@@ -31,6 +31,23 @@ public class AgentAdminServiceImpl implements AgentAdminService {
     }
 
 
+    // 정렬 공인중개사 리스트(페이지네이션)
+    @Override
+    public AgentPageDTO readSortAgent(int cpg, int sno) {
+        int strnum = (cpg - 1) * pageSize;
+        int totalCount = agentMapper.countAgent();
+
+        if (sno == 1) {
+            List<AgentListDTO> agentList = agentMapper.agentLocalList(strnum, pageSize);
+            return new AgentPageDTO(cpg, totalCount, pageSize, agentList);
+        } else if (sno == 2) {
+            List<AgentListDTO> agentList = agentMapper.agentNameList(strnum, pageSize);
+            return new AgentPageDTO(cpg, totalCount, pageSize, agentList);
+        }
+        return null;
+    }
+
+
     // 공인중개사 상세
     @Transactional
     @Override

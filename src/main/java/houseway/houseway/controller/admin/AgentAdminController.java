@@ -28,6 +28,16 @@ public class AgentAdminController {
     }
 
 
+    // 회원 정렬 리스트
+    @GetMapping("/agent_sort")
+    public String agnet(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam("sno") int sno) {
+        log.info("/admin/agent_sort 호출");
+        m.addAttribute("agentDto", agentAdminService.readSortAgent(cpg, sno));
+
+        return "views/admin/agent/agent";
+    }
+
+
     // 공인중개사 상세
     @GetMapping("/agent_view/{agent_num}")
     public String agentView(Model m, @PathVariable int agent_num) {

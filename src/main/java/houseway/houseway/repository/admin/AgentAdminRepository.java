@@ -18,6 +18,14 @@ public interface AgentAdminRepository {
     @Select("select agent_num, agent_name, agent_phone, agent_photo, office_name, office_address, agent_local, agent_salecount from agent order by agent_num desc limit #{strnum}, #{pageSize}")
     List<AgentListDTO> agentList(int strnum, int pageSize);
 
+    // 정렬(local) 공인중개사 리스트
+    @Select("select agent_num, agent_name, agent_phone, agent_photo, office_name, office_address, agent_local, agent_salecount from agent order by office_address limit #{strnum}, #{pageSize}")
+    List<AgentListDTO> agentLocalList(int strnum, int pageSize);
+
+    // 정렬(salsecaount) 공인중개사 리스트
+    @Select("select agent_num, agent_name, agent_phone, agent_photo, office_name, office_address, agent_local, agent_salecount from agent order by agent_salecount desc limit #{strnum}, #{pageSize}")
+    List<AgentListDTO> agentNameList(int strnum, int pageSize);
+
     // 해당 공인중개사 상세정보
     @Select("select * from agent where agent_num = #{agentNum}")
     Agent selectOneAgent(int agentNum);

@@ -16,11 +16,11 @@ CREATE TABLE if not exists agent (
     agent_num       INT          AUTO_INCREMENT,    -- 공인중개사 번호
     agent_name      VARCHAR(64)  NOT NULL,          -- 공인중개사 이름(아이디)
     agent_phone     VARCHAR(64)  UNIQUE NOT NULL,   -- 공인중개사 연락처(비밀번호)
-    agent_photo     VARCHAR(64)  NOT NULL,          -- 공인중개사 사진
+    agent_photo     VARCHAR(64)  NULL,              -- 공인중개사 사진
     office_name     VARCHAR(64)  NOT NULL,          -- 공인중개사 사무실 이름
     office_address  VARCHAR(128) NOT NULL,          -- 공인중개사 사무실 주소
     agent_local     VARCHAR(18)  NOT NULL,          -- 공인중개사 사무실(구)
-    agent_intro     VARCHAR(225) NULL,              -- 공인중개사 설명
+    agent_intro     VARCHAR(1000) NULL,             -- 공인중개사 설명
     agent_salecount Int          NULL    DEFAULT 0, -- 공인중개사 판매실적
     PRIMARY KEY (agent_num)
 );
@@ -60,7 +60,7 @@ CREATE TABLE if not exists estate (
     estate_service   VARCHAR(64)  NOT NULL,              -- 매물 타입
     estate_roomType  VARCHAR(64)  NOT NULL,              -- 방 타입
     estate_parking   VARCHAR(64)  NOT NULL,              -- 매물 주차여부
-    estate_elev      VARCHAR(64)  NOT NULL DEFAULT 'f',  -- 매물 엘리베이터 여부
+    estate_elev      INT          NOT NULL DEFAULT 0,    -- 매물 엘리베이터 여부
     estate_moveDate  VARCHAR(64)  NULL,                  -- 매물 입주 가능 날짜
     estate_option    VARCHAR(64)  NULL,                  -- 매물 옵션
     estate_viewCount INT          NOT NULL DEFAULT 0,    -- 매물 조회수

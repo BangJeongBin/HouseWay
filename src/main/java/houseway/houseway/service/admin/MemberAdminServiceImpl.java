@@ -14,7 +14,7 @@ import java.util.List;
 public class MemberAdminServiceImpl implements MemberAdminService {
 
     private final MemberAdminRepository memberMapper;
-    @Value("20") private int pageSize;
+    @Value("10") private int pageSize;
 
 
     // 멤버 리스트(페이지네이션)

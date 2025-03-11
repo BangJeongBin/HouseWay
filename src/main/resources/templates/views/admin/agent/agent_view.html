@@ -177,15 +177,15 @@
 													<td class="cell" th:text="${rlists.user_id}"></td>
 													<td class="cell"><span th:text="${rlists.reserv_regdate}"></span></td>
 
-													<th:block th:if="${rlists.reserv_state == 1}">
+													<th:block th:if="${rlists.reserv_state eq 1}">
 														<td class="cell"><span class="badge bg-warning">예약검토</span></td>
 													</th:block>
 
-													<th:block th:if="${rlists.reserv_state == 2}">
+													<th:block th:if="${rlists.reserv_state eq 2}">
 														<td class="cell"><span class="badge bg-danger">예약반려</span></td>
 													</th:block>
 
-													<th:block th:if="${rlists.reserv_state == 3}">
+													<th:block th:if="${rlists.reserv_state eq 3}">
 														<td class="cell"><span class="badge bg-success">예약성공</span></td>
 													</th:block>
 												</tr>

@@ -14,7 +14,7 @@ import java.util.List;
 public class AgentAdminServiceImpl implements AgentAdminService {
 
     private final AgentAdminRepository agentMapper;
-    @Value("5") private int pageSize;
+    @Value("6") private int pageSize;
 
 
     // 공인중개사 리스트(페이지네이션)
@@ -22,9 +22,9 @@ public class AgentAdminServiceImpl implements AgentAdminService {
     public AgentPageDTO readAgent(int cpg) {
         // cpg에 따라 시작위치 값 계산
         int strnum = (cpg - 1) * pageSize;
-        // 모든 회원 수
+        // 모든 공인중개사 수
         int totalCount = agentMapper.countAgent();
-        // 회원 리스트
+        // 공인중개사 리스트
         List<AgentListDTO> agentList = agentMapper.agentList(strnum, pageSize);
 
         return new AgentPageDTO(cpg, totalCount, pageSize, agentList);

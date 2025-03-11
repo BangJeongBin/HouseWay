@@ -29,6 +29,8 @@ public class UserController {
         return "views/user/mypage";
     }
 
+    //------------------------------
+
     @GetMapping("/search")
     public String find() {
 
@@ -42,8 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/reservation")
-    public String reservOk() {
-
+    public String reservationPage() {
         return "views/user/reservation";
     }
 

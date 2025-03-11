@@ -20,80 +20,76 @@
       </div>
     </div><!-- End Page Title -->
 
-    <!-- Pricing Section -->
 
-    <div class="row mt-5 mb-3">
-      <div class="row offset-1 col-7">
-        <div class="col-3">
-          <select class="form-select" id="findtype">
-            <option selected="title">지역구 선택</option>
-            <option value="">성북구</option>
-            <option value="">강북구</option>
-          </select>
-        </div>
+    <!--검색-->
 
-        <div class="col-4">
-          <input type="text" class="form-control col-2" id="findkey">
-        </div>
-        <div class="col-3">
-          <button type="button" class="btn btn-success" id="findbtn">
-            <i class="fa-solid fa-magnifying-glass"></i> 검색하기</button>
+    <form id="searchForm" method="get">
+      <div class="row mt-5 mb-3">
+        <div class="row offset-1 col-7">
+          <div class="col-3">
+            <select class="form-select" id="findtype" name="findtype">
+              <option selected="selected" value="all">지역구 선택</option>
+              <option value="강남구">강남구</option>
+              <option value="강동구">강동구</option>
+              <option value="강북구">강북구</option>
+              <option value="강서구">강서구</option>
+              <option value="관악구">관악구</option>
+              <option value="구로구">구로구</option>
+              <option value="금천구">금천구</option>
+              <option value="동대문구">동대문구</option>
+              <option value="동작구">동작구</option>
+              <option value="마포구">마포구</option>
+              <option value="서대문구">서대문구</option>
+              <option value="성동구">성동구</option>
+              <option value="성북구">성북구</option>
+              <option value="양천구">양천구</option>
+              <option value="영등포구">영등포구</option>
+              <option value="용산구">용산구</option>
+              <option value="은평구">은평구</option>
+              <option value="종로구">종로구</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <input type="text" class="form-control col-2" id="findkey" name="findkey">
+          </div>
+          <div class="col-3">
+            <button type="button" class="btn btn-success" id="findbtn">
+              <i class="fa-solid fa-magnifying-glass"></i> 검색하기
+            </button>
+          </div>
         </div>
       </div>
+    </form>
 
-    </div><!-- 검색  --><br>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">번호</th>
+        <th scope="col">제목</th>
+        <th scope="col">보증금</th>
+        <th scope="col">월세</th>
+      </tr>
+      </thead>
 
-         <!-- Recent Posts Widget -->
-         <div class="recent-posts-widget widget-item">
+      <tbody>
+      <tr th:each="estate : ${estates}">
+        <td th:text="${estate.estate_id}"></td>
+        <td> <a th:href="|/estate/estateDetail?estate_id=${estate.estate_id}&agent_num=${estate.agent_num}|" th:text="${estate.estate_title}"></a></td>
+        <td th:text="${#numbers.formatInteger(estate.estate_deposit, 3, 'COMMA')} + '원'"></td>
+        <td th:text="${#numbers.formatInteger(estate.estate_rent, 3, 'COMMA')} + '원'"></td>
+      </tr>
+      </tbody>
 
-          <h3 class="widget-title">전체 매물 목록</h3>
-
-          <div class="post-item">
-            <img src="assets/img/blog/blog-recent-1.jpg" alt="" class="flex-shrink-0">
-            <div>
-              <h4><a href="reservation.html">아파트 이름</a></h4>
-            </div>
-          </div><!-- End recent post item-->
-
-          <div class="post-item">
-            <img src="assets/img/blog/blog-recent-2.jpg" alt="" class="flex-shrink-0">
-            <div>
-              <h4><a href="blog-details.html">Quidem autem et impedit</a></h4>
-            </div>
-          </div><!-- End recent post item-->
-
-          <div class="post-item">
-            <img src="assets/img/blog/blog-recent-3.jpg" alt="" class="flex-shrink-0">
-            <div>
-              <h4><a href="blog-details.html">Id quia et et ut maxime similique occaecati ut</a></h4>
-              <time datetime="2020-01-01">Jan 1, 2020</time>
-            </div>
-          </div><!-- End recent post item-->
-
-          <div class="post-item">
-            <img src="assets/img/blog/blog-recent-4.jpg" alt="" class="flex-shrink-0">
-            <div>
-              <h4><a href="blog-details.html">Laborum corporis quo dara net para</a></h4>
-              <time datetime="2020-01-01">Jan 1, 2020</time>
-            </div>
-          </div><!-- End recent post item-->
-
-          <div class="post-item">
-            <img src="assets/img/blog/blog-recent-5.jpg" alt="" class="flex-shrink-0">
-            <div>
-              <h4><a href="blog-details.html">Et dolores corrupti quae illo quod dolor</a></h4>
-              <time datetime="2020-01-01">Jan 1, 2020</time>
-            </div>
-          </div><!-- End recent post item-->
-
-        </div><!--/Recent Posts Widget -->
-      </div>
+    </table>
   </main>
 <br>
 
-
 </th:block>
 
+<th:block layout:fragment="script">
 
+  <script src="/js/user/estate.js"></script>
+
+</th:block>
 </body>
 </html>

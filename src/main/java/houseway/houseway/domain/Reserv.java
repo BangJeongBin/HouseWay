@@ -9,9 +9,11 @@ import java.time.LocalDateTime;
 @Builder
 public class Reserv {
     private int reserv_num;
-    private String user_id;
+    private String user_name;
+    private String user_phone;
     private String estate_id;
     private int agent_num;
+    private int agent_name;
     private int reserv_state;
     private LocalDateTime reserv_regdate;
 }

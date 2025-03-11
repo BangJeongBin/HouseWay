@@ -14,7 +14,7 @@ import java.util.List;
 public class AgentAdminServiceImpl implements AgentAdminService {
 
     private final AgentAdminRepository agentMapper;
-    @Value("5") private int pageSize;
+    @Value("6") private int pageSize;
 
 
     // 공인중개사 리스트(페이지네이션)

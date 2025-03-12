@@ -5,64 +5,53 @@
 
 <th:block layout:fragment="content">
 
-	<div class="app-wrapper">
+	<!-- 검색 시 페이지네이션을 위한 변수선언 -->
+	<div class="app-wrapper"
+		 th:with="pglink=${(#strings.isEmpty(param.findkey)) ?
+                '/admin/book?cpg=' : '/admin/book_find?findtype=' + param.findtype + '&findkey=' + param.findkey + '&cpg='}">
+
 		<div class="app-content pt-3 p-md-3 p-lg-4">
 			<div class="container-xl">
 				<div class="row g-3 mb-4 align-items-center justify-content-between">
 					<div class="col-auto">
-						<h1 class="app-page-title mb-0">예약현황</h1>
+						<h1 class="app-page-title mb-0">[[${reservDto.totalCount}]]개의 예약</h1>
 					</div>
-					<div class="col-auto">
-						<div class="page-utilities">
-							<div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-								<div class="col-auto">
-
-									<!-- 상단 검색 form 영역 start -->
-									<form class="table-search-form row gx-1 align-items-center">
-										<div class="col-auto">
-											<input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Search">
-										</div>
-										<div class="col-auto">
-											<button type="submit" class="btn app-btn-secondary">Search</button>
-										</div>
-									</form>
-									<!-- 상단 검색 form 영역 end -->
-
-								</div><!--//col-->
-								<div class="col-auto">
-
-									<select class="form-select w-auto" >
-										<option selected value="option-1">All</option>
-										<option value="option-2">This week</option>
-										<option value="option-3">This month</option>
-										<option value="option-4">Last 3 months</option>
-
-									</select>
-								</div>
-								<div class="col-auto">
-									<a class="btn app-btn-secondary" href="#">
-										<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-											<path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-											<path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-										</svg>
-										Download CSV
-									</a>
-								</div>
-							</div><!--//row-->
-						</div><!--//table-utilities-->
-					</div><!--//col-auto-->
 				</div><!--//row-->
 
 				<!-- 상단 sort 영역 start -->
 				<nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-					<a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-					<a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">예약대기</a>
-					<a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">예약반려</a>
-					<a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">예약확정</a>
+					<div th:switch="${type}">
+						<p th:case="1">
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book|" aria-selected="false">All</a>
+							<a class="flex-sm-fill text-sm-center nav-link active" th:href="|/admin/book?type=1|" aria-selected="true">Success</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=2|" aria-selected="false">Pending</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=3|" aria-selected="false">Cancelled</a>
+						</p>
+						<p th:case="2">
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book|" aria-selected="false">All</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=1|" aria-selected="false">Success</a>
+							<a class="flex-sm-fill text-sm-center nav-link active" th:href="|/admin/book?type=2|" aria-selected="true">Pending</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=3|" aria-selected="false">Cancelled</a>
+						</p>
+						<p th:case="3">
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book|" aria-selected="false">All</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=1|" aria-selected="false">Success</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=2|" aria-selected="false">Pending</a>
+							<a class="flex-sm-fill text-sm-center nav-link active" th:href="|/admin/book?type=3|" aria-selected="true">Cancelled</a>
+						</p>
+						<p th:case="*">
+							<a class="flex-sm-fill text-sm-center nav-link active" th:href="|/admin/book|" aria-selected="true">All</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=1|" aria-selected="false">Success</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=2|" aria-selected="false">Pending</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=3|" aria-selected="false">Cancelled</a>
+						</p>
+					</div>
 				</nav>
 				<!-- 상단 sort 영역 end -->
 
 				<div class="tab-content" id="orders-table-tab-content">
+
+					<!-- 모든 예약 탭 start -->
 					<div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
 						<div class="app-card app-card-orders-table shadow-sm mb-5">
 							<div class="app-card-body">
@@ -70,75 +59,44 @@
 									<table class="table app-table-hover mb-0 text-left">
 										<thead>
 										<tr>
-											<th class="cell">Order</th>
-											<th class="cell">Product</th>
-											<th class="cell">Customer</th>
-											<th class="cell">Date</th>
-											<th class="cell">Status</th>
-											<th class="cell">Total</th>
+											<th class="cell">Number</th>
+											<th class="cell">User</th>
+											<th class="cell">Estate</th>
+											<th class="cell">Agent</th>
+											<th class="cell">State</th>
 											<th class="cell"></th>
 										</tr>
 										</thead>
 										<tbody>
-										<!-- 매물 리스트 start -->
-											`<tr>
-												<td class="cell">#15346</td>
-												<td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-												<td class="cell">John Sanders</td>
-												<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$259.35</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" th:href="|/admin/product_view|">View</a></td>
-											</tr>`
-										<!-- 매물 리스트 end -->
-										<tr>
-											<td class="cell">#15345</td>
-											<td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-											<td class="cell">Dylan Ambrose</td>
-											<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-											<td class="cell"><span class="badge bg-warning">Pending</span></td>
-											<td class="cell">$96.20</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
-										<tr>
-											<td class="cell">#15344</td>
-											<td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-											<td class="cell">Teresa Holland</td>
-											<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-											<td class="cell"><span class="badge bg-success">Paid</span></td>
-											<td class="cell">$123.00</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
 
-										<tr>
-											<td class="cell">#15343</td>
-											<td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
-											<td class="cell">Jayden Massey</td>
-											<td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-											<td class="cell"><span class="badge bg-success">Paid</span></td>
-											<td class="cell">$199.00</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
+										<!-- 회원 리스트 start -->
+										<th:block th:each="lists : ${reservDto.reservList}">
+											<tr>
+												<td class="cell" id="reservNum" th:data-reserv-num="${lists.reserv_num}"
+													th:text="${lists.reserv_num}"></td>
+												<td class="cell"><span class="truncate" th:text="${lists.user_id}"></span></td>
+												<td class="cell"><span class="truncate" th:text="${lists.estate_id}"></span></td>
+												<td class="cell"><span th:text="${lists.agent_name}"></span></td>
 
-										<tr>
-											<td class="cell">#15342</td>
-											<td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-											<td class="cell">Reina Brooks</td>
-											<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-											<td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-											<td class="cell">$59.00</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
+												<th:block th:if="${lists.reserv_state eq 1}">
+													<td class="cell"><span class="badge bg-warning">예약검토</span></td>
+												</th:block>
 
-										<tr>
-											<td class="cell">#15341</td>
-											<td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
-											<td class="cell">Raymond Atkins</td>
-											<td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-											<td class="cell"><span class="badge bg-success">Paid</span></td>
-											<td class="cell">$678.26</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
+												<th:block th:if="${lists.reserv_state eq 2}">
+													<td class="cell"><span class="badge bg-danger">예약반려</span></td>
+												</th:block>
+
+												<th:block th:if="${lists.reserv_state eq 3}">
+													<td class="cell"><span class="badge bg-success">예약승인</span></td>
+												</th:block>
+
+												<td class="cell"><div class="form-check form-switch">
+													<input class="form-check-input" type="checkbox" role="switch" id="toggleSwitch"
+														   th:checked="${lists.reserv_state eq 3} ? 'checked' : null">
+												</div></td>
+											</tr>
+										</th:block>
+										<!-- 회원 리스트 end -->
 
 										</tbody>
 									</table>
@@ -146,159 +104,61 @@
 
 							</div><!--//app-card-body-->
 						</div><!--//app-card-->
-						<nav class="app-pagination">
+						<nav class="app-pagination mt-5">
 							<ul class="pagination justify-content-center">
-								<li class="page-item disabled">
-									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+
+								<li class="page-item" th:if="${reservDto.cpg gt 5}">
+									<a th:href="|${pglink}${reservDto.cpg - 1}|" class="page-link">Prev</a>
 								</li>
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
+
+								<th:block th:each="i : ${#numbers.sequence(reservDto.strBlock, reservDto.endBlock)}">
+									<li th:class="${(i ne reservDto.cpg) ? 'page-item' : 'page-item active'}">
+										<a th:href="|${pglink}${i}|" class="page-link" th:text="${i}"></a>
+									</li>
+								</th:block>
+
 								<li class="page-item">
-									<a class="page-link" href="#">Next</a>
+									<a th:href="|${pglink}${reservDto.cpg + 1}|" class="page-link">Next</a>
 								</li>
+
 							</ul>
 						</nav><!--//app-pagination-->
+					</div>
+					<!-- 모든 예약 탭 end -->
 
-					</div><!--//tab-pane-->
-
-					<div class="tab-pane fade" id="orders-paid" role="tabpanel" aria-labelledby="orders-paid-tab">
-						<div class="app-card app-card-orders-table mb-5">
-							<div class="app-card-body">
-								<div class="table-responsive">
-
-									<table class="table mb-0 text-left">
-										<thead>
-										<tr>
-											<th class="cell">Order</th>
-											<th class="cell">Product</th>
-											<th class="cell">Customer</th>
-											<th class="cell">Date</th>
-											<th class="cell">Status</th>
-											<th class="cell">Total</th>
-											<th class="cell"></th>
-										</tr>
-										</thead>
-										<tbody>
-										<tr>
-											<td class="cell">#15346</td>
-											<td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-											<td class="cell">John Sanders</td>
-											<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-											<td class="cell"><span class="badge bg-success">Paid</span></td>
-											<td class="cell">$259.35</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
-
-										<tr>
-											<td class="cell">#15344</td>
-											<td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-											<td class="cell">Teresa Holland</td>
-											<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-											<td class="cell"><span class="badge bg-success">Paid</span></td>
-											<td class="cell">$123.00</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
-
-										<tr>
-											<td class="cell">#15343</td>
-											<td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
-											<td class="cell">Jayden Massey</td>
-											<td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-											<td class="cell"><span class="badge bg-success">Paid</span></td>
-											<td class="cell">$199.00</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
-
-
-										<tr>
-											<td class="cell">#15341</td>
-											<td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
-											<td class="cell">Raymond Atkins</td>
-											<td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-											<td class="cell"><span class="badge bg-success">Paid</span></td>
-											<td class="cell">$678.26</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
-
-										</tbody>
-									</table>
-								</div><!--//table-responsive-->
-							</div><!--//app-card-body-->
-						</div><!--//app-card-->
-					</div><!--//tab-pane-->
-
-					<div class="tab-pane fade" id="orders-pending" role="tabpanel" aria-labelledby="orders-pending-tab">
-						<div class="app-card app-card-orders-table mb-5">
-							<div class="app-card-body">
-								<div class="table-responsive">
-									<table class="table mb-0 text-left">
-										<thead>
-										<tr>
-											<th class="cell">Order</th>
-											<th class="cell">Product</th>
-											<th class="cell">Customer</th>
-											<th class="cell">Date</th>
-											<th class="cell">Status</th>
-											<th class="cell">Total</th>
-											<th class="cell"></th>
-										</tr>
-										</thead>
-										<tbody>
-										<tr>
-											<td class="cell">#15345</td>
-											<td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-											<td class="cell">Dylan Ambrose</td>
-											<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-											<td class="cell"><span class="badge bg-warning">Pending</span></td>
-											<td class="cell">$96.20</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
-										</tbody>
-									</table>
-								</div><!--//table-responsive-->
-							</div><!--//app-card-body-->
-						</div><!--//app-card-->
-					</div><!--//tab-pane-->
-					<div class="tab-pane fade" id="orders-cancelled" role="tabpanel" aria-labelledby="orders-cancelled-tab">
-						<div class="app-card app-card-orders-table mb-5">
-							<div class="app-card-body">
-								<div class="table-responsive">
-									<table class="table mb-0 text-left">
-										<thead>
-										<tr>
-											<th class="cell">Order</th>
-											<th class="cell">Product</th>
-											<th class="cell">Customer</th>
-											<th class="cell">Date</th>
-											<th class="cell">Status</th>
-											<th class="cell">Total</th>
-											<th class="cell"></th>
-										</tr>
-										</thead>
-										<tbody>
-
-										<tr>
-											<td class="cell">#15342</td>
-											<td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-											<td class="cell">Reina Brooks</td>
-											<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-											<td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-											<td class="cell">$59.00</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
-
-										</tbody>
-									</table>
-								</div><!--//table-responsive-->
-							</div><!--//app-card-body-->
-						</div><!--//app-card-->
-					</div><!--//tab-pane-->
 				</div><!--//tab-content-->
 			</div><!--//container-fluid-->
 		</div><!--//app-content-->
 	</div><!--//app-wrapper-->
 
+</th:block>
+
+<th:block layout:fragment="script">
+	<script>
+		let reservNum = document.querySelector("#reservNum").dataset.reservNum;
+		console.log(reservNum); // 콘솔 출력
+
+		let toggleSwitch = document.querySelector("#toggleSwitch");
+		var checkedState = 2;
+
+		toggleSwitch.addEventListener('change', (e) => {
+			checkedState = e.target.checked ? 1 : 0; // 체크되면 1, 해제되면 0
+
+			if (checkedState === 1) {	// 예약 대기 or 반려 상태에서 누른 경우
+				if (confirm('예약을 승인 하시겠습니까?')) {
+					location.href = `/admin/book_ok?reserv_num=${reservNum}`;
+				} else {
+					e.target.checked = !checkedState;
+				}
+			} else if (checkedState === 0) { 	// 예약 승인 상태에서 누른 경우
+				if (confirm('예약을 반려 하시겠습니까?')) {
+					location.href = `/admin/book_no?reserv_num=${reservNum}`;
+				} else {
+					e.target.checked = !checkedState;
+				}
+			}
+		});
+	</script>
 </th:block>
 </html>
 

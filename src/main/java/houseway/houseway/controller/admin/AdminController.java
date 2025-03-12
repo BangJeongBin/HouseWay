@@ -10,16 +10,9 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/admin")
 public class AdminController {
 
-    // 로그인
+    // 기본 페이지(로그인 화면)
     @GetMapping("/")
     public String login() {
-        return "views/admin/account/login";
-    }
-
-
-    // 로그아웃
-    @GetMapping("/logout")
-    public String logout() {
         return "views/admin/account/login";
     }
 
@@ -35,25 +28,6 @@ public class AdminController {
     @GetMapping("/error")
     public String error() {
         return "views/admin/account/error";
-    }
-
-
-    // 메인 페이지
-    @GetMapping("/index")
-    public String index(HttpSession session) {
-        String returnUrl = "views/admin/account/login";
-
-        if (session.getAttribute("loginAdmin") != null) {
-            returnUrl = "views/admin/index";
-        }
-        return returnUrl;
-    }
-
-
-    // 예약 리스트
-    @GetMapping("/book")
-    public String book() {
-        return "views/admin/estate/book";
     }
 
 

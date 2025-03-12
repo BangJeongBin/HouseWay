@@ -24,4 +24,9 @@ public interface EstateRepository {
 
     @Select("SELECT a.* FROM estate e JOIN agent a ON e.agent_num = a.agent_num WHERE e.agent_num = #{agent_num} LIMIT 1")
     AgentDetailDTO estateByAgent(int agent_num);
+
+
+    @Select("select * from image where estate_id = #{estate_id}")
+    Image estateImageOne(String estate_id);
+
 }

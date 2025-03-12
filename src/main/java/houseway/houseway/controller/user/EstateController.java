@@ -60,16 +60,14 @@ public class EstateController {
     @GetMapping("/estateDetail")
     public String estateDetail(Model model, @RequestParam("estate_id") String estate_id,
                                @RequestParam("agent_num") int agent_num) {
+        EstateUserAllInfoDTO estateDto =  estateService.readOneUserEstate(estate_id, agent_num);
 
-        System.out.println(agent_num);
+        model.addAttribute("estateDto", estateDto);
 
-        Estate estate = estateService.getEstateById(estate_id);
-        List<Estate> estateList = estateService.getAllEstates();
-        model.addAttribute("estates", estateList);
-        model.addAttribute("estate", estate);
+        System.err.println(estateDto);
 
-        // 해당 매물 상세 페이지에 해당하는 agnet 정보 추출
-        model.addAttribute("agentDto", estateService.getEstateByAgent(agent_num));
+        /*// 해당 매물 상세 페이지에 해당하는 agnet 정보 추출
+        model.addAttribute("agentDto", estateService.getEstateByAgent(agent_num));*/
 
        return "views/user/estateDetail";
     }

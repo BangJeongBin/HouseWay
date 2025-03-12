@@ -10,8 +10,11 @@ public interface EstateService {
 
      List<EstateSearchListDTO> searchEstates(String findtype, String findkey);
 
+     EstateUserAllInfoDTO readOneUserEstate(String estate_id, int agent_num);
+
      Estate getEstateById(String estate_id);
 
      AgentDetailDTO getEstateByAgent(int agent_num);
 
+     List<Image> estateImageOne(String estate_id);
 }

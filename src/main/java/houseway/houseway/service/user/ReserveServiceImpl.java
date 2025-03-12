@@ -29,10 +29,10 @@ public class ReserveServiceImpl implements ReserveService {
         return result > 0 ? true : false;
     }
 
-    @Override
+   /* @Override
     public Reserv getReservInfo(String user_id) {
         return reservRepository.findByUserId(user_id);
-    }
+    }*/
 }
 
 

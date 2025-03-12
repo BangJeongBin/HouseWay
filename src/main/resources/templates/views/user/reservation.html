@@ -5,113 +5,7 @@
 
 
 <style>
-  /* 전체 테이블 스타일 */
-  table {
-    width: 100%;
-    max-width: 600px; /* 달력 크기 */
-    border-collapse: collapse;
-    margin: 30px auto;
-    background: linear-gradient(135deg, #f7f7f7, #ffffff);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
 
-  /* 셀 스타일 */
-  td {
-    width: 60px;
-    height: 60px;
-    text-align: center;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  /* 마우스 오버 시 효과 */
-  td:hover {
-    background-color: #f0f0f0;
-    color: #333;
-    border-radius: 50%; /* 원형 테두리 */
-  }
-
-  /* 요일 이름 스타일 */
-  .calendar-day-name {
-    font-weight: bold;
-    color: #333;
-    font-size: 16px;
-  }
-
-  /* 일요일 빨간색, 토요일 파란색 */
-  .sunday {
-    color: #f44336; /* 일요일 빨간색 */
-  }
-
-  .saturday {
-    color: #2196f3; /* 토요일 파란색 */
-  }
-
-  /* 선택된 날짜 스타일 */
-  .selected {
-    background-color: #2196f3; /* 선택된 날짜 색상 */
-    color: white;
-    font-weight: bold;
-    border-radius: 50%; /* 원형 선택 효과 */
-  }
-
-  /* 달력 헤더 스타일 */
-  .calendar-header {
-    font-size: 22px;
-    font-weight: 600;
-    padding: 12px;
-    text-align: center;
-    background-color: #ffffff;
-    color: #333;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-
-  /* 이전/다음 버튼 스타일 */
-  .prev-next-btn {
-    font-size: 28px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #333;
-    transition: color 0.3s ease;
-  }
-
-  .prev-next-btn:hover {
-    color: #2196f3; /* 버튼 색상 변경 */
-  }
-
-  /* 빈 셀 스타일 */
-  .empty {
-    background-color: #f9f9f9;
-  }
-
-  /* 시간 선택 버튼 스타일 */
-  .time-selector {
-    margin-top: 20px;
-    text-align: center;
-  }
-
-  .time-btn {
-    padding: 10px 20px;
-    margin: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-
-  .time-btn:hover {
-    background-color: #e0e0e0;
-  }
-
-  .selected-time {
-    font-weight: bold;
-    color: #333; !important;
-  }
 </style>
 
 <th:block layout:fragment="content">
@@ -130,73 +24,84 @@
     </div>
 
     <div>
-      <form class="container">
+      <form class="container" method="post">
+
         <div class="row mb-3">
-          <label for="reservName" class="col-sm-2 col-form-label">이름</label>
+          <label for="user_name" class="col-sm-2 col-form-label">이름</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="reservName">
+            <input type="text" class="form-control" id="user_name" name="user_name" aria-label="이름" required>
           </div>
         </div>
 
         <div class="row mb-3">
-          <label for="reservPhone" class="col-sm-2 col-form-label">연락처</label>
+          <label for="user_id" class="col-sm-2 col-form-label">아이디</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="reservPhone">
+            <input type="text" class="form-control" id="user_id" name="user_id" aria-label="아이디" required>
           </div>
         </div>
 
         <div class="row mb-3">
-          <label for="reservProperty" class="col-sm-2 col-form-label">매물번호</label>
+          <label for="estate_id" class="col-sm-2 col-form-label">매물번호</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="reservProperty" th:value="${propertyName}" readonly>
+            <input type="text" class="form-control" id="estate_id" th:value="${estate.estate_id}" readonly>
           </div>
         </div>
 
         <div class="row mb-3">
-          <label for="reservAgent" class="col-sm-2 col-form-label">공인중개사</label>
+          <label for="agent_name" class="col-sm-2 col-form-label">공인중개사 이름</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="reservAgent" th:value="${agentName}" readonly>
+            <input type="text" class="form-control" id="agent_name" name="agent_name" th:value="${agentDto.agent_name}" readonly>
           </div>
         </div>
-      </form>
+
+        <div class="row mb-3">
+          <label for="agent_num" class="col-sm-2 col-form-label">공인중개사 번호</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="agent_num"  name="agent_num" th:value="${agentDto.agent_num}" readonly>
+          </div>
+        </div>
 
       <!-- Calendar -->
-      <table id="calendar" th:align="center">
-        <tr>
-          <td th:align="center"><span class="prev-next-btn" onclick="prevCalendar()">◀</span></td>
-          <td colspan="5" class="calendar-header" id="calendarTitle"></td>
-          <td th:align="center"><span class="prev-next-btn" onclick="nextCalendar()">▶</span></td>
-        </tr>
-        <tr>
-          <td class="calendar-day-name">일</td>
-          <td class="calendar-day-name">월</td>
-          <td class="calendar-day-name">화</td>
-          <td class="calendar-day-name">수</td>
-          <td class="calendar-day-name">목</td>
-          <td class="calendar-day-name">금</td>
-          <td class="calendar-day-name">토</td>
-        </tr>
-      </table>
+      <div class="calendar_div">
+        <table id="calendar" th:align="center">
+          <tr>
+            <td th:align="center"><span class="prev-next-btn" onclick="prevCalendar()">◀</span></td>
+            <td colspan="5" class="calendar-header" id="calendarTitle"></td>
+            <td th:align="center"><span class="prev-next-btn" onclick="nextCalendar()">▶</span></td>
+          </tr>
+          <tr>
+            <td class="calendar-day-name">일</td>
+            <td class="calendar-day-name">월</td>
+            <td class="calendar-day-name">화</td>
+            <td class="calendar-day-name">수</td>
+            <td class="calendar-day-name">목</td>
+            <td class="calendar-day-name">금</td>
+            <td class="calendar-day-name">토</td>
+          </tr>
+        </table>
+      </div>
      <br><br>
       <!-- Time Selector UI -->
       <div id="timeSelector" class="time-selector" style="display: none; text-align:center;">
        <!-- <h3>시간 선택:</h3>-->
-        <button class="btn btn-primary" onclick="selectTime('10:00')">10:00</button>
-        <button class="btn btn-primary" onclick="selectTime('11:00')">11:00</button>
-        <button class="btn btn-primary" onclick="selectTime('12:00')">12:00</button>
-        <button class="btn btn-primary" onclick="selectTime('13:00')">13:00</button>
+        <button type="button" class="btn btn-primary" onclick="selectTime('10:00')">10:00</button>
+        <button type="button" class="btn btn-primary" onclick="selectTime('11:00')">11:00</button>
+        <button type="button"  class="btn btn-primary" onclick="selectTime('12:00')">14:00</button>
+        <button type="button"  class="btn btn-primary" onclick="selectTime('13:00')">15:00</button>
       </div>
       <br>
         <div class="row mb-3">
           <label class="col-sm-2 col-form-label">예약 날짜 및 시간</label>
           <div class="col-sm-10">
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="selectedTime" value=" " readonly>
+              <label for="selectedTime">
+                <input class="form-control" id="selectedTime" name="reserv_regdate" readonly>
+              </label>
           </div>
         </div>
-
         <br>
       </div>
+
 
       <div class="accordion" id="accordionExample">
         <div class="accordion-item">
@@ -242,7 +147,12 @@
         </div>
       </div>
       <br>
-      <button type="submit" class="btn btn-primary">예약하기</button>
+        <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary btn-lg w-100">예약하기</button>
+        </div>
+      <br>
+      </form>
+
     </div>
 
     <script>

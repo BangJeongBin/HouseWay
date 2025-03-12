@@ -174,9 +174,9 @@ const submitJoinfrm = async (frm) => {
     });
 }
 const joinform = document.querySelector('#joinform');
-console.log(joinform)
+//console.log(joinform)
 
-joinform.addEventListener("submit", (e) => {
+joinform?.addEventListener("submit", (e) => {
     e.preventDefault();
 
     clearMessages(); //에러메세지 초기화
@@ -186,20 +186,6 @@ joinform.addEventListener("submit", (e) => {
     if(isValid) submitJoinfrm(joinform);
 });
 
-
-const joinform = document.querySelector('#joinform');
-
-joinform.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    clearMessages(); //에러메세지 초기화
-
-    // 입력 요소 유효성 검사
-    let isValid = validInputs(joinfrm);
-    if(isValid) submitJoinfrm(joinfrm);
-});
-
-// ------------------
 
 
 //로그인 폼 제출

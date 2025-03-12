@@ -65,6 +65,7 @@
       <thead>
       <tr>
         <th scope="col">번호</th>
+        <th scope="col">구</th>
         <th scope="col">제목</th>
         <th scope="col">보증금</th>
         <th scope="col">월세</th>
@@ -74,6 +75,7 @@
       <tbody>
       <tr th:each="estate : ${estates}">
         <td th:text="${estate.estate_id}"></td>
+        <td th:text="${estate.estate_gu}"></td>
         <td> <a th:href="|/estate/estateDetail?estate_id=${estate.estate_id}&agent_num=${estate.agent_num}|" th:text="${estate.estate_title}"></a></td>
         <td th:text="${#numbers.formatInteger(estate.estate_deposit, 3, 'COMMA')} + '원'"></td>
         <td th:text="${#numbers.formatInteger(estate.estate_rent, 3, 'COMMA')} + '원'"></td>

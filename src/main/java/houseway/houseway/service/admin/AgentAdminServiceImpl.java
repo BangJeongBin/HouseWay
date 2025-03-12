@@ -57,7 +57,7 @@ public class AgentAdminServiceImpl implements AgentAdminService {
         // 해당 공인중개사 예약 리스트
         List<Reserv> agentReservList = agentMapper.selectAgentReserv(AgentNum);
         // 해당 공인중개사 매물 리스트(매물 데이터 미 추가)
-        List<Estate> agentEstateList = agentMapper.selectAgentestate(AgentNum);
+        List<EstateAgentListDTO> agentEstateList = agentMapper.selectAgentestate(AgentNum);
 
         return new AgentInfoDTO(agentAllInfo, agentReservList, agentEstateList);
     }

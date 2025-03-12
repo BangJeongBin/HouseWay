@@ -36,7 +36,7 @@ public interface AgentAdminRepository {
 
     // 해당 공인중개사 매물 리스트
     @Select("select estate_id, estate_title, estate_addr, estate_deposit, estate_rent, estate_state from estate where agent_num = #{agentNum}")
-    List<Estate> selectAgentestate(int agentNum);
+    List<EstateAgentListDTO> selectAgentestate(int agentNum);
 
     // 공인중개사 삭제
     @Delete("delete from agent where agent_num = #{agentNum}")

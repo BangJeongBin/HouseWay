@@ -378,11 +378,11 @@
 	<script th:inline="javascript">
 		let rmvmembtn = document.querySelector("#rmvmembtn");
 
-		const user_id = [[${estate_id}]];
+		const estate_id = [[${estate_id}]];
 
 		rmvmembtn.addEventListener('click', (e) => {
 			if (confirm('정말로 삭제 하시겠습니까?')) {
-				location.href = `/admin/estate_remove?estate_id=${estate_id}`;
+				location.href = `/admin/product_remove?estate_id=${estate_id}`;
 			}
 		});
 	</script>

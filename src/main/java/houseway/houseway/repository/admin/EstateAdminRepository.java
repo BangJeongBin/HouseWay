@@ -36,22 +36,24 @@ public interface EstateAdminRepository {
     List<Image> estateImageList();
 
     // 해당 매물 상세 정보
-    @Select("select * from estate where estate_id = #{estate_id}")
+    @Select("select * from estate where estate_id = #{estateId}")
     Estate selectOneEstate(String estateId);
 
     // 해당 매물 사진들
-    @Select("select * from image where estate_id = #{estate_id}")
+    @Select("select * from image where estate_id = #{estateId}")
     Image selectEstateImages(String estateId);
 
     // 해당 매물 예약 상태
-    @Select("select * from reserv where estate_id = #{estate_id}")
+    @Select("select * from reserv where estate_id = #{estateId}")
     Reserv selectEstateReservState(String estateId);
 
     // 해당 매물 북마크 목록
-    @Select("select * from bookmark where estate_id = #{estate_id}")
+    @Select("select * from bookmark where estate_id = #{estateId}")
     List<Bookmark> selectEstateBookmark(String estateId);
 
-
+    // 매물 삭제
+    @Delete("delete from estate where eatate_id = #{estateId}")
+    int deleteEstate(String estateId);
 
     // 매물 검색을 위한 카운트 메서드 - mapper
     int countFindEstate(Map<String, Object> params);

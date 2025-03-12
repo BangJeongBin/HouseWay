@@ -61,21 +61,25 @@ public class EstateAdminServiceImpl implements EstateAdminService {
     // 매물 상세
     @Transactional
     @Override
-    public EstateInfoDTO readOneProduct(String estate_id) {
+    public EstateInfoDTO readOneProduct(String estateId) {
         // 해당 매물 상세정보
-        Estate estateAllInfo = estateMapper.selectOneEstate(estate_id);
+        Estate estateAllInfo = estateMapper.selectOneEstate(estateId);
         // 모든 매물 사진들
-        Image estateImages = estateMapper.selectEstateImages(estate_id);
+        Image estateImages = estateMapper.selectEstateImages(estateId);
         // 해당 매물 예약 상태
-        Reserv estateReservState = estateMapper.selectEstateReservState(estate_id);
+        Reserv estateReservState = estateMapper.selectEstateReservState(estateId);
         // 해당 매물 북마크 리스트
-        List<Bookmark> estateBookmarkList = estateMapper.selectEstateBookmark(estate_id);
+        List<Bookmark> estateBookmarkList = estateMapper.selectEstateBookmark(estateId);
 
         return new EstateInfoDTO(estateAllInfo, estateImages, estateReservState, estateBookmarkList);
     }
 
 
-
+    // 매물 삭제
+    @Override
+    public int removeEstate(String estateId) {
+        return estateMapper.deleteEstate(estateId);
+    }
 
 
     // 매물 검색(페이지네이션)

@@ -47,8 +47,19 @@ public class EstateAdminController {
     }
 
 
+    // 매물 삭제
+    @GetMapping("/product_remove")
+    public String productRemove(Model m, @RequestParam("estate_id") String estate_id) {
+        String returnUrl = "redirect:/admin/product_view/" + estate_id;
 
-
+        if (estateAdminService.removeEstate(estate_id) > 0) {
+            log.info(estate_id + "삭제 완료");
+            returnUrl = "redirect:/admin/product";
+        } else {
+            log.info(estate_id + "삭제 실패");
+        }
+        return returnUrl;
+    }
 
 
     // 매물 검색

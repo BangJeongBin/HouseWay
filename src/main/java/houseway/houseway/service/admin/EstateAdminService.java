@@ -13,9 +13,10 @@ public interface EstateAdminService {
     EstatePageDTO readSortEstate(int cpg, int sno);
 
     // 매물 상세
-    EstateInfoDTO readOneProduct(String estate_id);
+    EstateInfoDTO readOneProduct(String estateId);
 
-
+    // 매물 삭제
+    int removeEstate(String estateId);
 
     // 매물 검색(페이지네이션)
     EstatePageDTO findEstate(int cpg, String findtype, String findkey);

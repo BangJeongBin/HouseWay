@@ -1,8 +1,6 @@
 package houseway.houseway.service.user;
 
-import houseway.houseway.domain.Agent;
-import houseway.houseway.domain.Estate;
-import houseway.houseway.domain.EstateListDTO;
+import houseway.houseway.domain.*;
 import houseway.houseway.repository.user.EstateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,7 @@ public class EstateServiceImpl implements EstateService {
     }
 
     @Override
-    public List<EstateListDTO> searchEstates(String findtype, String findkey) {
+    public List<EstateSearchListDTO> searchEstates(String findtype, String findkey) {
 
         // findkey가 비어 있으면 전체 매물을 불러오고
         if (findkey == null || findkey.isEmpty()) {
@@ -35,11 +33,13 @@ public class EstateServiceImpl implements EstateService {
 
     @Override
     public Estate getEstateById(String estate_id) {
+
+        Estate estate =estateRepository.getEstateById(estate_id);
         return estateRepository.getEstateById(estate_id);
     }
 
     @Override
-    public Agent getEstateByAgent(int agent_num) {
+    public AgentDetailDTO getEstateByAgent(int agent_num) {
         return estateRepository.estateByAgent(agent_num);
     }
 

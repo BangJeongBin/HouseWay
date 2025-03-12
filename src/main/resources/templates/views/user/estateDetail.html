@@ -55,7 +55,7 @@
 
             <h3 class="pt-0 pt-lg-5" th:text="${estate.estate_title}">매물제목</h3>
             <p th:text="${estate.estate_desc}">매물 설명</p>
-            <a class="btn btn-primary" th:href="@{/user/reservation(estate_id=${estate.estate_id})}">예약하기</a>
+            <a class="btn btn-primary" th:href="@{/estate/reservation(estate_id=${estate.estate_id})}">예약하기</a>
             <br> <br>
 
             <!-- Tabs -->
@@ -199,16 +199,10 @@
               </div>
             </div>
           </div><!-- End Team Member -->
-
       </div>
           </div>
-
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+       </section>
   </main>
   <!-- Carousel JavaScript 초기화 -->
 

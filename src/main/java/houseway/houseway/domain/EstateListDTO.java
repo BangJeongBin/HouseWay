@@ -7,8 +7,11 @@ import lombok.Data;
 @Builder
 public class EstateListDTO {
     private String estate_id;
+    private int agent_num;
     private String estate_title;
+    private String estate_addr;
     private int estate_deposit;
     private int estate_rent;
-
+    private int estate_viewCount;
+    private int estate_state;
 }

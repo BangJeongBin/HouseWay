@@ -7,14 +7,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class AgentAdminServiceImpl implements AgentAdminService {
 
     private final AgentAdminRepository agentMapper;
-    @Value("5") private int pageSize;
+    @Value("6") private int pageSize;
 
 
     // 공인중개사 리스트(페이지네이션)
@@ -22,9 +24,9 @@ public class AgentAdminServiceImpl implements AgentAdminService {
     public AgentPageDTO readAgent(int cpg) {
         // cpg에 따라 시작위치 값 계산
         int strnum = (cpg - 1) * pageSize;
-        // 모든 회원 수
+        // 모든 공인중개사 수
         int totalCount = agentMapper.countAgent();
-        // 회원 리스트
+        // 공인중개사 리스트
         List<AgentListDTO> agentList = agentMapper.agentList(strnum, pageSize);
 
         return new AgentPageDTO(cpg, totalCount, pageSize, agentList);
@@ -57,7 +59,7 @@ public class AgentAdminServiceImpl implements AgentAdminService {
         // 해당 공인중개사 예약 리스트
         List<Reserv> agentReservList = agentMapper.selectAgentReserv(AgentNum);
         // 해당 공인중개사 매물 리스트(매물 데이터 미 추가)
-        List<Estate> agentEstateList = agentMapper.selectAgentestate(AgentNum);
+        List<EstateAgentListDTO> agentEstateList = agentMapper.selectAgentestate(AgentNum);
 
         return new AgentInfoDTO(agentAllInfo, agentReservList, agentEstateList);
     }
@@ -66,5 +68,30 @@ public class AgentAdminServiceImpl implements AgentAdminService {
     @Override
     public int removeAgent(int agentNum) {
         return agentMapper.deleteAgent(agentNum);
+    }
+
+
+    // 공인중개사 검색(페이지네이션)
+    @Override
+    public AgentPageDTO findAgent(int cpg, String findtype, String findkey) {
+        int strnum = (cpg - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("strnum", strnum);
+        params.put("pageSize", pageSize);
+        params.put("findtype", findtype);
+        params.put("findkey", findkey);
+
+        int totalCount = countFindAgent(params);
+        List<AgentListDTO> agentList = agentMapper.selectFindAgent(params);
+
+        return new AgentPageDTO(cpg, totalCount, pageSize, agentList);
+    }
+
+
+    // 공인중개사 검색을 위한 카운트 메서드
+    @Override
+    public int countFindAgent(Map<String, Object> params) {
+        return agentMapper.countFindAgent(params);
     }
 }

@@ -18,7 +18,7 @@ public class AgentPageDTO {
         this.totalPg = (int)Math.ceil((double)totalCount / pageSize);;  // 총 페이지 수
         this.agentList = agentList;
 
-        this.strBlock = ((cpg - 1) / 10) * 10 + 1;  // 시작 블록
-        this.endBlock = Math.min(strBlock + 10 - 1, totalPg);   // 끝 블록
+        this.strBlock = ((cpg - 1) / 5) * 5 + 1;  // 시작 블록
+        this.endBlock = Math.min(strBlock + 5 - 1, totalPg);   // 끝 블록
     }
 }

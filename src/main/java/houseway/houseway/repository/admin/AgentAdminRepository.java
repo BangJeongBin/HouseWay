@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface AgentAdminRepository {
@@ -36,9 +37,15 @@ public interface AgentAdminRepository {
 
     // 해당 공인중개사 매물 리스트
     @Select("select estate_id, estate_title, estate_addr, estate_deposit, estate_rent, estate_state from estate where agent_num = #{agentNum}")
-    List<Estate> selectAgentestate(int agentNum);
+    List<EstateAgentListDTO> selectAgentestate(int agentNum);
 
     // 공인중개사 삭제
     @Delete("delete from agent where agent_num = #{agentNum}")
     int deleteAgent(int agentNum);
+
+    // 공인중개사 검색을 위한 카운트 메서드 - mapper
+    int countFindAgent(Map<String, Object> params);
+
+    // 공인중개사 검색(페이지네이션) - mapper
+    List<AgentListDTO> selectFindAgent(Map<String, Object> params);
 }

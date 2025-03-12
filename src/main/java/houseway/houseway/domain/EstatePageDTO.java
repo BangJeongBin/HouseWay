@@ -5,18 +5,22 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class UserPageDTO {
+public class EstatePageDTO {
     private int cpg;
     private int strBlock;
     private int totalPg;
     private int endBlock;
-    private List<?> userList;
+    private List<?> estateList;
+    private List<?> estateImageList;
+    private int totalCount;
 
     // 페이지네이션 수식 계산
-    public UserPageDTO(int cpg, int totalCount, int pageSize, List<?> userList) {
+    public EstatePageDTO(int cpg, int totalCount, int pageSize, List<?> estateList, List<?> estateImageList) {
         this.cpg = cpg;
         this.totalPg = (int)Math.ceil((double)totalCount / pageSize);;  // 총 페이지 수
-        this.userList = userList;
+        this.estateList = estateList;
+        this.estateImageList = estateImageList;
+        this.totalCount = totalCount;
 
         this.strBlock = ((cpg - 1) / 5) * 5 + 1;  // 시작 블록
         this.endBlock = Math.min(strBlock + 5 - 1, totalPg);   // 끝 블록

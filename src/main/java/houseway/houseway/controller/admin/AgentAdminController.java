@@ -59,4 +59,14 @@ public class AgentAdminController {
         }
         return returnUrl;
     }
+
+
+    // 공인중개사 검색
+    @GetMapping("/agent_find")
+    public String find(Model m, @RequestParam(defaultValue = "1") int cpg, String findtype, String findkey) {
+
+        m.addAttribute("agentDto", agentAdminService.findAgent(cpg, findtype, findkey));
+
+        return "views/admin/agent/agent";
+    }
 }

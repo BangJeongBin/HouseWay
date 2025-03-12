@@ -36,7 +36,7 @@
               </li>
             </ul>
 
-            <form id="login_Frm">
+            <form id="login_Frm" name="login_Frm" method="post" novalidate>
               <ul class="panel_user">
                 <li class="panel_item">
                   <div class="inner_pane form1">
@@ -44,16 +44,16 @@
                     <div class="col-md-8 mx-auto">
                       <div class="login_frm">
                         <div class="form-floating mb-3">
-                          <input type="text" class="form-control" id="floatingInput1" placeholder="아이디">
+                          <input type="text" class="form-control" name="user_id" id="floatingInput1" placeholder="아이디" required>
                           <label for="floatingInput1">아이디</label>
                         </div>
                         <div class="form-floating mb-3">
-                          <input type="password" class="form-control" id="floatingPassword1" placeholder="비밀번호">
+                          <input type="password" class="form-control" name="user_password" id="floatingPassword1" placeholder="비밀번호" required>
                           <label for="floatingPassword1">비밀번호</label>
                         </div>
                       </div>
                       <div class="text-center m-5">
-                        <input type="submit" class="btn btn-success mx-1 login" th:value="로그인"></input>
+                        <button type="submit" class="btn btn-success mx-1 login">로그인</button>
 
                         <button id="joinbtn" type="button" class="btn btn-outline-success join">회원가입</button>
                         <div class="mt-3">
@@ -69,29 +69,38 @@
           </div>
         </div>
 
-        <div class="inner_pane form2 d-none">
-          <!-- <div id="login2" class="shadow-lg p-3 mb-5 bg-body-tertiary rounded col-md-6 mx-auto p-5 d-none"> -->
-          <h2 class="text-center m-5">공인중개사 로그인</h2>
-          <div class="col-md-8 mx-auto">
+        <form id="login_Frm2" name="login_Frm2" class="d-none" method="post" novalidate>
+          <ul class="panel_user">
+            <li class="panel_item">
 
-            <div class="login_frm">
-              <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput2" placeholder="아이디">
-                <label for="floatingInput2">이름</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="floatingPassword2" placeholder="비밀번호">
-                <label for="floatingPassword2">공인중개사 아이디</label>
-              </div>
-            </div>
+              <div class="inner_pane form2">
+                <h2 class="text-center m-5">공인중개사 로그인</h2>
+                <div class="col-md-8 mx-auto">
 
-            <div class="text-center m-5">
-              <button class="btn btn-outline-success mx-1 agentlogin">로그인</button>
-              <div class="mt-3">
-                <button class="btn btn-link link-underline-secondary" style="color: gray;">아이디 찾기</button>
-                <button class="btn btn-link link-underline-secondary" style="color: gray;">비밀번호 찾기</button>
+                  <div class="login_frm">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingInput2" name="agent_name" placeholder="아이디" value="성윤경" required>
+                      <label for="floatingInput2">이름</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingPassword2" name="agent_num" placeholder="공인중개사 번호" value="15666" required>
+                      <label for="floatingPassword2">공인중개사 번호</label>
+                    </div>
+                  </div>
+
+                  <div class="text-center m-5">
+                    <button class="btn btn-outline-success mx-1">로그인</button>
+                    <div class="mt-3">
+                      <button class="btn btn-link link-underline-secondary" style="color: gray;">아이디 찾기</button>
+                      <button class="btn btn-link link-underline-secondary" style="color: gray;">비밀번호 찾기</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+
+            </li>
+          </ul>
+        </form>
 
           </div>
 

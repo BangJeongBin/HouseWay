@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -68,5 +70,30 @@ public class MemberAdminServiceImpl implements MemberAdminService {
     @Override
     public int removeMember(String userId) {
         return memberMapper.deleteMember(userId);
+    }
+
+
+    // 멤버 검색(페이지네이션)
+    @Override
+    public UserPageDTO findMember(int cpg, String findtype, String findkey) {
+        int strnum = (cpg - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("strnum", strnum);
+        params.put("pageSize", pageSize);
+        params.put("findtype", findtype);
+        params.put("findkey", findkey);
+
+        int totalCount = countFindMember(params);
+        List<UserListDTO> userList = memberMapper.selectFindMember(params);
+
+        return new UserPageDTO(cpg, totalCount, pageSize, userList);
+    }
+
+
+    // 멤버 검색을 위한 카운트 메서드
+    @Override
+    public int countFindMember(Map<String, Object> params) {
+        return memberMapper.countFindMember(params);
     }
 }

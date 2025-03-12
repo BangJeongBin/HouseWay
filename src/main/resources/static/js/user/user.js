@@ -1,7 +1,7 @@
 let chgNavUser = document.getElementById('userLoginNav');
 let chgNavAgent = document.getElementById('agentLoginNav');
-let userLoginElement = document.querySelector('.form1');
-let agentLoginElement = document.querySelector('.form2');
+let userLoginElement = document.getElementById('login_Frm');
+let agentLoginElement = document.getElementById('login_Frm2');
 
 // 공인중개사 로그인 메뉴 클릭 시
 chgNavAgent?.addEventListener('click', (e) => {
@@ -17,20 +17,12 @@ chgNavUser?.addEventListener('click', (e) => {
     agentLoginElement.replaceWith(userLoginElement)
 });
 
-// 로그인 화면에서 회원가입 버튼 클릭 시
+// 로그인 화면에서 회원가입 버튼 클릭 시 회원가입 페이지 이동
 let gojoinFrm = document.querySelector('.join');
 gojoinFrm?.addEventListener('click', (e) => {
+    alert('asdf');
     location.href = 'join';
 });
-
-// 로그인 버튼 클릭 시 유효성 검사
-let gologin = document.querySelector('.login');
-let id = document.getElementById('userid');
-let pwd = document.getElementById('userpwd');
-gologin?.addEventListener('click', (e) => {
-    if (id.value== '') { alert('아이디를 입력해주세요'); }
-    else if (pwd.value == '') { alert('비밀번호를 입력해주세요') }
-})
 
 // 아이디 찾기 버튼 클릭 시 팝업 찯
 let findID = document.getElementById('find_id');
@@ -44,10 +36,21 @@ findPWd?.addEventListener('click', (e) => {
     let ret = window.open('/joinForm.html', '_blank', 'width=500,height=500');
 });
 
-// 유효성 검사
-
 
 //------------------------------ joinForm
+// 회원가입 버튼
+const joinfrm = document.querySelector('#joinform');
+
+// 회원가입 버튼 눌렀을 때
+joinfrm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    clearMessages();
+
+    // 입력 요소 유효성 검사
+    let isValid = validInputs(joinfrm);
+    if(isValid) submitJoinfrm(joinfrm);
+});
 
 const errorMessages = [
     '아이디는 소문자로 시작하고, 영문자와 숫자만 사용 가능합니다 (최소 6자 ~ 최대 18자)',
@@ -66,6 +69,13 @@ const patterns = [
     /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
     /^[가-힣]|[a-zA-Z]$/
 ];
+
+// 모든 error-message 요소의 내용을 초기화
+function clearMessages() {
+    document.querySelectorAll(".error-message")
+        .forEach(error => error.textContent = '');
+}
+
 // 회원가입 유효성 검사
 const validInputs = (form) => {
     let isValid = true;
@@ -73,8 +83,8 @@ const validInputs = (form) => {
     //회원가입 폼 안의 모든 input 요소 수집
     const inputs = form.querySelectorAll('input');
     console.log(inputs);
-    inputs.forEach((input, idx) => {//input 요소를 하나씩 검사
-        if (!input.checkValidity()) {//html5 태그를 이용한 유효성 검사
+    inputs.forEach((input, idx) => {
+        if (!input.checkValidity()) {
             displayErrorsMessages(input, errorMessages[idx]);
             isValid = false;
         }
@@ -89,25 +99,6 @@ const validInputs = (form) => {
     return isValid;
 }
 
-const joinfrm = document.querySelector('#joinfrm');
-
-// 회원가입 버튼 눌렀을 때
-joinfrm?.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    clearMessages();
-
-    // 입력 요소 유효성 검사
-    let isValid = validInputs(joinfrm);
-    if(isValid) submitJoinfrm(joinfrm);
-});
-
-// 모든 error-message 요소의 내용을 초기화
-function clearMessages() {
-    document.querySelectorAll(".error-message")
-        .forEach(error => error.textContent = '');
-}
-
 // 에러메세지 출력될 요소 생성
 const displayErrorsMessages = (input, message) => {
     let error = document.createElement('div');
@@ -116,44 +107,23 @@ const displayErrorsMessages = (input, message) => {
     input.parentElement.appendChild(error);
 }
 
-// 비밀번호 해싱
-// async와 await를 사용해야 하는 이유는 hashPassword 함수가 비동기적으로 동작하기 때문
-// 비동기 함수는 일반적으로 네트워크 요청, 파일 I/O, 암호화 작업 등 시간이 오래 걸리는 작업을 수행할 때 사용
-// 이러한 작업은 완료될 때까지 기다려야 하며, 이때 async와 await를 사용하여 코드의 가독성을 높이고 동기적인 코드처럼 작성할 수 있음
+// 비밀번호 해싱 처리
 const hashPassword = async (passwd) => {
-    // 문자열을 Uint8Array로 변환
-    const encoder = new TextEncoder();  // TextEncoder 객체 생성
-    const data = encoder.encode(passwd); // 비밀번호를 Uint8Array로 변환
+    const encoder = new TextEncoder();
+    const data = encoder.encode(passwd);
 
-    // SHA-256 해시 생성
-    // crypto.subtle.digest는 비동기 함수이므로 await 또는 .then()을 사용하여 결과를 처리해야 함
-    // SHA-256은 암호학적으로 안전한 해시 함수이지만, 비밀번호 해시에는 추가적으로 솔트(salt)와 키 스트레칭(key stretching)을 사용하는 것이 좋음
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
 
-    // 해시 결과를 16진수 문자열로 변환
-    const hashArray = Array.from(new Uint8Array(hashBuffer)); // Uint8Array를 배열로 변환
-    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // 16진수 문자열로 변환
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 
     return hashHex;
 }
 
-//submit vs fetch
-// 폼 submit 방식 : 페이지 새로고침 발생, 에러 처리는 브라우저에 의존
-// fetch 방식 : 비동기 처리 가능, 에러처리는 세밀하게 조절 가능, 요청 데이터를 JSON으로 전송 가능, REST API/SPA/비동기 에서 주로 사용
-
-// 프라미스 (promise)
-// 자바스크립트에서 비동기 작업을 처리하기 위한 객체
-// 주로 비동기 작업의 성공/실패를 관리하고 결과를 처리하는데 사용
-// ES6에서 처음 도입 - 콜백 지옥을 해결, 비동기 처리코드를 깔끔하게 작성
-// async : 비동기 함수임을 선언 - 반환값은 프라미스.
-// await : 비동기 함수의 처리가 완료될때까지 기다렸다가 결과를 받아옴
+// 회원가입 폼 제출 - 비동기 처리
 const submitJoinfrm = async (frm) => {
-
-    // Web Crypto API로 비밀번호 암호화
     frm.user_password.value = await hashPassword(frm.user_password.value);
-    console.log(frm.user_password.value);
 
-    // 폼에 입력된 데이터를 formData 객체로 초기화
     const formData = new FormData(frm);
 
     fetch('/user/join', {
@@ -173,33 +143,59 @@ const submitJoinfrm = async (frm) => {
         alert('서버와 통신중 오류가 발생했습니다. 관리자에게 문의하세요.');
     });
 }
-const joinform = document.querySelector('#joinform');
-//console.log(joinform)
 
-joinform?.addEventListener("submit", (e) => {
+// ------------------
+
+const loginfrm = document.querySelector('#login_Frm');
+
+// 로그인 버튼 눌렀을 때
+loginfrm?.addEventListener("submit", (e) => {
     e.preventDefault();
 
     clearMessages(); //에러메세지 초기화
 
     // 입력 요소 유효성 검사
-    let isValid = validInputs(joinform);
-    if(isValid) submitJoinfrm(joinform);
+    let isValid = validLogin(e.target);
+    if(isValid) submitLoginfrm(e.target);
 });
 
+// 로그인 화면 유효성 메세지
+const loginMessages = [
+    '아이디를 올바르게 입력하세요',
+    '비밀번호를 올바르게 입력하세요'
+];
+
+// 로그인 폼 유효성 검사
+const validLogin = (form) => {
+    let isValid = true;
+
+    //로그인 폼 안의 모든 input 요소 수집
+    const inputs = form.querySelectorAll('input');
+
+    inputs.forEach((input, idx) => {
+        if (!input.checkValidity()) {
+            console.log('asdf');
+            displayErrorsMessages(input, loginMessages[idx]);
+            isValid = false;
+        }
+    });
+    return isValid;
+}
 
 
-//로그인 폼 제출
+//로그인 폼 제출 - 비동기
 const submitLoginfrm = async (frm) => {
-    frm.passwd.value = await hashPassword(frm.user_password.value);
+    frm.user_password.value = await hashPassword(frm.user_password.value);
+
     const formData = new FormData(frm);
 
-    fetch('/member/login', {
+    fetch('/user/login', {
         method : 'post',
         body : formData
     }).then(async response => {
         if(response.ok) {// 로그인이 성공했다면
             alert('로그인에 성공했습니다.');
-            location.href = '/member/myinfo';
+            location.href = '/user/index_demo';
         }else if(response.status === 400){
             alert(await response.text());
         }else {//로그인에 실패했다면
@@ -210,3 +206,62 @@ const submitLoginfrm = async (frm) => {
         alert('서버와 통신중 오류가 발생했습니다. 관리자에게 문의하세요.');
     });
 }
+
+// --------------------
+
+// 로그인 버튼 눌렀을 때
+agentLoginElement?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    clearMessages(); //에러메세지 초기화
+
+    // 입력 요소 유효성 검사
+    let isValid = validAgentLogin(e.target);
+    if(isValid) submitAgentLoginfrm(e.target);
+});
+
+// 로그인 화면 유효성 메세지
+const AgentloginMessages = [
+    '이름을 올바르게 입력하세요',
+    '공인중개사 번호를 올바르게 입력하세요'
+];
+
+// 로그인 폼 유효성 검사
+const validAgentLogin = (form) => {
+    let isValid = true;
+
+    //로그인 폼 안의 모든 input 요소 수집
+    const inputs = form.querySelectorAll('input');
+
+    console.log(inputs);
+    inputs.forEach((input, idx) => {
+        if (!input.checkValidity()) {
+            displayErrorsMessages(input, AgentloginMessages[idx]);
+            isValid = false;
+        }
+    });
+    return isValid;
+}
+
+const submitAgentLoginfrm = async (frm) => {
+    alert('공인중개사 로그인 폼')
+    const formData2 = new FormData(frm);
+
+    fetch('/agent/agent_login', {
+        method : 'post',
+        body : formData2
+    }).then(async response => {
+        if(response.ok) {// 로그인이 성공했다면
+            alert('공인중개사 로그인에 성공했습니다.');
+            location.href = '/user/index_demo';
+        }else if(response.status === 400){
+            alert(await response.text());
+        }else {//로그인에 실패했다면
+            alert('공인중개사 로그인에 실패했습니다. 다시 시도해 주세요');
+        }
+    }).catch(error => {
+        console.error('login error : ', error);
+        alert('서버와 통신중 오류가 발생했습니다. 관리자에게 문의하세요.');
+    });
+}
+

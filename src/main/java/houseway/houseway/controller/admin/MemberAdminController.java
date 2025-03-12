@@ -61,4 +61,14 @@ public class MemberAdminController {
         }
         return returnUrl;
     }
+
+
+    // 회원 검색
+    @GetMapping("/member_find")
+    public String find(Model m, @RequestParam(defaultValue = "1") int cpg, String findtype, String findkey) {
+
+        m.addAttribute("memberDto", memberAdminService.findMember(cpg, findtype, findkey));
+
+        return "views/admin/member/member";
+    }
 }

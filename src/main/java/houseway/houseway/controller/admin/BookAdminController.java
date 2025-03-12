@@ -22,9 +22,11 @@ public class BookAdminController {
 
     // 예약 리스트
     @GetMapping("/book")
-    public String book(Model m, @RequestParam(defaultValue = "1") int cpg) {
+    public String book(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam(defaultValue = "0") int type) {
         log.info("/admin/book 호출");
-        m.addAttribute("reservDto", bookAdminService.readReserv(cpg));
+
+        m.addAttribute("reservDto", bookAdminService.readReserv(cpg, type));
+        m.addAttribute("type", type);
 
         return "views/admin/estate/book";
     }

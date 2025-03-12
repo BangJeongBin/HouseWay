@@ -8,59 +8,50 @@
 	<!-- 검색 시 페이지네이션을 위한 변수선언 -->
 	<div class="app-wrapper"
 		 th:with="pglink=${(#strings.isEmpty(param.findkey)) ?
-                '/admin/member?cpg=' : '/admin/member_find?findtype=' + param.findtype + '&findkey=' + param.findkey + '&cpg='}">
+                '/admin/book?cpg=' : '/admin/book_find?findtype=' + param.findtype + '&findkey=' + param.findkey + '&cpg='}">
 
 		<div class="app-content pt-3 p-md-3 p-lg-4">
 			<div class="container-xl">
 				<div class="row g-3 mb-4 align-items-center justify-content-between">
 					<div class="col-auto">
-						<h1 class="app-page-title mb-0">[[${reservDto.totalCount}]]개의 매물</h1>
+						<h1 class="app-page-title mb-0">[[${reservDto.totalCount}]]개의 예약</h1>
 					</div>
-					<div class="col-auto">
-						<div class="page-utilities">
-							<div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-								<div class="col-auto">
-
-									<!-- 상단 검색 영역 start -->
-									<div class="d-flex align-items-center gap-1">
-										<select class="form-select" style="width: 120px" id="findtype" name="findtype">
-											<option value="user_name" selected>이름</option>
-											<option value="user_id">아이디</option>
-											<option value="user_addr1">주소(구)</option></select>
-										<input class="form-control" style="width: 250px" id="findkey" name="findkey" th:value="${param.findkey}">   <!-- 페이지 이동시에도 검색 내용 남아있음 -->
-										<button class="btn app-btn-primary" id="findbtn"><i class="fa-solid fa-magnifying-glass"></i></button>
-									</div>
-									<!-- 상단 검색 영역 end -->
-
-								</div><!--//col-->
-								<div class="col-auto">
-
-									<!-- 정렬 start -->
-									<div class="dropdown">
-										<button class="btn app-btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-											<i class="fa-solid fa-arrow-down-wide-short"></i>
-										</button>
-										<ul class="dropdown-menu">
-											<li><a class="dropdown-item" th:href="|/admin/member|">모든회원</a></li>
-											<li><a class="dropdown-item" th:href="|/admin/member_sort?sno=1|">구(가나다순)</a></li>
-											<li><a class="dropdown-item" th:href="|/admin/member_sort?sno=2|">이름(가나다순)</a></li>
-										</ul>
-									</div>
-									<!-- 정렬 end -->
-
-								</div>
-							</div><!--//row-->
-						</div><!--//table-utilities-->
-					</div><!--//col-auto-->
 				</div><!--//row-->
 
 				<!-- 상단 sort 영역 start -->
 				<nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-					<a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">일반회원</a>
+					<div th:switch="${type}">
+						<p th:case="1">
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book|" aria-selected="false">All</a>
+							<a class="flex-sm-fill text-sm-center nav-link active" th:href="|/admin/book?type=1|" aria-selected="true">Success</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=2|" aria-selected="false">Pending</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=3|" aria-selected="false">Cancelled</a>
+						</p>
+						<p th:case="2">
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book|" aria-selected="false">All</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=1|" aria-selected="false">Success</a>
+							<a class="flex-sm-fill text-sm-center nav-link active" th:href="|/admin/book?type=2|" aria-selected="true">Pending</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=3|" aria-selected="false">Cancelled</a>
+						</p>
+						<p th:case="3">
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book|" aria-selected="false">All</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=1|" aria-selected="false">Success</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=2|" aria-selected="false">Pending</a>
+							<a class="flex-sm-fill text-sm-center nav-link active" th:href="|/admin/book?type=3|" aria-selected="true">Cancelled</a>
+						</p>
+						<p th:case="*">
+							<a class="flex-sm-fill text-sm-center nav-link active" th:href="|/admin/book|" aria-selected="true">All</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=1|" aria-selected="false">Success</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=2|" aria-selected="false">Pending</a>
+							<a class="flex-sm-fill text-sm-center nav-link" th:href="|/admin/book?type=3|" aria-selected="false">Cancelled</a>
+						</p>
+					</div>
 				</nav>
 				<!-- 상단 sort 영역 end -->
 
 				<div class="tab-content" id="orders-table-tab-content">
+
+					<!-- 모든 예약 탭 start -->
 					<div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
 						<div class="app-card app-card-orders-table shadow-sm mb-5">
 							<div class="app-card-body">
@@ -96,7 +87,7 @@
 												</th:block>
 
 												<th:block th:if="${lists.reserv_state eq 3}">
-													<td class="cell"><span class="badge bg-success">예약성공</span></td>
+													<td class="cell"><span class="badge bg-success">예약승인</span></td>
 												</th:block>
 
 												<td class="cell"><div class="form-check form-switch">
@@ -132,7 +123,9 @@
 
 							</ul>
 						</nav><!--//app-pagination-->
-					</div><!--//tab-pane-->
+					</div>
+					<!-- 모든 예약 탭 end -->
+
 				</div><!--//tab-content-->
 			</div><!--//container-fluid-->
 		</div><!--//app-content-->

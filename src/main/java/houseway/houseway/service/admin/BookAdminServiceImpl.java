@@ -22,16 +22,39 @@ public class BookAdminServiceImpl implements BookAdminService {
 
     //  예약 리스트(페이지네이션)
     @Override
-    public ReservPageDTO readReserv(int cpg) {
+    public ReservPageDTO readReserv(int cpg, int type) {
         // cpg에 따라 시작위치 값 계산
         int strnum = (cpg - 1) * pageSize;
-        // 모든 에약 수
-        int totalCount = bookMapper.countReserv();
-        // 예약 리스트
-        List<ReservListDTO> reservList = bookMapper.reservList(strnum, pageSize);
+
+        int totalCount = 0;
+        List<ReservListDTO> reservList = null;
+
+        switch (type) {
+            case 0:
+                // 모든 예약
+                totalCount = bookMapper.countReserv();
+                reservList = bookMapper.reservList(strnum, pageSize);
+                break;
+            case 1:
+                // 성공 예약
+                totalCount = bookMapper.countReservSuccess();
+                reservList = bookMapper.reservListSuccess(strnum, pageSize);
+                break;
+            case 2:
+                // 대기 예약
+                totalCount = bookMapper.countReservPending();
+                reservList = bookMapper.reservListPending(strnum, pageSize);
+                break;
+            case 3:
+                // 반려 예약
+                totalCount = bookMapper.countReservCancelled();
+                reservList = bookMapper.reservListCancelled(strnum, pageSize);
+                break;
+        }
 
         return new ReservPageDTO(cpg, totalCount, pageSize, reservList);
     }
+
 
     // 예약 상태를 3(승인)으로 바꾸는 메서드 호출
     @Override
@@ -40,6 +63,7 @@ public class BookAdminServiceImpl implements BookAdminService {
 
         return stateOk > 0;
     }
+
 
     // 예약 상태를 2(반려)으로 바꾸는 메서드 호출
     @Override

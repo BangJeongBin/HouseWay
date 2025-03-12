@@ -19,6 +19,18 @@ public interface EstateAdminRepository {
     @Select("select estate_id, agent_num, estate_title, estate_addr, estate_deposit, estate_rent, estate_viewCount, estate_state from estate order by estate_id desc limit #{strnum}, #{pageSize}")
     List<EstateListDTO> estateList(int strnum, int pageSize);
 
+    // 정렬(view) 매물 리스트
+    @Select("select estate_id, agent_num, estate_title, estate_addr, estate_deposit, estate_rent, estate_viewCount, estate_state from estate order by estate_viewCount desc limit #{strnum}, #{pageSize}")
+    List<EstateListDTO> estateHitList(int strnum, int pageSize);
+
+    // 정렬(state = 1) 매믈 리스트
+    @Select("select estate_id, agent_num, estate_title, estate_addr, estate_deposit, estate_rent, estate_viewCount, estate_state from estate where estate_state = 1 order by estate_id desc limit #{strnum}, #{pageSize}")
+    List<EstateListDTO> estateOnsaleList(int strnum, int pageSize);
+
+    // 정렬(state = 0) 매믈 리스트
+    @Select("select estate_id, agent_num, estate_title, estate_addr, estate_deposit, estate_rent, estate_viewCount, estate_state from estate where estate_state = 0 order by estate_id desc limit #{strnum}, #{pageSize}")
+    List<EstateListDTO> estateUnsaleList(int strnum, int pageSize);
+
     // 매물 사진 리스트
     @Select("select * from image")
     List<Image> estateImageList();

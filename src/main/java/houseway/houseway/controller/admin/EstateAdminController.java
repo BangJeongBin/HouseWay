@@ -29,6 +29,16 @@ public class EstateAdminController {
     }
 
 
+    // 매물 정렬 리스트
+    @GetMapping("/product_sort")
+    public String member(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam("sno") int sno) {
+        log.info("/admin/member_sort 호출");
+        m.addAttribute("estateDto", estateAdminService.readSortEstate(cpg, sno));
+
+        return "views/admin/estate/product";
+    }
+
+
     // 매물 상세
     @GetMapping("/product_view/{estate_id}")
     public String productView(Model m, @PathVariable String estate_id) {

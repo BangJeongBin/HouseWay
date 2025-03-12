@@ -35,6 +35,29 @@ public class EstateAdminServiceImpl implements EstateAdminService {
         return new EstatePageDTO(cpg, totalCount, pageSize, estateList, estateImageList);
     }
 
+
+    // 정렬 매물 리스트(페이지네이션)
+    @Override
+    public EstatePageDTO readSortEstate(int cpg, int sno) {
+        int strnum = (cpg - 1) * pageSize;
+        int totalCount = estateMapper.countEstate();
+        // 모든 매물 사진 리스트
+        List<Image> estateImageList = estateMapper.estateImageList();
+
+        if (sno == 1) {
+            List<EstateListDTO> estateList = estateMapper.estateHitList(strnum, pageSize);
+            return new EstatePageDTO(cpg, totalCount, pageSize, estateList, estateImageList);
+        } else if (sno == 2) {
+            List<EstateListDTO> estateList = estateMapper.estateOnsaleList(strnum, pageSize);
+            return new EstatePageDTO(cpg, totalCount, pageSize, estateList, estateImageList);
+        } else if (sno == 3) {
+            List<EstateListDTO> estateList = estateMapper.estateUnsaleList(strnum, pageSize);
+            return new EstatePageDTO(cpg, totalCount, pageSize, estateList, estateImageList);
+        }
+        return null;
+    }
+
+
     // 매물 상세
     @Transactional
     @Override

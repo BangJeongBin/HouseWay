@@ -9,6 +9,9 @@ public interface EstateAdminService {
     // 매물 리스트(페이지네이션)
     EstatePageDTO readProduct(int cpg);
 
+    // 정렬 매물 리스트(페이지네이션)
+    EstatePageDTO readSortEstate(int cpg, int sno);
+
     // 매물 상세
     EstateInfoDTO readOneProduct(String estate_id);
 

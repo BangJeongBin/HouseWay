@@ -20,9 +20,9 @@ public interface AgentAdminService {
     // 공인중개사 삭제
     int removeAgent(int agentNum);
 
-    // 멤버 검색(페이지네이션)
+    // 공인중개사 검색(페이지네이션)
     AgentPageDTO findAgent(int cpg, String findtype, String findkey);
 
-    // 멤버 검색을 위한 카운트 메서드
+    // 공인중개사 검색을 위한 카운트 메서드
     int countFindAgent(Map<String, Object> params);
 }

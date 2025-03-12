@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EstateAdminRepository {
@@ -37,4 +38,12 @@ public interface EstateAdminRepository {
     // 해당 매물 북마크 목록
     @Select("select * from bookmark where estate_id = #{estate_id}")
     List<Bookmark> selectEstateBookmark(String estateId);
+
+
+
+    // 매물 검색을 위한 카운트 메서드 - mapper
+    int countFindEstate(Map<String, Object> params);
+
+    // 매물 검색(페이지네이션) - mapper
+    List<EstateListDTO> selectFindEstate(Map<String, Object> params);
 }

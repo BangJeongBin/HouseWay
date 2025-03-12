@@ -35,4 +35,18 @@ public class EstateAdminController {
         m.addAttribute("estDto", estateAdminService.readOneProduct(estate_id));
         return "views/admin/estate/product_view";
     }
+
+
+
+
+
+
+    // 매물 검색
+    @GetMapping("/product_find")
+    public String find(Model m, @RequestParam(defaultValue = "1") int cpg, String findtype, String findkey) {
+
+        m.addAttribute("estateDto", estateAdminService.findEstate(cpg, findtype, findkey));
+
+        return "views/admin/estate/product";
+    }
 }

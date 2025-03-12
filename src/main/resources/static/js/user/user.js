@@ -1,7 +1,7 @@
 let chgNavUser = document.getElementById('userLoginNav');
 let chgNavAgent = document.getElementById('agentLoginNav');
-let userLoginElement = document.querySelector('.form1');
-let agentLoginElement = document.querySelector('.form2');
+let userLoginElement = document.getElementById('login_Frm');
+let agentLoginElement = document.getElementById('login_Frm2');
 
 // 공인중개사 로그인 메뉴 클릭 시
 chgNavAgent?.addEventListener('click', (e) => {
@@ -35,8 +35,6 @@ let findPWd = document.getElementById('find_pwd');
 findPWd?.addEventListener('click', (e) => {
     let ret = window.open('/joinForm.html', '_blank', 'width=500,height=500');
 });
-
-// 유효성 검사
 
 
 //------------------------------ joinForm
@@ -85,8 +83,8 @@ const validInputs = (form) => {
     //회원가입 폼 안의 모든 input 요소 수집
     const inputs = form.querySelectorAll('input');
     console.log(inputs);
-    inputs.forEach((input, idx) => {//input 요소를 하나씩 검사
-        if (!input.checkValidity()) {//html5 태그를 이용한 유효성 검사
+    inputs.forEach((input, idx) => {
+        if (!input.checkValidity()) {
             displayErrorsMessages(input, errorMessages[idx]);
             isValid = false;
         }
@@ -111,13 +109,13 @@ const displayErrorsMessages = (input, message) => {
 
 // 비밀번호 해싱 처리
 const hashPassword = async (passwd) => {
-    const encoder = new TextEncoder();  // TextEncoder 객체 생성
-    const data = encoder.encode(passwd); // 비밀번호를 Uint8Array로 변환
+    const encoder = new TextEncoder();
+    const data = encoder.encode(passwd);
 
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
 
-    const hashArray = Array.from(new Uint8Array(hashBuffer)); // Uint8Array를 배열로 변환
-    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // 16진수 문자열로 변환
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 
     return hashHex;
 }
@@ -150,6 +148,7 @@ const submitJoinfrm = async (frm) => {
 
 const loginfrm = document.querySelector('#login_Frm');
 
+// 로그인 버튼 눌렀을 때
 loginfrm?.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -160,9 +159,10 @@ loginfrm?.addEventListener("submit", (e) => {
     if(isValid) submitLoginfrm(e.target);
 });
 
+// 로그인 화면 유효성 메세지
 const loginMessages = [
     '아이디를 올바르게 입력하세요',
-    '비밀번호를 올바르게 입력하세요',
+    '비밀번호를 올바르게 입력하세요'
 ];
 
 // 로그인 폼 유효성 검사
@@ -172,8 +172,8 @@ const validLogin = (form) => {
     //로그인 폼 안의 모든 input 요소 수집
     const inputs = form.querySelectorAll('input');
 
-    inputs.forEach((input, idx) => {//input 요소를 하나씩 검사
-        if (!input.checkValidity()) {//html5 태그를 이용한 유효성 검사
+    inputs.forEach((input, idx) => {
+        if (!input.checkValidity()) {
             console.log('asdf');
             displayErrorsMessages(input, loginMessages[idx]);
             isValid = false;
@@ -183,7 +183,7 @@ const validLogin = (form) => {
 }
 
 
-//로그인 폼 제출
+//로그인 폼 제출 - 비동기
 const submitLoginfrm = async (frm) => {
     frm.user_password.value = await hashPassword(frm.user_password.value);
 
@@ -206,3 +206,62 @@ const submitLoginfrm = async (frm) => {
         alert('서버와 통신중 오류가 발생했습니다. 관리자에게 문의하세요.');
     });
 }
+
+// --------------------
+
+// 로그인 버튼 눌렀을 때
+agentLoginElement?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    clearMessages(); //에러메세지 초기화
+
+    // 입력 요소 유효성 검사
+    let isValid = validAgentLogin(e.target);
+    if(isValid) submitAgentLoginfrm(e.target);
+});
+
+// 로그인 화면 유효성 메세지
+const AgentloginMessages = [
+    '이름을 올바르게 입력하세요',
+    '공인중개사 번호를 올바르게 입력하세요'
+];
+
+// 로그인 폼 유효성 검사
+const validAgentLogin = (form) => {
+    let isValid = true;
+
+    //로그인 폼 안의 모든 input 요소 수집
+    const inputs = form.querySelectorAll('input');
+
+    console.log(inputs);
+    inputs.forEach((input, idx) => {
+        if (!input.checkValidity()) {
+            displayErrorsMessages(input, AgentloginMessages[idx]);
+            isValid = false;
+        }
+    });
+    return isValid;
+}
+
+const submitAgentLoginfrm = async (frm) => {
+    alert('공인중개사 로그인 폼')
+    const formData2 = new FormData(frm);
+
+    fetch('/agent/agent_login', {
+        method : 'post',
+        body : formData2
+    }).then(async response => {
+        if(response.ok) {// 로그인이 성공했다면
+            alert('공인중개사 로그인에 성공했습니다.');
+            location.href = '/user/index_demo';
+        }else if(response.status === 400){
+            alert(await response.text());
+        }else {//로그인에 실패했다면
+            alert('공인중개사 로그인에 실패했습니다. 다시 시도해 주세요');
+        }
+    }).catch(error => {
+        console.error('login error : ', error);
+        alert('서버와 통신중 오류가 발생했습니다. 관리자에게 문의하세요.');
+    });
+}
+

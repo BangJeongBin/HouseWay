@@ -13,7 +13,7 @@ public class Reserv {
     private String user_phone;
     private String estate_id;
     private int agent_num;
-    private int agent_name;
+    private String agent_name;
     private int reserv_state;
     private LocalDateTime reserv_regdate;
 }

@@ -118,15 +118,14 @@ CREATE TABLE if not exists bookmark (
 -- 예약
 CREATE TABLE if not exists reserv (
     reserv_num     INT          AUTO_INCREMENT,             -- 예약 번호
-    user_name      VARCHAR(64)  NOT NULL,                   -- 예약한 유저
-    user_phone      VARCHAR(64)  NULL,                      -- 회원 연락처
+    user_id        VARCHAR(18)   NOT NULL,                   -- 작성자 번호
     estate_id      VARCHAR(64)  NOT NULL,                   -- 예약된 매물
     agent_num      INT          NOT NULL,                   -- 예약된 매물 공인중개사
     agent_name      VARCHAR(64)  NOT NULL,                  -- 공인중개사 이름(아이디)
     reserv_state   INT          NULL DEFAULT 1,             -- 예약 상태(예약검토, 예약반려, 예약성공)
     reserv_regdate DATETIME     DEFAULT current_timestamp,  -- 예약 일시
     PRIMARY KEY (reserv_num),
-    foreign key (user_name) references user (user_name),
+    foreign key (user_id) references user (user_id),
     foreign key (estate_id) references estate (estate_id),
     foreign key (agent_num) references agent (agent_num)
 );

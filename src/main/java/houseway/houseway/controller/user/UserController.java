@@ -1,8 +1,6 @@
 package houseway.houseway.controller.user;
 
-import houseway.houseway.domain.User;
-import houseway.houseway.domain.UserInsertDTO;
-import houseway.houseway.domain.UserListDTO;
+import houseway.houseway.domain.*;
 import houseway.houseway.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,9 +64,6 @@ public class UserController {
             session.setAttribute("loginUser", loginUser);
             session.setMaxInactiveInterval(600); // 세션 유지 10분
 
-//            세션확인용
-            System.err.println(session.getAttribute("loginUser"));
-
             response = ResponseEntity.ok().build();
         }catch(IllegalStateException e){
             response = ResponseEntity.badRequest().body(e.getMessage());
@@ -77,6 +72,7 @@ public class UserController {
         }
         return response;
     }
+
 
     //------------------------------
 

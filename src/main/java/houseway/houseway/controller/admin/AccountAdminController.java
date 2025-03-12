@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -44,5 +45,26 @@ public class AccountAdminController {
             e.printStackTrace();
         }
         return response;
+    }
+
+
+    // 메인 페이지
+    @GetMapping("/index")
+    public String index(HttpSession session) {
+        String returnUrl = "views/admin/account/login";
+
+        if (session.getAttribute("loginAdmin") != null) {
+            returnUrl = "views/admin/index";
+        }
+        return returnUrl;
+    }
+
+
+    // 로그아웃
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("loginAdmin");
+
+        return "views/admin/account/login";
     }
 }

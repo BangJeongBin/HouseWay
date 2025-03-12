@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="houseway.houseway.repository.admin.MemberAdminRepository">
+
+    <!-- 멤버 검색을 위한 카운트 메서드 - mapper -->
+    <select id="countFindMember" parameterType="map">
+        SELECT count(user_num) cnt FROM user
+        WHERE ${findtype} LIKE CONCAT('%', #{findkey}, '%')
+    </select>
+
+
+    <!-- 멤버 검색(페이지네이션) - mapper -->
+    <select id="selectFindMember" parameterType="map">
+        <!-- where 절의 컬럼명을 변수값에 따라 동적으로 변화시키려면 #{findtype} 대신 ${findtype}로 사용할 것 -->
+        SELECT user_num, user_id, user_name, user_email, user_gender, user_regdate
+        FROM user
+        WHERE ${findtype} LIKE CONCAT('%', #{findkey}, '%')
+        ORDER BY user_num DESC LIMIT #{strnum}, #{pageSize}
+    </select>
+
+</mapper>

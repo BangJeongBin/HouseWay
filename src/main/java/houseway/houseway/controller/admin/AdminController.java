@@ -31,13 +31,6 @@ public class AdminController {
     }
 
 
-    // 예약 리스트
-    @GetMapping("/book")
-    public String book() {
-        return "views/admin/estate/book";
-    }
-
-
     // help - 삭제보류 중
     @GetMapping("/help")
     public String help() {

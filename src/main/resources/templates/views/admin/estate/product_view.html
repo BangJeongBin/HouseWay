@@ -16,20 +16,13 @@
 					<div class="col-12 col-lg-6">
 						<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
 							<div id="carouselExampleIndicators" class="carousel slide">
-								<div class="carousel-indicators">
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-									<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-								</div>
 
 								<!-- 매물 사진 carousel start -->
 								<div class="carousel-inner">
-									<th:block th:each="num : ${#numbers.sequence(1, 9)}">
-										<th:block th:with="imagePath=${'.img' + num}">
-											<div class="carousel-item" th:classappend="${num == 1} ? 'active'">
-												<img th:src="${estDto.estateImages__${imagePath}__}" class="d-block w-100" alt="...">
-											</div>
-										</th:block>
+									<th:block th:each="img : ${estDto.estateImages}">
+										<div class="carousel-item" th:classappend="${#strings.contains(img, '1.jpg')} ? 'active'">
+											<img th:src="${img}" class="d-block w-100 rounded" alt="...">
+										</div>
 									</th:block>
 								</div>
 								<!-- 매물 사진 carousel end -->

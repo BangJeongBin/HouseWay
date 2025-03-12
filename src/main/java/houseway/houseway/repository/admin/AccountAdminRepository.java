@@ -10,4 +10,8 @@ public interface AccountAdminRepository {
     // 관리자 로그인
     @Select("select * from admin where admin_id = #{admin_id}")
     Admin findAdminById(String admin_id);
+
+    // 등록된 관리자의 이메일 확인
+    @Select("select admin_password admin where admin password = #{admin_passwoad}")
+    Admin findAdminAccount(String admin_passwoad);
 }

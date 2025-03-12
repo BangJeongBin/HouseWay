@@ -6,9 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -63,8 +61,34 @@ public class AccountAdminController {
     // 로그아웃
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.removeAttribute("loginAdmin");
+        session.invalidate();   // 세션 제거
 
-        return "views/admin/account/login";
+        return "redirect:/";
+    }
+
+
+    // 비밀번호 확인 페이지
+    @GetMapping("/rePassword")
+    public String rePassword() {
+        return "views/admin/account/reset_password";
+    }
+
+
+    // 관리자 이메일 확인
+    @PostMapping("/rePassword/{admin_password}")
+    public String rePasswordOk(@PathVariable String admin_password) {
+        String returnUrl = "redirect:/admin/rePassword";
+
+        if (!accountAdminService.checkPwd(admin_password)) {
+            return returnUrl;   // 입력한 이메일이 기존에 있는 이메일이 아닌경우
+        }
+        return "redirect:/admin/reset_admin?admin_password=" + admin_password;
+    }
+
+
+    // 비밀번호 재설정 페이지
+    @GetMapping("/reset_admin")
+    public String resetAdmin(@RequestParam("admin_password") String admin_password, HttpSession session) {
+
     }
 }

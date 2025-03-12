@@ -6,6 +6,13 @@ const loginMessages = [
 
 
 
+// 상황별 에러메세지 출력(정규표현식 사용)
+const resetPwdMessages = [
+    '이메일을 올바르게 입력하세요',
+]; // resetPwdMessages
+
+
+
 // 모든 error-message 요소의 내용을 초기화
 function clearErrorMessages() {
     document.querySelectorAll(".error-message")
@@ -66,3 +73,21 @@ const submitLoginFrm = async (frm) => {
         alert('서버와 통신 실패!')
     });
 } // submitLoginFrm
+
+
+
+// 비밀번호 재설정 폼 유효성 검사
+const validResetPwd = (form) => {
+    let isValid = true;
+
+    // 로그인 폼 안에 모든 input 요소 수집
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach((input, idx) => {    // input 요소를 하나씩 순회하며 검사
+        if (!input.checkValidity()) {    // html5 태그를 이용한 유효성 검사
+            displayErrorMessages(input, resetPwdMessages[idx]);
+            isValid = false;
+        }
+    });
+
+    return isValid;
+} // validResetPwd

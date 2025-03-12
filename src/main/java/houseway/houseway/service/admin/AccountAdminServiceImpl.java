@@ -22,4 +22,19 @@ public class AccountAdminServiceImpl implements AccountAdminService {
         }
         return findAdmin;
     }
+
+
+    // 관리자 이메일 확인
+    @Override
+    public boolean checkPwd(String admin_password) {
+        Boolean checkPwd = false;
+
+        // 등록된 관리자의 이메일 확인
+        Admin findAdminEmail = accountMapper.findAdminAccount(admin_password);
+
+        if (findAdminEmail.getAdmin_password() == admin_password) {
+            checkPwd = true;
+        }
+        return false;
+    }
 }

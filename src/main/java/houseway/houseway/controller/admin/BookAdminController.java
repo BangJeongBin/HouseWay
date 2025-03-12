@@ -1,5 +1,6 @@
 package houseway.houseway.controller.admin;
 
+import houseway.houseway.service.admin.BookAdminService;
 import houseway.houseway.service.admin.MemberAdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,67 +17,44 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin")
 public class BookAdminController {
 
-    private final MemberAdminService memberAdminService;
+    private final BookAdminService bookAdminService;
 
 
     // 예약 리스트
     @GetMapping("/book")
-    public String book() {
+    public String book(Model m, @RequestParam(defaultValue = "1") int cpg) {
+        log.info("/admin/book 호출");
+        m.addAttribute("reservDto", bookAdminService.readReserv(cpg));
+
         return "views/admin/estate/book";
     }
 
 
+    // 예약 승인
+    @GetMapping("/book_ok")
+    public String bookYes(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam("reserv_num") int reserv_num) {
+        log.info("/admin/book_ok 호출");
+        String returnPage = "redirect:/admin/book?cpg=" + cpg;
 
-    // 회원 리스트
-    @GetMapping("/member")
-    public String member(Model m, @RequestParam(defaultValue = "1") int cpg) {
-        log.info("/admin/member 호출");
-        m.addAttribute("memberDto", memberAdminService.readMember(cpg));
-
-        return "views/admin/member/member";
-    }
-
-
-    // 회원 정렬 리스트
-    @GetMapping("/member_sort")
-    public String member(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam("sno") int sno) {
-        log.info("/admin/member_sort 호출");
-        m.addAttribute("memberDto", memberAdminService.readSortMember(cpg, sno));
-
-        return "views/admin/member/member";
-    }
-
-
-    // 회원 상세
-    @GetMapping("/member_view/{user_id}")
-    public String memberView(Model m, @PathVariable String user_id) {
-        m.addAttribute("memDto", memberAdminService.readOneMember(user_id));
-
-        return "views/admin/member/member_view";
-    }
-
-
-    // 회원 삭제
-    @GetMapping("/member_remove")
-    public String memberRemove(Model m, @RequestParam("user_id") String user_id) {
-        String returnUrl = "redirect:/admin/member_view/" + user_id;
-
-        if (memberAdminService.removeMember(user_id) > 0) {
-            log.info(user_id + "삭제 완료");
-            returnUrl = "redirect:/admin/member";
-        } else {
-            log.info(user_id + "삭제 실패");
+        // 예약 상태를 3(승인)으로 바꾸는 메서드 호출
+        if (!bookAdminService.reservOk(reserv_num)) {
+            returnPage = "redirect:/admin/error?type=1";
         }
-        return returnUrl;
+        return returnPage;
     }
 
 
-    // 회원 검색
-    @GetMapping("/member_find")
-    public String find(Model m, @RequestParam(defaultValue = "1") int cpg, String findtype, String findkey) {
+    // 예약 반려
+    @GetMapping("/book_no")
+    public String bookNo(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam("reserv_num") int reserv_num) {
+        log.info("/admin/book_no 호출");
+        String returnPage = "redirect:/admin/book?cpg=" + cpg;
 
-        m.addAttribute("memberDto", memberAdminService.findMember(cpg, findtype, findkey));
-
-        return "views/admin/member/member";
+        // 예약 상태를 2(반려)으로 바꾸는 메서드 호출
+        // 예약 상태를 3(승인)으로 바꾸는 메서드 호출
+        if (!bookAdminService.reservNo(reserv_num)) {
+            returnPage = "redirect:/admin/error?type=1";
+        }
+        return returnPage;
     }
 }

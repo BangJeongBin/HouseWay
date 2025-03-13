@@ -63,9 +63,9 @@ public class AccountAdminController {
     // 로그아웃
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate();   // 세션 제거
+        session.removeAttribute("loginAdmin");   // 세션 제거
 
-        return "redirect:/";
+        return "redirect:/admin/";
     }
 
 
@@ -94,12 +94,24 @@ public class AccountAdminController {
     // 비밀번호 재설정 페이지
     @GetMapping("/reset_admin")
     public String resetAdmin(@ModelAttribute("admin_password") String admin_password, Model m) {
-        System.err.println("--------------------------------------------------" + admin_password);
         if (admin_password == null || admin_password.isEmpty()) {
             return "redirect:/admin/rePassword";  // 직접 접근 방지
         }
 
         m.addAttribute("admin_password", admin_password);
         return "views/admin/account/reset_password";
+    }
+
+
+    // 비밀번호 재설정 Ok 페이지
+    @PostMapping("/resetOk_admin")
+    public String resetOkAdmin(@RequestParam String admin_password, Model m, HttpSession session) {
+        String returnUrl = "redirect:/admin/error?type=2";
+
+        if (!accountAdminService.resetPwd(admin_password)) {
+            return returnUrl;
+        }
+        session.removeAttribute("loginAdmin");   // 세션 제거
+        return "redirect:/admin/";
     }
 }

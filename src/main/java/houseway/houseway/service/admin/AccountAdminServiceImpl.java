@@ -39,4 +39,14 @@ public class AccountAdminServiceImpl implements AccountAdminService {
 
         return checkPwd;
     }
+
+    // 관리자 비밀번호 변경
+    @Override
+    public boolean resetPwd(String admin_password) {
+        // 등록된 관리자 비밀번호 변경
+        if (accountMapper.changeAdminPassword(admin_password) > 0) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -1,12 +1,15 @@
 package houseway.houseway.controller.user;
 
 import houseway.houseway.domain.*;
+import houseway.houseway.service.user.AgentService;
 import houseway.houseway.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     private final UserService userService;
+    private final AgentService agentService;
 
     //로그인 페이지 이동
     @GetMapping("/login")
@@ -33,8 +37,21 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(){
-        return "views/user/mypage";
+    public String mypage(HttpSession session, Model model) {
+        String val = "views/user/loginForm";
+
+        if(session.getAttribute("loginUser") != null){
+            UserInsertDTO user = userService.findUser((UserInsertDTO) session.getAttribute("loginUser"));
+            model.addAttribute("user", user);
+            val =  "views/user/mypage";
+        }else if(session.getAttribute("agentLogin") != null){
+            AgentListDTO agent = agentService.findAgent((AgentListDTO) session.getAttribute("agentLogin"));
+            model.addAttribute("agent", agent);
+            val = "views/user/agentMyPage";
+        }else {
+
+        }
+        return val;
     }
 
     @PostMapping("/join")
@@ -73,6 +90,11 @@ public class UserController {
         return response;
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 
     //------------------------------
 

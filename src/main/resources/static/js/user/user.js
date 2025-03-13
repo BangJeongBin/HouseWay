@@ -265,3 +265,50 @@ const submitAgentLoginfrm = async (frm) => {
     });
 }
 
+// -------- mypage
+
+// 내 정보 변경하기 버튼 클릭 시
+let ChgMyinfoBtn = document.getElementById('ChgMyinfoBtn');
+
+ChgMyinfoBtn?.addEventListener('click', (e) => {
+
+});
+
+// 탭 전환 시 데이터 로드
+function loadTabContent(tabId) {
+
+}
+
+// document.addEventListener("DOMContentLoaded", (e) => {
+//     // let userid = [[${user.user_id}]]
+//     const currentTabContent = document.body.getAttribute('data-page');
+//     if (currentTabContent=='myPage') {
+//         console.log("DOMContentLoaded 실행됨"); // 콘솔 출력 확인
+//         console.log(userId);
+//
+//         const tabs = document.querySelectorAll(".nav-link");
+//
+//         tabs.forEach(tab => {
+//             tab.addEventListener("shown.bs.tab", (e) => { // "shown.bs.tab" 사용
+//                 console.log("탭 전환됨:", e.target.textContent); // 콘솔 출력
+//                 // console.log(tab.id);
+//                 fetch(`user/mypage/${tab.id}`,{
+//                     method : 'post',
+//                     headers : {
+//                         'content-type': 'application/json'
+//                     } ,
+//                     body : JSON.stringify({user_id: userId})
+//                 }).then(response => {
+//                     if(response.ok) {
+//                         alert('tab : ' + tab.id);
+//                     }else {
+//
+//                     }
+//                 }).catch(error => {
+//                     console.log(error);
+//                 });
+//             });
+//         });
+//     }
+// });
+

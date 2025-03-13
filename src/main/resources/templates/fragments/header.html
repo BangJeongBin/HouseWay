@@ -29,6 +29,9 @@
                 <li th:if="${session.loginUser == null} and ${session.agentLogin ==null}">
                     <a th:href="|/user/login|">마이페이지</a>
                 </li>
+<!--                <li th:if="${session.loginUser != null} or ${session.agentLogin != null}">-->
+<!--                    <a th:href="|/user/login|">로그아웃</a>-->
+<!--                </li>-->
                 <li th:if="${session.agentLogin!=null}">
                     <a th:href="|/user/mypage|">[[${session.agentLogin.agent_name}]] 님, 환영합니다.</a>
                 </li>
@@ -38,7 +41,8 @@
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="btn-getstarted" th:href="|/user/login|"> 로그인 </a>
+        <a class="btn-getstarted" th:if="${session.loginUser == null} and ${session.agentLogin ==null}" th:href="|/user/login|"> 로그인 </a>
+        <a class="btn-getstarted" th:if="${session.loginUser != null} or ${session.agentLogin != null}" th:href="|/user/logout|"> 로그아웃 </a>
 
     </div>
 </header>

@@ -37,14 +37,17 @@
               <li class="nav-item">
                 <a class="nav-link active show" data-bs-toggle="tab" href="#features-tab-1">내 정보</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" id="tab1" href="#features-tab-2">예약 내역</a>
-              </li>
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" data-bs-toggle="tab" id="tab1" href="#features-tab-2">예약 내역</a>-->
+<!--              </li>-->
 <!--              <li class="nav-item">-->
 <!--                <a class="nav-link" data-bs-toggle="tab" id="tab2" href="#features-tab-3">게시판</a>-->
 <!--              </li>-->
 <!--              <li class="nav-item">-->
 <!--                <a class="nav-link" data-bs-toggle="tab" id="tab3" href="#features-tab-4">북마크</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" data-bs-toggle="tab" id="tab4" href="#features-tab-5">Iusto ut expedita aut</a>-->
 <!--              </li>-->
             </ul>
           </div>
@@ -56,46 +59,44 @@
                   <div class="row">
                     <div class="col-lg-8 details order-2 order-lg-1">
                       <h3>나의정보</h3>
-                      <div th:if="${agent == null}">
-                        <div class="form-floating mb-3">
-                          <input type="text" class="form-control" id="mp_id" disabled th:value="${user.user_id}">
-                          <label for="mp_id">아이디</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                          <input type="password" class="form-control" id="mp_pwd" disabled  th:value="${user.user_password}">
-                          <label for="mp_pwd">비밀번호</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                          <input type="text" class="form-control" id="mp_name" disabled  th:value="${user.user_name}">
-                          <label for="mp_name">이름</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                          <input type="text" class="form-control" id="mp_addr" disabled  th:value="${user.user_addr1}">
-                          <label for="mp_addr">주소</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                          <input type="text" class="form-control" id="mp_phone" disabled  th:value="${user.user_phone}">
-                          <label for="mp_phone">휴대폰 번호</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                          <input type="email" class="form-control" id="mp_email" disabled  th:value="${user.user_id}">
-                          <label for="mp_email">이메일</label>
-                        </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="agent_name" disabled th:value="${agent.agent_name}">
+                        <label for="agent_name">성명</label>
                       </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="agent_num" disabled  th:value="${agent.agent_num}">
+                        <label for="agent_num">공인중개사 번호</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="agent_id" disabled  th:value="${agent.office_name}">
+                        <label for="agent_id">사무실 이름</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="agent_phone" disabled  th:value="${agent.agent_phone}">
+                        <label for="agent_phone">휴대폰 번호</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="office_address" disabled  th:value="${agent.office_address}">
+                        <label for="office_address">주소</label>
+                      </div>
+<!--                      <div class="form-floating mb-3">-->
+<!--                        <input type="text" class="form-control" id="agent_salescount" disabled  th:value="${agent.salecount}">-->
+<!--                        <label for="agent_salescount">게약 수?</label>-->
+<!--                      </div>-->
                     </div>
                     <div class="col-lg-4 text-center order-1 order-lg-2">
                       <img src="/img/user/tabs/tab-1.png" alt="" class="img-fluid">
                     </div>
                   </div>
-                  <div class="col-8" style="text-align: end;">
-                    <button class="m-2 btn btn-primary" id="ChgMyinfoBtn">내 정보 변경하기</button>
-                  </div>
+<!--                  <div class="col-8" style="text-align: end;">-->
+<!--                    <button class="m-2 btn btn-primary" id="ChgMyinfoBtn">내 정보 변경하기</button>-->
+<!--                  </div>-->
                 </form>
               </div>
 
               <div class="tab-pane" id="features-tab-2">
                 <div class="row">
-                  <div class="details order-2 order-lg-1">
+                  <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>예약 현황</h3>
                     <table class="table">
                       <thead>
@@ -108,15 +109,15 @@
                           <th>수락 여부</th>
                         </tr>
                       </thead>
-                      <tbody id="reservTable">
+                      <tbody>
 
                       </tbody>
 
                     </table>
                   </div>
-<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
-<!--                    <img src="/img/user/tabs/tab-2.png" alt="" class="img-fluid">-->
-<!--                  </div>-->
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="/img/user/tabs/tab-2.png" alt="" class="img-fluid">
+                  </div>
                 </div>
               </div>
               <div class="tab-pane" id="features-tab-3">
@@ -208,8 +209,7 @@
 
 <script src="/js/user/main.js"></script>
 <script th:inline="javascript">
-
-  var userId = [[${user.user_id}]];
+  var userId = [[${agent.agent_num}]];
 
   document.addEventListener("DOMContentLoaded", (e) => {
     const currentTabContent = document.body.getAttribute('data-page');
@@ -234,29 +234,8 @@
           }).then(async response => {
             console.log(response.status);
             if(response.ok) {
-              const fetchedData = await response.json();
-              console.log("Fetched Data Type:", typeof fetchedData);
-
-              const dataList = Array.isArray(fetchedData)? fetchedData: fetchedData.data?fetchedData.data:[fetchedData]
-
-              const tbody = document.getElementById('reservTable');
-              tbody.innerHTML='';
-
-              dataList.forEach(data =>{
-                console.log(data.estate_id);
-                const row = document.createElement('tr');
-                row.innerHTML=`
-                  <td>${data.estate_id}</td>
-                  <td>${data.agent_name}</td>
-                  <td>${data.office_name}</td>
-                  <td>${data.agent_phone}</td>
-                  <td>${data.reserv_regdate.substring(0,10)}</td>
-                  <td th:if="${data.reserv_state === 1}">
-                    <button class="btn btn-primary">취소</button>
-                  </td>
-                `
-                tbody.append(row)
-              });
+              console.log('tab : ' + tab.id);
+              console.log('fetchedData : ' + await response.json());
             }else if(!response.ok){
               console.log('서버 응답 오류');
             }

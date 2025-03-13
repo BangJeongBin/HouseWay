@@ -1,5 +1,6 @@
 package houseway.houseway.repository.user;
 
+import houseway.houseway.domain.Reserv;
 import houseway.houseway.domain.User;
 import houseway.houseway.domain.UserInsertDTO;
 import houseway.houseway.domain.UserListDTO;

@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -63,8 +63,55 @@ public class AccountAdminController {
     // 로그아웃
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.removeAttribute("loginAdmin");
+        session.removeAttribute("loginAdmin");   // 세션 제거
 
-        return "views/admin/account/login";
+        return "redirect:/admin/";
+    }
+
+
+    // 비밀번호 확인 페이지
+    @GetMapping("/rePassword")
+    public String rePassword() {
+        return "views/admin/account/check_password";
+    }
+
+
+    // 관리자 이메일 확인
+    @PostMapping("/rePassword")
+    public String rePasswordOk(@RequestParam String admin_password, RedirectAttributes redirectAttributes) {
+        String returnUrl = "redirect:/admin/rePassword";
+
+        if (!accountAdminService.checkPwd(admin_password)) {
+            return returnUrl;   // 입력한 이메일이 기존에 있는 이메일이 아닌경우
+        }
+
+        // 비밀번호 검증 성공 시, Flash Attribute에 저장
+        redirectAttributes.addFlashAttribute("admin_password", admin_password);
+        return "redirect:/admin/reset_admin";  // 비밀번호 재설정 페이지로 이동
+    }
+
+
+    // 비밀번호 재설정 페이지
+    @GetMapping("/reset_admin")
+    public String resetAdmin(@ModelAttribute("admin_password") String admin_password, Model m) {
+        if (admin_password == null || admin_password.isEmpty()) {
+            return "redirect:/admin/rePassword";  // 직접 접근 방지
+        }
+
+        m.addAttribute("admin_password", admin_password);
+        return "views/admin/account/reset_password";
+    }
+
+
+    // 비밀번호 재설정 Ok 페이지
+    @PostMapping("/resetOk_admin")
+    public String resetOkAdmin(@RequestParam String admin_password, Model m, HttpSession session) {
+        String returnUrl = "redirect:/admin/error?type=2";
+
+        if (!accountAdminService.resetPwd(admin_password)) {
+            return returnUrl;
+        }
+        session.removeAttribute("loginAdmin");   // 세션 제거
+        return "redirect:/admin/";
     }
 }

@@ -17,13 +17,6 @@ public class AdminController {
     }
 
 
-    // 비밀번호 재설정
-    @GetMapping("/rePassword")
-    public String rePassword() {
-        return "views/admin/account/reset_password";
-    }
-
-
     // 에러 페이지
     @GetMapping("/error")
     public String error() {

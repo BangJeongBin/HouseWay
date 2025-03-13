@@ -1,6 +1,7 @@
 package houseway.houseway.service.admin;
 
 import houseway.houseway.domain.Admin;
+import houseway.houseway.domain.AdminCheckDTO;
 import houseway.houseway.repository.admin.AccountAdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,31 @@ public class AccountAdminServiceImpl implements AccountAdminService {
             throw new IllegalStateException("아이디나 비밀번호가 일치하지 않습니다.");
         }
         return findAdmin;
+    }
+
+
+    // 관리자 이메일 확인
+    @Override
+    public boolean checkPwd(String admin_password) {
+        boolean checkPwd = false;
+
+        // 등록된 관리자의 이메일 확인
+        int findAdminEmail = accountMapper.findAdminAccount(admin_password);
+
+        if (findAdminEmail > 0) {
+            checkPwd = true;    // 일치하는 관리자 아이디가 존재하는 경우
+        }
+
+        return checkPwd;
+    }
+
+    // 관리자 비밀번호 변경
+    @Override
+    public boolean resetPwd(String admin_password) {
+        // 등록된 관리자 비밀번호 변경
+        if (accountMapper.changeAdminPassword(admin_password) > 0) {
+            return true;
+        }
+        return false;
     }
 }

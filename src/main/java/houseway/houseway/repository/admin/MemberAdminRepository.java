@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MemberAdminRepository {
@@ -45,4 +46,10 @@ public interface MemberAdminRepository {
     // 멤버 삭제
     @Delete("delete from user where user_id = #{userId}")
     int deleteMember(String userId);
+
+    // 멤버 검색을 위한 카운트 메서드 - mapper
+    int countFindMember(Map<String, Object> params);
+
+    // 멤버 검색(페이지네이션) - mapper
+    List<UserListDTO> selectFindMember(Map<String, Object> params);
 }

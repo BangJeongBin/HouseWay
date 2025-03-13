@@ -29,10 +29,45 @@ public class EstateAdminController {
     }
 
 
+    // 매물 정렬 리스트
+    @GetMapping("/product_sort")
+    public String member(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam("sno") int sno) {
+        log.info("/admin/member_sort 호출");
+        m.addAttribute("estateDto", estateAdminService.readSortEstate(cpg, sno));
+
+        return "views/admin/estate/product";
+    }
+
+
     // 매물 상세
     @GetMapping("/product_view/{estate_id}")
     public String productView(Model m, @PathVariable String estate_id) {
         m.addAttribute("estDto", estateAdminService.readOneProduct(estate_id));
         return "views/admin/estate/product_view";
+    }
+
+
+    // 매물 삭제
+    @GetMapping("/product_remove")
+    public String productRemove(Model m, @RequestParam("estate_id") String estate_id) {
+        String returnUrl = "redirect:/admin/product_view/" + estate_id;
+
+        if (estateAdminService.removeEstate(estate_id) > 0) {
+            log.info(estate_id + "삭제 완료");
+            returnUrl = "redirect:/admin/product";
+        } else {
+            log.info(estate_id + "삭제 실패");
+        }
+        return returnUrl;
+    }
+
+
+    // 매물 검색
+    @GetMapping("/product_find")
+    public String find(Model m, @RequestParam(defaultValue = "1") int cpg, String findtype, String findkey) {
+
+        m.addAttribute("estateDto", estateAdminService.findEstate(cpg, findtype, findkey));
+
+        return "views/admin/estate/product";
     }
 }

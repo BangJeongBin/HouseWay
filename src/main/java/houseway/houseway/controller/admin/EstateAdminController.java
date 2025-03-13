@@ -47,6 +47,14 @@ public class EstateAdminController {
     }
 
 
+    // 매물 수정
+    @GetMapping("/product_modify/{estate_id}")
+    public String productModift(Model m, @PathVariable String estate_id) {
+        m.addAttribute("estDto", estateAdminService.readOneProduct(estate_id));
+        return "views/admin/estate/product_view";
+    }
+
+
     // 매물 삭제
     @GetMapping("/product_remove")
     public String productRemove(Model m, @RequestParam("estate_id") String estate_id) {

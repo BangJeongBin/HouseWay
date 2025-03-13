@@ -1,6 +1,7 @@
 package houseway.houseway.repository.admin;
 
 import houseway.houseway.domain.Admin;
+import houseway.houseway.domain.AdminCheckDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -12,6 +13,6 @@ public interface AccountAdminRepository {
     Admin findAdminById(String admin_id);
 
     // 등록된 관리자의 이메일 확인
-    @Select("select admin_password admin where admin password = #{admin_passwoad}")
-    Admin findAdminAccount(String admin_passwoad);
+    @Select("select count(admin_id) from admin where admin_password = #{admin_password}")
+    int findAdminAccount(String admin_password);
 }

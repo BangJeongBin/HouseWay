@@ -1,6 +1,7 @@
 package houseway.houseway.service.admin;
 
 import houseway.houseway.domain.Admin;
+import houseway.houseway.domain.AdminCheckDTO;
 import houseway.houseway.repository.admin.AccountAdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,14 +28,15 @@ public class AccountAdminServiceImpl implements AccountAdminService {
     // 관리자 이메일 확인
     @Override
     public boolean checkPwd(String admin_password) {
-        Boolean checkPwd = false;
+        boolean checkPwd = false;
 
         // 등록된 관리자의 이메일 확인
-        Admin findAdminEmail = accountMapper.findAdminAccount(admin_password);
+        int findAdminEmail = accountMapper.findAdminAccount(admin_password);
 
-        if (findAdminEmail.getAdmin_password() == admin_password) {
-            checkPwd = true;
+        if (findAdminEmail > 0) {
+            checkPwd = true;    // 일치하는 관리자 아이디가 존재하는 경우
         }
-        return false;
+
+        return checkPwd;
     }
 }

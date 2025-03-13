@@ -24,35 +24,29 @@ public class EstateController {
 
     private final EstateService estateService;
     private final ReserveService reserveService;
-    private final ReservRepository reservRepository;
+
 
     @GetMapping("/list")
-        public String listEstates(Model model) {
+        public String listEstates(Model model, @RequestParam(defaultValue = "1")int cpg) {
 
-        // estateService에서 모든 estate 리스트를 가져옵니다
-        List<Estate> estateList = estateService.getAllEstates();
-
-        // estate 리스트를 Thymeleaf 템플릿에 전달
-        model.addAttribute("estates", estateList);
-
+        model.addAttribute("estateListDto", estateService.readEstate(cpg));
         return "views/user/search";
     }
 
+    // 매물 정렬 리스트
+    @GetMapping("/estate_sort")
+    public String estate(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam("eno") int eno) {
+        log.info("/admin/agent_sort 호출");
+        m.addAttribute("estateListDto", estateService.readSortEstate(cpg, eno));
+
+        return "views/admin/agent/agent";
+    }
+
     @GetMapping("/search")
-    public String searchEstates(@RequestParam(defaultValue = "all") String findtype,
-                                @RequestParam(defaultValue = "all" ) String findkey,
-                                Model model){
-        List<EstateSearchListDTO> estates = null;
+    public String findEstate(Model model, @RequestParam(defaultValue = "1")int cpg,
+                                    String findtype, String findkey) {
 
-        if (findkey.equals("all") || findkey.trim().isEmpty()) {
-            // 검색어가 없으면 전체 매물 조회
-            estates = estateService.searchEstates(null, null);
-        } else {
-            // 검색어가 있으면 해당 조건으로 검색
-            estates = estateService.searchEstates(findtype, findkey);
-        }
-
-        model.addAttribute("estates", estates);
+        model.addAttribute("estateListDto", estateService.findUserEstate(cpg,findtype,findkey));
 
          return "views/user/search";  // 검색 결과를 표시할 뷰로 이동
     }
@@ -65,9 +59,6 @@ public class EstateController {
         model.addAttribute("estateDto", estateDto);
 
         System.err.println(estateDto);
-
-        /*// 해당 매물 상세 페이지에 해당하는 agnet 정보 추출
-        model.addAttribute("agentDto", estateService.getEstateByAgent(agent_num));*/
 
        return "views/user/estateDetail";
     }

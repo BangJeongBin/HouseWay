@@ -1,35 +1,60 @@
 package houseway.houseway.service.user;
 
 import houseway.houseway.domain.*;
-import houseway.houseway.repository.admin.EstateAdminRepository;
 import houseway.houseway.repository.user.EstateRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class EstateServiceImpl implements EstateService {
 
     private final EstateRepository estateRepository;
+    @Value("6") private int pageSize;
+
+    // 매물 리스트(페이지네이션)
+
+    @Override
+    public EstateUserPageDTO readEstate(int cpg) {
+        // cpg에 따라 시작위치 값 계산
+        int strnum = (cpg - 1) * pageSize;
+        // 모든 매물 수
+        int totalEstateCount = estateRepository.countEstate();
+        // 매물 리스트
+        List<EstateUserListDTO> propertyList = estateRepository.estateList(strnum, pageSize);
+
+        return new EstateUserPageDTO(cpg, totalEstateCount, pageSize, propertyList);
+    }
+
+    // 매물 검색(페이지네이션)
+    @Override
+    public EstateUserPageDTO findUserEstate(int cpg,  String findtype, String findkey) {
+        int strnum = (cpg - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("strnum", strnum);
+        params.put("pageSize", pageSize);
+        params.put("findtype", findtype);
+        params.put("findkey", findkey);
+
+        int totalEstateCount = countFindEstate(params);
+        List<EstateUserListDTO> propertyList = estateRepository.selectFindUserEstate(params);
+        return new EstateUserPageDTO(cpg, totalEstateCount, pageSize, propertyList);
+    }
+
 
 
     @Override
-    public List<Estate> getAllEstates() {
-        return estateRepository.estateAllList();
+    public int countFindEstate(Map<String, Object> params) {
+        return estateRepository.countFindEstate(params);
     }
 
-    @Override
-    public List<EstateSearchListDTO> searchEstates(String findtype, String findkey) {
 
-        // findkey가 비어 있으면 전체 매물을 불러오고
-        if (findkey == null || findkey.isEmpty()) {
-            return estateRepository.searchEstatesList();
-        }
-        // 검색어가 있을 경우 검색 결과를 반환
-        return estateRepository.searchEstates(findtype, findkey);
-    }
 
     @Override
     public EstateUserAllInfoDTO readOneUserEstate(String estate_id, int agent_num) {
@@ -56,9 +81,18 @@ public class EstateServiceImpl implements EstateService {
     }
 
     @Override
-    public List<Image> estateImageOne(String estate_id) {
-        return List.of();
-    }
+    public EstateUserPageDTO readSortEstate(int cpg, int eno) {
+        int strnum = (cpg - 1) * pageSize;
+        int totalCount = estateRepository.countEstate();
 
+        if (eno == 1) {
+            List<EstateUserListDTO> propertyList = estateRepository.EstateLocalList(strnum, pageSize);
+            return new EstateUserPageDTO(cpg, totalCount, pageSize, propertyList);
+        } else if (eno == 2) {
+            List<EstateUserListDTO> propertyList = estateRepository.EstateLocalList(strnum, pageSize);
+            return new EstateUserPageDTO(cpg, totalCount, pageSize, propertyList);
+        }
+        return null;
+    }
 
 }

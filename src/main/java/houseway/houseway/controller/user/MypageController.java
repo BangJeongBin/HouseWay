@@ -1,6 +1,8 @@
 package houseway.houseway.controller.user;
 
 import houseway.houseway.domain.MyReservDTO;
+import houseway.houseway.domain.UserListDTO;
+import houseway.houseway.domain.UserUpdateDTO;
 import houseway.houseway.repository.user.ReservRepository;
 import houseway.houseway.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +30,6 @@ public class MypageController {
     @PostMapping("/mypage/{tab}")
     public ResponseEntity<?> mypage(@PathVariable String tab, HttpSession session, Model model, @RequestBody Map<String, Object> id) {
         String userId = (String) id.get("user_id");
-        System.out.println(userId);
-        System.out.println(userId);
         switch (tab) {
             case "tab1":
                 try {
@@ -55,5 +55,36 @@ public class MypageController {
         }
     }
 
+    @PostMapping("/mypage/userInfoUpdate")
+    public ResponseEntity<?> userInfoUpdate(HttpSession session, Model model, @RequestBody UserUpdateDTO update) {
+        ResponseEntity<?> response = ResponseEntity.internalServerError().build();
+
+        System.err.println(update.toString());
+
+        try{
+            userService.userUpdate(update);
+            response = ResponseEntity.ok().build();
+        } catch (IllegalStateException e) {
+            response = ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @PostMapping("/mypage/reserv_delete/{reserv_num}")
+    public ResponseEntity<?> reservDelete(HttpSession session, Model model, @PathVariable String reserv_num) {
+        ResponseEntity<?> response = ResponseEntity.internalServerError().build();
+
+        try{
+            reservService.deleteReserv(reserv_num);
+            response = ResponseEntity.ok().build();
+        } catch (IllegalStateException e) {
+            response = ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  response;
+    }
 
 }

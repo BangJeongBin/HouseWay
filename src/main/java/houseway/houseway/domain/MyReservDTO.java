@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class MyReservDTO {
+    private int reserv_num;
     private String estate_id;
     private String agent_name;
     private String office_name;

@@ -4,6 +4,7 @@ import houseway.houseway.domain.*;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,10 @@ public interface EstateAdminRepository {
     // 해당 매물 북마크 목록
     @Select("select * from bookmark where estate_id = #{estateId}")
     List<Bookmark> selectEstateBookmark(String estateId);
+
+    // 매물 수정 확정
+    @Update("update estate set estate_title = #{estate_title}, estate_desc = #{estate_desc}, estate_addr = #{estate_addr}, estate_gu = #{estate_gu}, estate_area = #{estate_area}, estate_amount = #{estate_amount}, estate_type = #{estate_type}, estate_service = #{estate_service}, estate_roomType = #{estate_roomType}, estate_parking = #{estate_parking}, estate_elev = #{estate_elev}, estate_moveDate = #{estate_moveDate}, estate_option = #{estate_option}, where estate_id = #{estate_id}")
+    int updateEstateInfo(Estate estate);
 
     // 매물 삭제
     @Delete("delete from estate where eatate_id = #{estateId}")

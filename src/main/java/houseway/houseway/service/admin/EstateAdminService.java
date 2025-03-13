@@ -15,6 +15,9 @@ public interface EstateAdminService {
     // 매물 상세
     EstateInfoDTO readOneProduct(String estateId);
 
+    // 매물 수정 확정
+    boolean modifyEstateOk(Estate estate);
+
     // 매물 삭제
     int removeEstate(String estateId);
 

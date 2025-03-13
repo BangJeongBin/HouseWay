@@ -1,14 +1,13 @@
 package houseway.houseway.controller.admin;
 
+import houseway.houseway.domain.Estate;
 import houseway.houseway.service.admin.EstateAdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -49,9 +48,29 @@ public class EstateAdminController {
 
     // 매물 수정
     @GetMapping("/product_modify/{estate_id}")
-    public String productModift(Model m, @PathVariable String estate_id) {
+    public String productModify(Model m, @PathVariable String estate_id) {
         m.addAttribute("estDto", estateAdminService.readOneProduct(estate_id));
-        return "views/admin/estate/product_view";
+        return "views/admin/estate/product_modify";
+    }
+
+
+    // 매물 수정 확정
+    @PostMapping("/product_modifyOk")
+    public ResponseEntity<?> productModifyOk(Estate estate) {
+        ResponseEntity<?> response = ResponseEntity.internalServerError().build();
+
+        try {
+            estateAdminService.modifyEstateOk(estate);
+            response =  ResponseEntity.ok().build();
+        } catch (IllegalStateException e) {
+
+            response = ResponseEntity.badRequest().body(e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return response;
     }
 
 

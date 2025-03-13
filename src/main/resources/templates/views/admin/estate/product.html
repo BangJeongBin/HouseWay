@@ -158,7 +158,7 @@
 							</li>
 						</th:block>
 
-						<li class="page-item">
+						<li class="page-item" th:if="${estateDto.cpg lt estateDto.totalPg}">
 							<a th:href="|${pglink}${estateDto.cpg + 1}|" class="page-link">Next</a>
 						</li>
 

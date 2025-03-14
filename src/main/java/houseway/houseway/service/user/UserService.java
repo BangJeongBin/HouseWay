@@ -3,6 +3,7 @@ package houseway.houseway.service.user;
 import houseway.houseway.domain.User;
 import houseway.houseway.domain.UserInsertDTO;
 import houseway.houseway.domain.UserListDTO;
+import houseway.houseway.domain.UserUpdateDTO;
 import houseway.houseway.repository.user.ReservRepository;
 import houseway.houseway.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,10 @@ public class UserService {
     public UserInsertDTO findUser(UserInsertDTO user) {
         UserInsertDTO findUser = userMapper.findByUserId(user.getUser_id());
         return findUser;
+    }
+
+    public boolean userUpdate(UserUpdateDTO user) {
+        return userMapper.updateUser(user) > 0;
+
     }
 }

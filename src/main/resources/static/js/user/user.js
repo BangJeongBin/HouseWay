@@ -20,7 +20,6 @@ chgNavUser?.addEventListener('click', (e) => {
 // 로그인 화면에서 회원가입 버튼 클릭 시 회원가입 페이지 이동
 let gojoinFrm = document.querySelector('.join');
 gojoinFrm?.addEventListener('click', (e) => {
-    alert('asdf');
     location.href = 'join';
 });
 
@@ -244,7 +243,6 @@ const validAgentLogin = (form) => {
 }
 
 const submitAgentLoginfrm = async (frm) => {
-    alert('공인중개사 로그인 폼')
     const formData2 = new FormData(frm);
 
     fetch('/agent/agent_login', {

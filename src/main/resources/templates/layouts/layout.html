@@ -37,7 +37,7 @@
 
 <body>
 <!-- 웹페이지 레이아웃(가운데 정렬)을 위한 태그들 -->
-<div class="container">
+<div class="">
     <div class="content-wrapper mx-auto">
         <div th:replace="~{fragments/header::header}"></div>
         <th:block layout:fragment="content"></th:block>
@@ -68,11 +68,10 @@
 
 <!--
  Main JS File
-<script src="/js/main.js"></script>
 -->
+<script th:src="|@{/js/user/main.js}|"></script>
 
 <!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
 </body>
 </html>

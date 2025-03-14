@@ -19,4 +19,7 @@ public class ReservService {
         return findMyReserv;
     }
 
+    public boolean deleteMyReserv(String reserv_num) {
+        return reservMapper.deleteReserv(reserv_num) > 0;
+    }
 }

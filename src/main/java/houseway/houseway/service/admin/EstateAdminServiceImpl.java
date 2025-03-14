@@ -75,6 +75,15 @@ public class EstateAdminServiceImpl implements EstateAdminService {
     }
 
 
+    // 매물 수정 확정
+    @Override
+    public boolean modifyEstateOk(EstateModifyDTO estate) {
+        int result = estateMapper.updateEstateInfo(estate);
+
+        return result == 1;
+    }
+
+
     // 매물 삭제
     @Override
     public int removeEstate(String estateId) {

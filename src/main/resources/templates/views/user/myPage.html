@@ -212,7 +212,7 @@
 <!-- Main JS File -->
 <th:block layout:fragment="script">
 
-<script src="/js/user/main.js"></script>
+<!--<script src="/js/user/main.js"></script>-->
 <script th:inline="javascript">
 
   const frm = document.querySelector('form[name="myInfoFrm"]');
@@ -232,16 +232,14 @@
         fetch(`/user/mypage/reserv_delete/${reserv_Id}`, {
           method : 'post',
           headers : { 'Content-Type': 'application/json' }
-          // body : JSON.stringify({reserv_num : reserv_Id})
         }).then(async response=> {
           if(response.ok){
             console.log(response.status);
           }
         }).then(data=>{
           // console.log('data :::', data);
-          tresult;
-        }).catch({
-
+        }).catch(error=>{
+          error => console.error('사용자 예약 취소 에러 발생');
         });
       }
     }
@@ -253,7 +251,6 @@
 
     if(chgMyinfoBtn.textContent === '내 정보 변경하기'){
       inputs.forEach((input, idx) =>{
-        console.log('버튼 변경');
         if(idx===0)return;
         input.removeAttribute('disabled');
         chgMyinfoBtn.textContent='내 정보 변경';
@@ -266,17 +263,14 @@
       inputs.forEach(input=>{
         formData[input.id] = input.value;
       });
-      console.log('frm data :::: ', formData);
-
       fetch('/user/userInfoUpdate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
-      .then(response => response.json())
+      // .then(response => response.json())
       .then(data => {
         console.log('서버 응답:', data);
-        alert('정보가 성공적으로 수정되었습니다');
       })
       .catch(error => console.error('사용자 정보 업데이트 에러 발생'));
 
@@ -289,8 +283,7 @@
 
   var userId = [[${user.user_id}]];
 
-  let tresult = document.addEventListener("DOMContentLoaded", (e) => {
-    const currentTabContent = document.body.getAttribute('data-page');
+  document.addEventListener("DOMContentLoaded", (e) => {
 
     const tabs = document.querySelectorAll(".nav-link");
 
@@ -303,7 +296,6 @@
         console.log("탭 전환:", e.target.id);
 
         if(tab.id==='tab'){
-          alert(`${tab.id}`);
           return;
         }else{
           fetch(`/user/mypage/${tab.id}`,{
@@ -355,6 +347,8 @@
       });
     });
   });
+
+
 </script>
 </th:block>
 

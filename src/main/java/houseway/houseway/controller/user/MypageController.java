@@ -55,11 +55,9 @@ public class MypageController {
         }
     }
 
-    @PostMapping("/mypage/userInfoUpdate")
+    @PostMapping("/userInfoUpdate")
     public ResponseEntity<?> userInfoUpdate(HttpSession session, Model model, @RequestBody UserUpdateDTO update) {
         ResponseEntity<?> response = ResponseEntity.internalServerError().build();
-
-        System.err.println(update.toString());
 
         try{
             userService.userUpdate(update);

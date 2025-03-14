@@ -1,11 +1,10 @@
 package houseway.houseway.repository.user;
 
-import houseway.houseway.domain.User;
-import houseway.houseway.domain.UserInsertDTO;
-import houseway.houseway.domain.UserListDTO;
+import houseway.houseway.domain.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserRepository {
@@ -20,4 +19,7 @@ public interface UserRepository {
 
     @Select("select count(user_email) from user where user_email = #{user_email}")
     int countByEmail(String email);
+
+    @Update("update user set user_id = #{user_id}, user_name = #{user_name}, user_addr1 = #{user_addr1}, user_addr2 = #{user_addr2}, user_email = #{user_email}, user_phone = #{user_phone} where user_num = #{user_num}")
+    int updateUser(UserUpdateDTO user);
 }

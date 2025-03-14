@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class Reserv {
+public class MyReservDTO {
     private int reserv_num;
-    private String user_id;
     private String estate_id;
-    private int agent_num;
     private String agent_name;
-    private int reserv_state;
+    private String office_name;
+    private String agent_phone;
     private LocalDateTime reserv_regdate;
+    private int reserv_state;
 }

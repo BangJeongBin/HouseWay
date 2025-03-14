@@ -20,7 +20,6 @@ chgNavUser?.addEventListener('click', (e) => {
 // 로그인 화면에서 회원가입 버튼 클릭 시 회원가입 페이지 이동
 let gojoinFrm = document.querySelector('.join');
 gojoinFrm?.addEventListener('click', (e) => {
-    alert('asdf');
     location.href = 'join';
 });
 
@@ -244,7 +243,6 @@ const validAgentLogin = (form) => {
 }
 
 const submitAgentLoginfrm = async (frm) => {
-    alert('공인중개사 로그인 폼')
     const formData2 = new FormData(frm);
 
     fetch('/agent/agent_login', {
@@ -264,4 +262,51 @@ const submitAgentLoginfrm = async (frm) => {
         alert('서버와 통신중 오류가 발생했습니다. 관리자에게 문의하세요.');
     });
 }
+
+// -------- mypage
+
+// 내 정보 변경하기 버튼 클릭 시
+let ChgMyinfoBtn = document.getElementById('ChgMyinfoBtn');
+
+ChgMyinfoBtn?.addEventListener('click', (e) => {
+
+});
+
+// 탭 전환 시 데이터 로드
+function loadTabContent(tabId) {
+
+}
+
+// document.addEventListener("DOMContentLoaded", (e) => {
+//     // let userid = [[${user.user_id}]]
+//     const currentTabContent = document.body.getAttribute('data-page');
+//     if (currentTabContent=='myPage') {
+//         console.log("DOMContentLoaded 실행됨"); // 콘솔 출력 확인
+//         console.log(userId);
+//
+//         const tabs = document.querySelectorAll(".nav-link");
+//
+//         tabs.forEach(tab => {
+//             tab.addEventListener("shown.bs.tab", (e) => { // "shown.bs.tab" 사용
+//                 console.log("탭 전환됨:", e.target.textContent); // 콘솔 출력
+//                 // console.log(tab.id);
+//                 fetch(`user/mypage/${tab.id}`,{
+//                     method : 'post',
+//                     headers : {
+//                         'content-type': 'application/json'
+//                     } ,
+//                     body : JSON.stringify({user_id: userId})
+//                 }).then(response => {
+//                     if(response.ok) {
+//                         alert('tab : ' + tab.id);
+//                     }else {
+//
+//                     }
+//                 }).catch(error => {
+//                     console.log(error);
+//                 });
+//             });
+//         });
+//     }
+// });
 

@@ -112,7 +112,7 @@
 									</li>
 								</th:block>
 
-								<li class="page-item">
+								<li class="page-item" th:if="${memberDto.cpg lt memberDto.totalPg}">
 									<a th:href="|${pglink}${memberDto.cpg + 1}|" class="page-link">Next</a>
 								</li>
 

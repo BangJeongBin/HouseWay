@@ -13,7 +13,7 @@
         <h1 class="mb-2 mb-lg-0">마이페이지</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a th:href="|/user/index_demo|">>Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li class="current">my page</li>
           </ol>
         </nav>
@@ -37,71 +37,66 @@
               <li class="nav-item">
                 <a class="nav-link active show" data-bs-toggle="tab" href="#features-tab-1">내 정보</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" id="tab1" href="#features-tab-2">예약 내역</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" id="tab2" href="#features-tab-3">게시판</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" id="tab3" href="#features-tab-4">북마크</a>
-              </li>
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" data-bs-toggle="tab" id="tab1" href="#features-tab-2">예약 내역</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" data-bs-toggle="tab" id="tab2" href="#features-tab-3">게시판</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" data-bs-toggle="tab" id="tab3" href="#features-tab-4">북마크</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" data-bs-toggle="tab" id="tab4" href="#features-tab-5">Iusto ut expedita aut</a>-->
+<!--              </li>-->
             </ul>
           </div>
 
           <div class="col-lg-9 mt-4 mt-lg-0">
             <div class="tab-content">
               <div class="tab-pane active show" id="features-tab-1">
-                <form method="post" name="myInfoFrm" id="myInfoFrm">
+                <form method="post" name="">
                   <div class="row">
                     <div class="col-lg-8 details order-2 order-lg-1">
                       <h3>나의정보</h3>
                       <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="user_id" disabled th:value="${user.user_id}">
-                        <label for="user_id">아이디</label>
-                      </div>
-<!--                        <div class="form-floating mb-3">-->
-<!--                          <input type="password" class="form-control" id="user_password" disabled  th:value="${user.user_password}">-->
-<!--                          <label for="user_password">비밀번호</label>-->
-<!--                        </div>-->
-                      <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="user_name" disabled  th:value="${user.user_name}">
-                        <label for="user_name">이름</label>
+                        <input type="text" class="form-control" id="agent_name" disabled th:value="${agent.agent_name}">
+                        <label for="agent_name">성명</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input type="hidden" class="form-control" id="user_num" disabled  th:value="${user.user_num}">
-                        <label for="user_num">번호</label>
+                        <input type="text" class="form-control" id="agent_num" disabled  th:value="${agent.agent_num}">
+                        <label for="agent_num">공인중개사 번호</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="user_addr1" disabled  th:value="${user.user_addr1}">
-                        <label for="user_addr1">주소</label>
+                        <input type="text" class="form-control" id="agent_id" disabled  th:value="${agent.office_name}">
+                        <label for="agent_id">사무실 이름</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="user_addr2" disabled  th:value="${user.user_addr2}">
-                        <label for="user_addr1">주소</label>
+                        <input type="text" class="form-control" id="agent_phone" disabled  th:value="${agent.agent_phone}">
+                        <label for="agent_phone">휴대폰 번호</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="user_phone" disabled  th:value="${user.user_phone}">
-                        <label for="user_phone">휴대폰 번호</label>
+                        <input type="email" class="form-control" id="office_address" disabled  th:value="${agent.office_address}">
+                        <label for="office_address">주소</label>
                       </div>
-                      <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="user_email" disabled  th:value="${user.user_email}">
-                        <label for="user_email">이메일</label>
-                      </div>
+<!--                      <div class="form-floating mb-3">-->
+<!--                        <input type="text" class="form-control" id="agent_salescount" disabled  th:value="${agent.salecount}">-->
+<!--                        <label for="agent_salescount">게약 수?</label>-->
+<!--                      </div>-->
                     </div>
                     <div class="col-lg-4 text-center order-1 order-lg-2">
                       <img src="/img/user/tabs/tab-1.png" alt="" class="img-fluid">
                     </div>
                   </div>
-                  <div class="col-8" style="text-align: end;">
-                    <button type="button" class="m-2 btn btn-primary" id="chgMyinfoBtn">내 정보 변경하기</button>
-                  </div>
+<!--                  <div class="col-8" style="text-align: end;">-->
+<!--                    <button class="m-2 btn btn-primary" id="ChgMyinfoBtn">내 정보 변경하기</button>-->
+<!--                  </div>-->
                 </form>
               </div>
 
               <div class="tab-pane" id="features-tab-2">
                 <div class="row">
-                  <div class="details order-2 order-lg-1">
+                  <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>예약 현황</h3>
                     <table class="table">
                       <thead>
@@ -114,15 +109,15 @@
                           <th>수락 여부</th>
                         </tr>
                       </thead>
-                      <tbody id="reservTable">
+                      <tbody>
 
                       </tbody>
 
                     </table>
                   </div>
-<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
-<!--                    <img src="/img/user/tabs/tab-2.png" alt="" class="img-fluid">-->
-<!--                  </div>-->
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="/img/user/tabs/tab-2.png" alt="" class="img-fluid">
+                  </div>
                 </div>
               </div>
               <div class="tab-pane" id="features-tab-3">
@@ -212,88 +207,20 @@
 <!-- Main JS File -->
 <th:block layout:fragment="script">
 
-<!--<script src="/js/user/main.js"></script>-->
+<script src="/js/user/main.js"></script>
 <script th:inline="javascript">
-
-  const frm = document.querySelector('form[name="myInfoFrm"]');
-  const chgMyinfoBtn = document.getElementById('chgMyinfoBtn');
-  const tbody = document.getElementById('reservTable');
-
-  tbody.addEventListener('click', (e)=>{
-    if(e.target.classList.contains('reserv_cancel')){
-      const row = e.target.closest('tr');
-      alert(row);
-      const reserv_Id = row.querySelector('.reserv_num').value;
-      console.log(reserv_Id);
-
-      let result = confirm('정말로 삭제하시겼습니까');
-      if(result>0){
-
-        fetch(`/user/mypage/reserv_delete/${reserv_Id}`, {
-          method : 'post',
-          headers : { 'Content-Type': 'application/json' }
-        }).then(async response=> {
-          if(response.ok){
-            console.log(response.status);
-          }
-        }).then(data=>{
-          // console.log('data :::', data);
-        }).catch(error=>{
-          error => console.error('사용자 예약 취소 에러 발생');
-        });
-      }
-    }
-  });
-
-  chgMyinfoBtn.addEventListener('click', ()=>{
-    const inputs = document.querySelectorAll('#myInfoFrm input');
-    console.log(chgMyinfoBtn.textContent);
-
-    if(chgMyinfoBtn.textContent === '내 정보 변경하기'){
-      inputs.forEach((input, idx) =>{
-        if(idx===0)return;
-        input.removeAttribute('disabled');
-        chgMyinfoBtn.textContent='내 정보 변경';
-      });
-      chgMyinfoBtn.classList.remove('btn-primary');
-      chgMyinfoBtn.classList.add('btn-success');
-      chgMyinfoBtn.textContent='내 정보 변경';
-    }else{
-      const formData = {};
-      inputs.forEach(input=>{
-        formData[input.id] = input.value;
-      });
-      fetch('/user/userInfoUpdate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
-      // .then(response => response.json())
-      .then(data => {
-        console.log('서버 응답:', data);
-      })
-      .catch(error => console.error('사용자 정보 업데이트 에러 발생'));
-
-      inputs.forEach(input => input.setAttribute('disabled', 'false'));
-      chgMyinfoBtn.textContent = '내 정보 변경하기';
-      chgMyinfoBtn.classList.remove('btn-success');
-      chgMyinfoBtn.classList.add('btn-primary');
-    }
-  });
-
-  var userId = [[${user.user_id}]];
+  var userId = [[${agent.agent_num}]];
 
   document.addEventListener("DOMContentLoaded", (e) => {
+    const currentTabContent = document.body.getAttribute('data-page');
+    console.log("DOMContentLoaded 실행됨");
+    console.log(userId);
 
     const tabs = document.querySelectorAll(".nav-link");
 
     tabs.forEach(tab => {
-      if(tab.id === 'tab') {
-        console.log('첫번째 탭 션택>return;');
-        return;
-      }
       tab.addEventListener("shown.bs.tab", (e) => {
-        console.log("탭 전환:", e.target.id);
+        console.log("탭 전환됨:", e.target.id);
 
         if(tab.id==='tab'){
           return;
@@ -307,36 +234,8 @@
           }).then(async response => {
             console.log(response.status);
             if(response.ok) {
-              const fetchedData = await response.json();
-              console.log("Fetched Data Type:", typeof fetchedData);
-
-              const dataList = Array.isArray(fetchedData)? fetchedData: fetchedData.data?fetchedData.data:[fetchedData]
-
-              tbody.innerHTML='';
-
-              console.log(fetchedData);
-
-              if(!dataList || dataList.length === 0){
-                const row = document.createElement('tr');
-                row.innerHTML=`<td colspan="6" class="text-center"><h5>예약된 목록이 없습니다.</h5></td>`
-                tbody.append(row);
-              }
-
-              dataList.forEach(data =>{
-                const row = document.createElement('tr');
-                row.innerHTML=`
-                  <input type="hidden" class="reserv_num" value="${data.reserv_num}">
-                  <td>${data.estate_id}</td>
-                  <td>${data.agent_name}</td>
-                  <td>${data.office_name}</td>
-                  <td>${data.agent_phone}</td>
-                  <td>${data.reserv_regdate.substring(0,10)}</td>
-                  <td th:if="${data.reserv_state === 1}">
-                    <button class="btn btn-primary reserv_cancel">취소</button>
-                  </td>
-                `
-                tbody.append(row)
-              });
+              console.log('tab : ' + tab.id);
+              console.log('fetchedData : ' + await response.json());
             }else if(!response.ok){
               console.log('서버 응답 오류');
             }
@@ -347,8 +246,6 @@
       });
     });
   });
-
-
 </script>
 </th:block>
 

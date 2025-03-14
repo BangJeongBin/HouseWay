@@ -192,7 +192,8 @@
 											<th:block th:each="rlists : ${memDto.userReservList}">
 												<tr>
 													<td class="cell" th:text="${rlists.reserv_num}"></td>
-													<td class="cell"><span class="truncate" th:text="${rlists.estate_id}"></span></td>
+													<td class="cell"><a th:href="|/admin/product_view/${rlists.estate_id}|">
+														<span class="truncate" th:text="${rlists.estate_id}"></span></a></td>
 													<td class="cell" th:text="${rlists.agent_num}"></td>
 													<td class="cell"><span th:text="${rlists.reserv_regdate}"></span></td>
 
@@ -324,7 +325,8 @@
 											<th:block th:each="blists : ${memDto.userBookmarkList}">
 												<tr>
 													<td class="cell" th:text="${blists.bookmark_num}"></td>
-													<td class="cell"><span class="truncate" th:text="${blists.estate_id}"></span></td>
+													<td class="cell"><a th:href="|/admin/product_view/${blists.estate_id}|">
+														<span class="truncate" th:text="${blists.estate_id}"></span></a></td>
 												</tr>
 											</th:block>
 										</th:block>

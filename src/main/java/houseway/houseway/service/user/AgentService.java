@@ -20,4 +20,9 @@ public class AgentService {
         }
         return findAgent;
     }
+
+    public AgentListDTO findAgent(AgentListDTO agent) {
+        AgentListDTO findAgent = agentMapper.findByAgentNum(agent.getAgent_num());
+        return findAgent;
+    }
 }

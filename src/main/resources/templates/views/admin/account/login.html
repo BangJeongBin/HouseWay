@@ -12,6 +12,15 @@
 	<!-- FontAwesome JS-->
 	<script defer src="/plugins/fontawesome/js/all.min.js"></script>
 
+	<style>
+		.error-message {
+			color: #dc3545;
+			font-size: 0.95em;
+			margin: 10px 0;
+			/*display: none;*/
+		}
+	</style>
+
 </head>
 <body class="app app-login p-0">
 
@@ -42,7 +51,7 @@
 
 						<div class="auth-option text-center pt-5">
 							<div class="forgot-password">
-								<a th:href="|/admin/index|">비밀번호를 잊으셨나요?</a>
+								<a th:href="|/admin/rePassword|">비밀번호를 잊으셨나요?</a>
 							</div>
 						</div><!-- 비밀번호 찾기 a태그 -->
 					</div><!--//auth-form-container-->
@@ -56,22 +65,22 @@
 		</div><!--//auth-main-col-->
 	</div><!--//row-->
 
-	<script src="/js/admin/account.js"></script>
-	<script>
-		// 비어있는 input 태그가 있을 시 submit 버튼 block
-		const loginfrm = document.querySelector('#loginfrm');   // id로 target 함
+<script src="/js/admin/account.js"></script>
+<script>
+	// 비어있는 input 태그가 있을 시 submit 버튼 block
+	const loginfrm = document.querySelector('#loginfrm');   // id로 target 함
 
-		loginfrm.addEventListener("submit", (e) => {
-			e.preventDefault(); // submit 버튼 기능 중지, 이 코드 미 작성 시 alert는 뜨지만 페이지는 이동함
+	loginfrm.addEventListener("submit", (e) => {
+		e.preventDefault(); // submit 버튼 기능 중지, 이 코드 미 작성 시 alert는 뜨지만 페이지는 이동함
 
-			clearErrorMessages();  // 에러메세지 초기화
+		clearErrorMessages();  // 에러메세지 초기화
 
-			// 입력 요소 유효성 검사 - member.js 함수 호출
-			let isValid = validLogin(e.target);
+		// 입력 요소 유효성 검사 - member.js 함수 호출
+		let isValid = validLogin(e.target);
 
-			if (isValid) submitLoginFrm(e.target);   // 회원정보를 정상적으로 작성했다면
-		});
-	</script>
+		if (isValid) submitLoginFrm(e.target);   // 회원정보를 정상적으로 작성했다면
+	});
+</script>
 
 </body>
 </html>

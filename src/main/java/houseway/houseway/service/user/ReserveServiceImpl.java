@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,12 +28,7 @@ public class ReserveServiceImpl implements ReserveService {
         int result= reservRepository.saveReservation(user_id,estate_id,agent_num,agent_name,reserv_regdate);
 
         return result > 0 ? true : false;
+        }
     }
-
-   /* @Override
-    public Reserv getReservInfo(String user_id) {
-        return reservRepository.findByUserId(user_id);
-    }*/
-}
 
 

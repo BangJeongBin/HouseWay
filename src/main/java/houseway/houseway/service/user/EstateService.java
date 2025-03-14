@@ -2,7 +2,6 @@ package houseway.houseway.service.user;
 
 import houseway.houseway.domain.*;
 
-import java.util.List;
 import java.util.Map;
 
 public interface EstateService {

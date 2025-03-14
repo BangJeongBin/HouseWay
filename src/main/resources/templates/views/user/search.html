@@ -14,7 +14,7 @@
         <h1 class="mb-2 mb-lg-0">매물찾기</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index_demo.html">Home</a></li>
+            <li><a th:href="|/user/index_demo|">>Home</a></li>
             <li class="current">매물찾기</li>
           </ol>
         </nav>
@@ -64,8 +64,8 @@
         <td th:text="${estate.estate_id}"></td>
         <td th:text="${estate.estate_gu}"></td>
         <td> <a th:href="|/estate/estateDetail?estate_id=${estate.estate_id}&agent_num=${estate.agent_num}|" th:text="${estate.estate_title}"></a></td>
-        <td th:text="${#numbers.formatInteger(estate.estate_deposit, 3, 'COMMA')} + '만원'"></td>
-        <td th:text="${#numbers.formatInteger(estate.estate_rent, 0, 'COMMA')} + ' 만원'"></td>
+        <td th:text="${#numbers.formatInteger(estate.estate_deposit, 2, 'COMMA')} + '만원'"></td>
+        <td th:text="${#numbers.formatInteger(estate.estate_rent, '0', 'COMMA')} + ' 만원'"></td>
       </tr>
       </tbody>
 

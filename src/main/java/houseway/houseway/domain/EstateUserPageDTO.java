@@ -1,4 +1,4 @@
-package houseway.houseway.service.user;
+package houseway.houseway.domain;
 
 import lombok.Data;
 

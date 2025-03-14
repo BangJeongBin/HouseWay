@@ -147,3 +147,8 @@
     font-weight: bold;
     color: #333; !important;
 }
+.reserved {
+    background-color: #d3d3d3; /* 회색으로 배경색 설정 */
+    color: #888; /* 글자색 회색 */
+    pointer-events: none; /* 클릭 불가 */
+}

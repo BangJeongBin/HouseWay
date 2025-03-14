@@ -10,7 +10,7 @@
         <h1 class="mb-2 mb-lg-0">매물상세보기</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><<a th:href="|/user/index_demo|">>Home</a></li>
             <li class="current">About</li>
           </ol>
         </nav>
@@ -44,16 +44,15 @@
           <!-- 매물 정보 -->
           <div class="col-lg-7">
             <h3 class="pt-0 pt-lg-5" th:text="${estateDto.getEstateById.estate_title}">매물제목</h3>
-            <p th:text="${estateDto.getEstateById.estate_desc}">매물 설명</p>
-            <a class="btn btn-primary" th:href="@{/estate/reservation(estate_id=${estateDto.getEstateById.estate_id})}">예약하기</a>
+            <p style="white-space: pre-wrap;" th:text="${estateDto.getEstateById.estate_desc}">매물 설명</p>
+            <a class="btn btn-primary" th:href="@{/estate/reservation(estate_id=${estateDto.getEstateById.estate_id})}"><i class="bi bi-calendar-plus-fill"></i> 예약하기</a>
             <br><br>
 
-            <!-- 탭 -->
-            <ul class="nav nav-tabs mb-3" id="estateTabs">
-              <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-details">상세</a></li>
-              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-maptab">지도</a></li>
-              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-agent">공인중개사</a></li>
-            </ul>
+            <ul class="nav nav-pills mb-3">
+              <li><a class="nav-link active" data-bs-toggle="pill" href="#tab-details">상세</a></li>
+              <li><a class="nav-link" data-bs-toggle="pill" href="#tab-maptab">지도</a></li>
+              <li><a class="nav-link" data-bs-toggle="pill" href="#tab-agent">공인중개사</a></li>
+            </ul><!-- End Tabs -->
 
             <!-- Tab Content -->
             <div class="tab-content">
@@ -127,10 +126,6 @@
                       <td><p th:text="${estateDto.estateByAgent.agent_phone}"></p></td>
                     </tr>
                     <tr>
-                      <td>소개</td>
-                      <td><p th:text="${estateDto.estateByAgent.agent_intro}"></p></td>
-                    </tr>
-                    <tr>
                       <td>부동산 이름</td>
                       <td><p th:text="${estateDto.estateByAgent.office_name}"></p></td>
                     </tr>
@@ -141,7 +136,19 @@
                     </tbody>
                   </table>
                 </div>
-
+                <div class="accordion" id="accordionExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                       공인중개사 소개
+                      </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body"><p style="white-space: pre-wrap;" th:text="${estateDto.estateByAgent.agent_intro}"></p></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               </div>
             </div> <!-- tab-content 끝 -->
 
@@ -155,7 +162,7 @@
 
 
 
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae6dd296f57d49ae926d65b1254802f6"></script>
+  <script type="text/javascript" th:src="|//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoSitekey}|"></script>
   <script>
 
     document.addEventListener("DOMContentLoaded", (e) => {

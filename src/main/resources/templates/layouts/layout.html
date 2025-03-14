@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <meta charset="utf-8">
@@ -29,7 +30,7 @@
     <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Main CSS File -->
-    <link href="/css/main.css" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
 
     <!-- user CSS File -->
     <link th:href="@{/css/user.css}" rel="stylesheet">
@@ -38,23 +39,17 @@
 
 <body>
 <!-- 웹페이지 레이아웃(가운데 정렬)을 위한 태그들 -->
-<div class="container">
+
     <div class="content-wrapper mx-auto">
         <div th:replace="~{fragments/header::header}"></div>
+        <div class="container">
         <th:block layout:fragment="content"></th:block>
+        </div>
         <div th:replace="~{fragments/footer::footer}"></div>
     </div>
-</div>
 
 
-
-
-<!-- Bootstrap 5 JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<th:block layout:fragment="script"></th:block>
-
-<!-- Main JS File -->
-<!--<script src="/js/user/main.js"></script>-->
+<!-- Main JS File-->
 <script src="/js/user/user.js"></script>
 
 <!-- Vendor JS Files -->
@@ -66,11 +61,15 @@
 <script src="/vendor/waypoints/noframework.waypoints.js"></script>
 <script src="/vendor/swiper/swiper-bundle.min.js"></script>
 
+
+
+
 <th:block layout:fragment="script"></th:block>
 
-
-<!-- Scroll Top -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<!-- Bootstrap 5 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

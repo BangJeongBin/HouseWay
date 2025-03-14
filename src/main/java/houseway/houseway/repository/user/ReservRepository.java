@@ -18,6 +18,5 @@ public interface ReservRepository {
     @Insert("insert into reserv (user_id, estate_id,agent_num,agent_name,reserv_regdate) values (#{user_id},#{estate_id}, #{agent_num},#{agent_name},#{reserv_regdate})")
     int saveReservation(String user_id, String estate_id, int agent_num, String agent_name, LocalDateTime reserv_regdate);
 
-    @Select("select * from reserv where user_id = #{user_id} order by reserv_regdate desc limit 1")
-    Reserv findByUserId(String user_id);
+
 }

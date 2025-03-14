@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-
 <!-- Header Start -->
 <header id="header" class="header d-flex align-items-center sticky-top" th:fragment="header">
 
@@ -12,7 +11,7 @@
 
         <nav id="navmenu" class="navmenu">
             <ul>
-                <li><a href="#hero" class="active">메인화면</a></li>
+                <li><a th:href="|/user/index_demo|" class="active">메인화면</a></li>
                 <li class="dropdown"><a href="/"><span>매물</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
                         <li><a th:href="|/estate/list|">매물 찾기</a></li>
@@ -29,6 +28,11 @@
                 <li th:if="${session.loginUser == null} and ${session.agentLogin ==null}">
                     <a th:href="|/user/login|">마이페이지</a>
                 </li>
+
+                <li th:if="${session.loginAdmin ne null}">
+                    <a th:href="|/admin/index|">관리자페이지</a>
+                </li>
+
                 <li th:if="${session.agentLogin!=null}">
                     <a th:href="|/user/mypage|">[[${session.agentLogin.agent_name}]] 님, 환영합니다.</a>
                 </li>
@@ -41,5 +45,7 @@
         <a class="btn-getstarted" th:href="|/user/login|"> 로그인 </a>
 
     </div>
-</header>
+
+   </header>
+</html>
 <!-- header end -->

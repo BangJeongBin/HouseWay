@@ -18,6 +18,7 @@ public class ReservPageDTO {
         this.cpg = cpg;
         this.totalPg = (int)Math.ceil((double)totalCount / pageSize);;  // 총 페이지 수
         this.reservList = reservList;
+        this.totalCount = totalCount;
 
         this.strBlock = ((cpg - 1) / 5) * 5 + 1;  // 시작 블록
         this.endBlock = Math.min(strBlock + 5 - 1, totalCount);   // 끝 블록

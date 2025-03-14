@@ -246,10 +246,11 @@
 										<th:block th:if="${!#lists.isEmpty(agentDto.agentEstateList)}">
 											<th:block th:each="slists : ${agentDto.agentEstateList}">
 												<tr>
-													<td class="cell"><span class="truncate" th:text="${slists.estate_id}"></span></td>
+													<td class="cell"><a th:href="|/admin/product_view/${slists.estate_id}|">
+														<span class="truncate" th:text="${slists.estate_id}"></span></a></td>
 													<td class="cell"><span class="truncate" th:text="${slists.estate_title}"></span></td>
 													<td class="cell"><span class="truncate" th:text="${slists.estate_addr}"></span></td>
-													<td class="cell"><span class="truncate" th:text="${slists.estate_deposit}"></span></td>
+													<td class="cell"><span class="truncate" th:text="${slists.estate_rent}"></span></td>
 
 													<th:block th:if="${slists.estate_state == 1}">
 														<td class="cell"><span class="badge bg-success">판매중</span></td>

@@ -1,6 +1,7 @@
 package houseway.houseway.controller.admin;
 
 import houseway.houseway.domain.Estate;
+import houseway.houseway.domain.EstateModifyDTO;
 import houseway.houseway.service.admin.EstateAdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +57,7 @@ public class EstateAdminController {
 
     // 매물 수정 확정
     @PostMapping("/product_modifyOk")
-    public ResponseEntity<?> productModifyOk(Estate estate) {
+    public ResponseEntity<?> productModifyOk(EstateModifyDTO estate) {
         ResponseEntity<?> response = ResponseEntity.internalServerError().build();
 
         try {

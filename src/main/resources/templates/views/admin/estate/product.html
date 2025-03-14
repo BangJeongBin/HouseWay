@@ -80,11 +80,11 @@
 										<span class="badge bg-danger">HIT</span>
 									</th:block>
 
-									<th:block th:if="${lists.estate_state eq 1}">
+									<th:block th:if="${lists.estate_viewCount lt 10 && lists.estate_state eq 1}">
 										<span class="badge bg-success">판매중</span>
 									</th:block>
 
-									<th:block th:if="${lists.estate_state eq 0}">
+									<th:block th:if="${lists.estate_viewCount lt 999999 && lists.estate_state eq 0}">
 										<span class="badge bg-warning">판매완료</span>
 									</th:block>
 

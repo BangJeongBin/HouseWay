@@ -77,7 +77,7 @@
 								<div class="mb-3">
 									<label for="estate_addr" class="form-label">Address</label>
 									<input type="text" class="form-control" id="estate_addr" name="estate_addr"
-										   th:value="${estDto.estateAllInfo.estate_addr}">
+										   th:value="${estDto.estateAllInfo.estate_addr}" readonly>
 								</div>
 
 								<!-- agent_num -->
@@ -180,14 +180,14 @@
 									<div class="mb-3">
 										<label for="estate_moveDate" class="form-label">Move Date</label>
 										<input type="text" class="form-control" id="estate_moveDate" name="estate_moveDate"
-											   th:value="${estDto.estateAllInfo.estate_moveDate}" readonly>
+											   th:value="${estDto.estateAllInfo.estate_moveDate}">
 									</div>
 
 									<!-- estate_option -->
 									<div class="mb-3">
 										<label for="estate_option" class="form-label">Option</label>
 										<input type="text" class="form-control" id="estate_option" name="estate_option"
-											   th:value="${estDto.estateAllInfo.estate_option}" readonly>
+											   th:value="${estDto.estateAllInfo.estate_option}">
 									</div>
 
 									<!-- estate_viewCount -->

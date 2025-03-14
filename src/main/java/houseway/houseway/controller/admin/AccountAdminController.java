@@ -50,10 +50,11 @@ public class AccountAdminController {
 
     // 메인 페이지
     @GetMapping("/index")
-    public String index(HttpSession session) {
+    public String index(HttpSession session, Model m) {
         String returnUrl = "views/admin/account/login";
 
         if (session.getAttribute("loginAdmin") != null) {
+            m.addAttribute("indexDto", accountAdminService.adminIndex());
             returnUrl = "views/admin/index";
         }
         return returnUrl;

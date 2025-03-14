@@ -139,7 +139,7 @@
 		console.log(reservNum); // 콘솔 출력
 
 		let toggleSwitch = document.querySelector("#toggleSwitch");
-		var checkedState = 2;
+		var checkedState = 999;	// 초기화 번호
 
 		toggleSwitch.addEventListener('change', (e) => {
 			checkedState = e.target.checked ? 1 : 0; // 체크되면 1, 해제되면 0

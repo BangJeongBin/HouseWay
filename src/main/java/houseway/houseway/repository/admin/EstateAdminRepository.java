@@ -45,7 +45,7 @@ public interface EstateAdminRepository {
     Image selectEstateImages(String estateId);
 
     // 해당 매물 예약 상태
-    @Select("select * from reserv where estate_id = #{estateId}")
+    @Select("select * from reserv where estate_id = #{estateId} limit 1")
     Reserv selectEstateReservState(String estateId);
 
     // 해당 매물 북마크 목록

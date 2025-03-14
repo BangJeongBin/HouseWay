@@ -34,7 +34,7 @@ public class BookAdminController {
 
     // 예약 승인
     @GetMapping("/book_ok")
-    public String bookYes(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam("reserv_num") int reserv_num) {
+    public String bookYes(Model m, @RequestParam("reserv_num") int reserv_num, @RequestParam(defaultValue = "1") int cpg) {
         log.info("/admin/book_ok 호출");
         String returnPage = "redirect:/admin/book?cpg=" + cpg;
 
@@ -48,7 +48,7 @@ public class BookAdminController {
 
     // 예약 반려
     @GetMapping("/book_no")
-    public String bookNo(Model m, @RequestParam(defaultValue = "1") int cpg, @RequestParam("reserv_num") int reserv_num) {
+    public String bookNo(Model m, @RequestParam("reserv_num") int reserv_num, @RequestParam(defaultValue = "1") int cpg) {
         log.info("/admin/book_no 호출");
         String returnPage = "redirect:/admin/book?cpg=" + cpg;
 

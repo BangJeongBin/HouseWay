@@ -2,9 +2,12 @@ package houseway.houseway.repository.admin;
 
 import houseway.houseway.domain.Admin;
 import houseway.houseway.domain.AdminCheckDTO;
+import houseway.houseway.domain.EstateViewCountRankDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
 
 @Mapper
 public interface AccountAdminRepository {
@@ -48,4 +51,8 @@ public interface AccountAdminRepository {
     // 모든 전세 매물의 수를 추출
     @Select("select COUNT(estate_id) from estate where estate_type like CONCAT('%', '전세', '%')")
     int estateLongRentCountIndex();
+
+    // 등록된 매물의 조회수 랭킹을 추출(5개)
+    @Select("select estate_id, estate_title, estate_viewCount from estate order by estate_viewCount desc limit 5")
+    List<EstateViewCountRankDTO> estateViewRank();
 }

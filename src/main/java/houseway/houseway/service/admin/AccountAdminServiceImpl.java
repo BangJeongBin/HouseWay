@@ -3,9 +3,13 @@ package houseway.houseway.service.admin;
 import houseway.houseway.domain.Admin;
 import houseway.houseway.domain.AdminCheckDTO;
 import houseway.houseway.domain.AdminIndexDTO;
+import houseway.houseway.domain.EstateViewCountRankDTO;
 import houseway.houseway.repository.admin.AccountAdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -70,7 +74,9 @@ public class AccountAdminServiceImpl implements AccountAdminService {
         int estateRentCount = accountMapper.estateRentCountIndex();
         // 모든 전세 매물의 수를 추출
         int estateLongRentCount = accountMapper.estateLongRentCountIndex();
+        // 등록된 매물의 조회수 랭킹을 추출(5개)
+        List<EstateViewCountRankDTO> estateViewCountRank = accountMapper.estateViewRank();
 
-        return new AdminIndexDTO(userCount, estateCount, agentCount, reservCount, salesCount, estateRentCount, estateLongRentCount);
+        return new AdminIndexDTO(userCount, estateCount, agentCount, reservCount, salesCount, estateRentCount, estateLongRentCount, estateViewCountRank);
     }
 }

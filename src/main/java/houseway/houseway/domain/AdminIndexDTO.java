@@ -3,6 +3,8 @@ package houseway.houseway.domain;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class AdminIndexDTO {
     // 모든 유저의 수를 추출
@@ -19,8 +21,10 @@ public class AdminIndexDTO {
     private int estateRentCount;
     // 모든 전세 매물의 수를 추출
     private int estateLongRentCount;
+    // 등록된 매물의 조회수 랭킹을 추출(5개)
+    List<EstateViewCountRankDTO> estateViewCountRank;
 
-    public AdminIndexDTO(int userCount, int estateCount, int agentCount, int reservCount, int salesCount, int estateRentCount, int estateLongRentCount) {
+    public AdminIndexDTO(int userCount, int estateCount, int agentCount, int reservCount, int salesCount, int estateRentCount, int estateLongRentCount, List<EstateViewCountRankDTO> estateViewCountRank) {
         this.userCount = userCount;
         this.estateCount = estateCount;
         this.agentCount = agentCount;
@@ -28,5 +32,6 @@ public class AdminIndexDTO {
         this.salesCount = salesCount;
         this.estateRentCount = estateRentCount;
         this.estateLongRentCount = estateLongRentCount;
+        this.estateViewCountRank = estateViewCountRank;
     }
 }

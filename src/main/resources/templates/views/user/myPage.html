@@ -235,6 +235,7 @@
         }).then(async response=> {
           if(response.ok){
             console.log(response.status);
+            row.remove();
           }
         }).then(data=>{
           // console.log('data :::', data);

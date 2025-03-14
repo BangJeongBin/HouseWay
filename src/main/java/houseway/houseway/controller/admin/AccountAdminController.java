@@ -31,7 +31,7 @@ public class AccountAdminController {
             // 정상적으로 처리되는 경우 상태코드 200으로 응답
             Admin loginAdmin = accountAdminService.loginAdmin(admin);
             session.setAttribute("loginAdmin", loginAdmin);
-            session.setMaxInactiveInterval(6000);    // 세션 유지 : 100분
+            session.setMaxInactiveInterval(10 * 60);    // 세션 유지 : 10분
 
             response =  ResponseEntity.ok().build();
             System.out.println("==================" + response);
@@ -50,10 +50,11 @@ public class AccountAdminController {
 
     // 메인 페이지
     @GetMapping("/index")
-    public String index(HttpSession session) {
+    public String index(HttpSession session, Model m) {
         String returnUrl = "views/admin/account/login";
 
         if (session.getAttribute("loginAdmin") != null) {
+            m.addAttribute("indexDto", accountAdminService.adminIndex());
             returnUrl = "views/admin/index";
         }
         return returnUrl;

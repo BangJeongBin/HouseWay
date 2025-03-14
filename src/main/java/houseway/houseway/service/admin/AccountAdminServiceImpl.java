@@ -2,9 +2,14 @@ package houseway.houseway.service.admin;
 
 import houseway.houseway.domain.Admin;
 import houseway.houseway.domain.AdminCheckDTO;
+import houseway.houseway.domain.AdminIndexDTO;
+import houseway.houseway.domain.EstateViewCountRankDTO;
 import houseway.houseway.repository.admin.AccountAdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +45,7 @@ public class AccountAdminServiceImpl implements AccountAdminService {
         return checkPwd;
     }
 
+
     // 관리자 비밀번호 변경
     @Override
     public boolean resetPwd(String admin_password) {
@@ -48,5 +54,29 @@ public class AccountAdminServiceImpl implements AccountAdminService {
             return true;
         }
         return false;
+    }
+
+
+    // index 페이지
+    @Override
+    public AdminIndexDTO adminIndex() {
+        // 모든 유저의 수를 추출
+        int userCount = accountMapper.userCountIndex();
+        // 모든 매물의 수를 추출
+        int estateCount = accountMapper.estateCountIndex();
+        // 모든 공인중개사의 수를 추출
+        int agentCount = accountMapper.agentCountIndex();
+        // 모든 예약의 수를 추출
+        int reservCount = accountMapper.reservCountIndex();
+        // 모든 판매된 매물의 수를 추출
+        int salesCount = accountMapper.salesCountIndex();
+        // 모든 월세 매물의 수를 추출
+        int estateRentCount = accountMapper.estateRentCountIndex();
+        // 모든 전세 매물의 수를 추출
+        int estateLongRentCount = accountMapper.estateLongRentCountIndex();
+        // 등록된 매물의 조회수 랭킹을 추출(5개)
+        List<EstateViewCountRankDTO> estateViewCountRank = accountMapper.estateViewRank();
+
+        return new AdminIndexDTO(userCount, estateCount, agentCount, reservCount, salesCount, estateRentCount, estateLongRentCount, estateViewCountRank);
     }
 }

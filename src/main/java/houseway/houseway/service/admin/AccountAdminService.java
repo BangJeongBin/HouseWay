@@ -1,6 +1,7 @@
 package houseway.houseway.service.admin;
 
 import houseway.houseway.domain.Admin;
+import houseway.houseway.domain.AdminIndexDTO;
 
 public interface AccountAdminService {
 
@@ -12,4 +13,7 @@ public interface AccountAdminService {
 
     // 관리자 비밀번호 변경
     boolean resetPwd(String admin_password);
+
+    // index 페이지
+    AdminIndexDTO adminIndex();
 }

@@ -17,7 +17,7 @@
                         </a>
                     </div><!--//col-->
                     <div class="search-mobile-trigger d-sm-none col">
-                        <h2>heh</h2>
+                        <p><strong>남은 세션 시간:</strong> <span id="timer">확인 중...</span></p>
                     </div><!--//col-->
                     <div class="app-search-box col">
                         <form class="app-search-form">
@@ -338,6 +338,41 @@
         </div><!-- 좌측 네비 바 영역 end -->
 
     </div><!--//app-sidepanel-->
+
+    <script>
+        const sessionDuration = 10 * 60 * 1000; // 세션 유지 : 10분
+
+        // 세션 값 sessionStorage 새로 생성
+        if (!sessionStorage.getItem("loginAdmin")) {
+            const startTime = Date.now();
+            sessionStorage.setItem("loginAdmin", startTime);
+        }
+
+        // 세션 남은 시간 계산 함수
+        function updateSessionTime() {
+            const startTime = parseInt(sessionStorage.getItem("loginAdmin"));
+            const elapsedTime = Date.now() - startTime;
+            const remTime = sessionDuration - elapsedTime;
+
+            if (remTime <= 0) {
+                // 남은 시간이 없는 경우
+                document.getElementById("timer").innerText = "세션이 만료되었습니다.";
+                sessionStorage.removeItem("loginAdmin");
+                clearInterval(timerInterval);
+
+                alert('세션이 만료되었습니다. 다시 로그인 해주세요.');
+                window.location.href = '/admin/';
+            } else {
+                const minutes = Math.floor(remTime / 60000);
+                const seconds = Math.floor((remTime % 60000) / 1000);
+                document.getElementById("timer").innerText = `남은 시간: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+        }
+
+        // 매초 남은 시간 갱신
+        const timerInterval = setInterval(updateSessionTime, 1000);
+        updateSessionTime(); // 페이지 로드 시 즉시 한번 업데이트
+    </script>
 
 </header>
 </html>

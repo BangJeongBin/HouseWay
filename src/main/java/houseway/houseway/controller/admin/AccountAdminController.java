@@ -31,7 +31,7 @@ public class AccountAdminController {
             // 정상적으로 처리되는 경우 상태코드 200으로 응답
             Admin loginAdmin = accountAdminService.loginAdmin(admin);
             session.setAttribute("loginAdmin", loginAdmin);
-            session.setMaxInactiveInterval(6000);    // 세션 유지 : 100분
+            session.setMaxInactiveInterval(10 * 60);    // 세션 유지 : 10분
 
             response =  ResponseEntity.ok().build();
             System.out.println("==================" + response);

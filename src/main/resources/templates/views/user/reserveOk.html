@@ -4,7 +4,7 @@
       layout:decorate="~{layouts/layout}">
 
 <body>
-  <th:block layout:fragment="content">
+<th:block layout:fragment="content">
   <main class="main">
 
     <!-- Page Title -->
@@ -13,29 +13,37 @@
         <h1 class="mb-2 mb-lg-0">예약완료</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a th:href="|/user/index_demo|">>Home</a></li>
             <li class="current">매물찾기</li>
           </ol>
         </nav>
-        
+
       </div>
     </div><!-- End Page Title -->
 
     <!-- Pricing Section -->
     <br>
-      <div class="container my-3">
+    <div class="container my-3">
 
-        <h2>예약 내역 확인은 [마이페이지]에서 가능합니다.</h2>
-        <br>
-        <p><a th:href="|/user/mypage|" class="link-primary">마이페이지</a></p>
+
+      <div style="text-align: center;">
+        <h3>예약이 완료됐습니다.</h3>  <br>
+        <span>예약이 확정되면 [마이페이지]에서 확인이 가능합니다.</span> <br>
+        <img src="/img/user/mainImg/reservOk.jpg" alt="check" style="width: 300px; height: auto;">
+        <br><br>
+        <p><a th:href="|/user/mypage|" class="link-primary"><i class="bi bi-arrow-right-circle-fill"></i>마이페이지 바로가기</a></p>
       </div>
+      <br>
+
+
+    </div>
 
   </main>
-<br>
+  <br>
 
 
 
-  </th:block>
+</th:block>
 
 
 </body>

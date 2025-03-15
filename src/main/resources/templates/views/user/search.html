@@ -5,7 +5,8 @@
 
 <body>
 <th:block layout:fragment="content">
-  <main class="main">
+  <main class="main" th:with="pglink=${(#strings.isEmpty(param.findkey)) ?
+                '/estate/list?cpg=' : '/estate/search?findtype=' + param.findtype + '&findkey=' + param.findkey + '&cpg='}">
 
     <!-- Page Title -->
     <div class="page-title light-background">
@@ -13,7 +14,7 @@
         <h1 class="mb-2 mb-lg-0">매물찾기</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index_demo.html">Home</a></li>
+            <li><a th:href="|/user/index_demo|">>Home</a></li>
             <li class="current">매물찾기</li>
           </ol>
         </nav>
@@ -25,36 +26,23 @@
 
     <form id="searchForm" method="get">
       <div class="row mt-5 mb-3">
+
         <div class="row offset-1 col-7">
           <div class="col-3">
             <select class="form-select" id="findtype" name="findtype">
-              <option selected="selected" value="all">지역구 선택</option>
-              <option value="강남구">강남구</option>
-              <option value="강동구">강동구</option>
-              <option value="강북구">강북구</option>
-              <option value="강서구">강서구</option>
-              <option value="관악구">관악구</option>
-              <option value="구로구">구로구</option>
-              <option value="금천구">금천구</option>
-              <option value="동대문구">동대문구</option>
-              <option value="동작구">동작구</option>
-              <option value="마포구">마포구</option>
-              <option value="서대문구">서대문구</option>
-              <option value="성동구">성동구</option>
-              <option value="성북구">성북구</option>
-              <option value="양천구">양천구</option>
-              <option value="영등포구">영등포구</option>
-              <option value="용산구">용산구</option>
-              <option value="은평구">은평구</option>
-              <option value="종로구">종로구</option>
+              <option selected="selected">:: 선택 :: </option>
+              <option value="estate_id">매물번호</option>
+              <option value="estate_gu">구 선택</option>
+              <option value="estate_rent">월세</option>
+              <option value="estate_parking">주차 가능 여부</option>
             </select>
           </div>
           <div class="col-4">
-            <input type="text" class="form-control col-2" id="findkey" name="findkey">
+            <input type="text" class="form-control col-2" id="findkey" name="findkey" th:value="${param.findkey}"
+                   placeholder="검색어 입력">
           </div>
           <div class="col-3">
-            <button type="button" class="btn btn-success" id="findbtn">
-              <i class="fa-solid fa-magnifying-glass"></i> 검색하기
+            <button type="button" class="btn btn-primary" id="findbtn"><i class="fa-solid fa-magnifying-glass"></i> 검색하기
             </button>
           </div>
         </div>
@@ -73,18 +61,43 @@
       </thead>
 
       <tbody>
-      <tr th:each="estate : ${estates}">
+      <tr th:each="estate : ${estateListDto.estateList}">
         <td th:text="${estate.estate_id}"></td>
         <td th:text="${estate.estate_gu}"></td>
         <td> <a th:href="|/estate/estateDetail?estate_id=${estate.estate_id}&agent_num=${estate.agent_num}|" th:text="${estate.estate_title}"></a></td>
-        <td th:text="${#numbers.formatInteger(estate.estate_deposit, 3, 'COMMA')} + '원'"></td>
-        <td th:text="${#numbers.formatInteger(estate.estate_rent, 3, 'COMMA')} + '원'"></td>
+        <td th:text="${#numbers.formatInteger(estate.estate_deposit, 2, 'COMMA')} + '만원'"></td>
+        <td th:text="${#numbers.formatInteger(estate.estate_rent, '0', 'COMMA')} + ' 만원'"></td>
       </tr>
       </tbody>
 
+
     </table>
+
+    <!-- 페이징 처리 -->
+    <nav class="app-pagination mt-5">
+      <ul class="pagination justify-content-center">
+
+        <li class="page-item" th:if="${estateListDto.cpg gt 5}">
+          <a th:href="|${pglink}${estateListDto.cpg - 1}|" class="page-link">Prev</a>
+        </li>
+
+        <th:block th:each="i : ${#numbers.sequence(estateListDto.strBlock, estateListDto.endBlock)}">
+          <li th:class="${(i ne estateListDto.cpg) ? 'page-item' : 'page-item active'}">
+            <a th:href="|${pglink}${i}|" class="page-link" th:text="${i}"></a>
+          </li>
+        </th:block>
+
+        <li class="page-item" th:if="${estateListDto.cpg lt estateListDto.totalPg}">
+          <a th:href="|${pglink}${estateListDto.cpg + 1}|" class="page-link">Next</a>
+        </li>
+
+      </ul>
+    </nav><!--//app-pagination-->
+
   </main>
-<br>
+
+
+  <br>
 
 </th:block>
 

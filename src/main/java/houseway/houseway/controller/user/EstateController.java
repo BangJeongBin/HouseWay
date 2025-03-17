@@ -6,14 +6,12 @@ import houseway.houseway.service.user.EstateService;
 import houseway.houseway.service.user.ReserveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+
 
 
 @Slf4j
@@ -24,54 +22,42 @@ public class EstateController {
 
     private final EstateService estateService;
     private final ReserveService reserveService;
-    private final ReservRepository reservRepository;
+
 
     @GetMapping("/list")
-        public String listEstates(Model model) {
+    public String listEstates(Model model, @RequestParam(defaultValue = "1") int cpg) {
 
-        // estateService에서 모든 estate 리스트를 가져옵니다
-        List<Estate> estateList = estateService.getAllEstates();
-
-        // estate 리스트를 Thymeleaf 템플릿에 전달
-        model.addAttribute("estates", estateList);
-
+        model.addAttribute("estateListDto", estateService.readEstate(cpg));
         return "views/user/search";
     }
 
+    // 매물 정렬 리스트
+    @GetMapping("/estate_sort")
+    public String estate(Model model, @RequestParam(defaultValue = "1") int cpg, @RequestParam("eno") int eno) {
+        model.addAttribute("estateListDto", estateService.readSortEstate(cpg, eno));
+
+        return "views/admin/agent/agent";
+    }
+
     @GetMapping("/search")
-    public String searchEstates(@RequestParam(defaultValue = "all") String findtype,
-                                @RequestParam(defaultValue = "all" ) String findkey,
-                                Model model){
-        List<EstateSearchListDTO> estates = null;
+    public String findEstate(Model model, @RequestParam(defaultValue = "1") int cpg,
+                             String findtype, String findkey) {
 
-        if (findkey.equals("all") || findkey.trim().isEmpty()) {
-            // 검색어가 없으면 전체 매물 조회
-            estates = estateService.searchEstates(null, null);
-        } else {
-            // 검색어가 있으면 해당 조건으로 검색
-            estates = estateService.searchEstates(findtype, findkey);
-        }
+        model.addAttribute("estateListDto", estateService.findUserEstate(cpg, findtype, findkey));
 
-        model.addAttribute("estates", estates);
-
-         return "views/user/search";  // 검색 결과를 표시할 뷰로 이동
+        return "views/user/search";  // 검색 결과를 표시할 뷰로 이동
     }
 
     @GetMapping("/estateDetail")
     public String estateDetail(Model model, @RequestParam("estate_id") String estate_id,
                                @RequestParam("agent_num") int agent_num) {
+        EstateUserAllInfoDTO estateDto = estateService.readOneUserEstate(estate_id, agent_num);
 
-        System.out.println(agent_num);
+        model.addAttribute("estateDto", estateDto);
+        model.addAttribute("kakaoSitekey", System.getenv("kakao_sitekey"));
+        log.info("{}", System.getenv("kakao_sitekey"));
 
-        Estate estate = estateService.getEstateById(estate_id);
-        List<Estate> estateList = estateService.getAllEstates();
-        model.addAttribute("estates", estateList);
-        model.addAttribute("estate", estate);
-
-        // 해당 매물 상세 페이지에 해당하는 agnet 정보 추출
-        model.addAttribute("agentDto", estateService.getEstateByAgent(agent_num));
-
-       return "views/user/estateDetail";
+        return "views/user/estateDetail";
     }
 
 
@@ -89,14 +75,15 @@ public class EstateController {
 
         return "views/user/reservation";
     }
+
     @PostMapping("/reservation")
     public String reservationOk(
-                                @RequestParam("user_id") String user_id,
-                                @RequestParam("estate_id") String estate_id,
-                                @RequestParam("agent_num") int agent_num,
-                                @RequestParam("agent_name") String agent_name,
-                                @RequestParam("reserv_regdate") String reserv_regdateStr,
-                                Model model) {
+            @RequestParam("user_id") String user_id,
+            @RequestParam("estate_id") String estate_id,
+            @RequestParam("agent_num") int agent_num,
+            @RequestParam("agent_name") String agent_name,
+            @RequestParam("reserv_regdate") String reserv_regdateStr,
+            Model model) {
 
 
         try {
@@ -115,5 +102,6 @@ public class EstateController {
             // 에러 시 다시 예약 입력 페이지로 리다이렉트
             return "redirect:/reservation";
         }
-}
+    }
+
 }

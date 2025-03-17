@@ -37,13 +37,15 @@
 
 <body>
 <!-- 웹페이지 레이아웃(가운데 정렬)을 위한 태그들 -->
-<div class="">
-    <div class="content-wrapper mx-auto">
-        <div th:replace="~{fragments/header::header}"></div>
+<div class="content-wrapper mx-auto">
+    <div th:replace="~{fragments/header::header}"></div>
+    <div class="container">
         <th:block layout:fragment="content"></th:block>
-        <div th:replace="~{fragments/footer::footer}"></div>
     </div>
+    <div th:replace="~{fragments/footer::footer}"></div>
 </div>
+
+
 
 
 

@@ -2,7 +2,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 
-<body class="service-details-page">
   <th:block layout:fragment="content">
     <main class="main">
 
@@ -69,43 +68,44 @@
           </div>
         </div>
 
-        <form id="login_Frm2" name="login_Frm2" class="d-none" method="post" novalidate>
-          <ul class="panel_user">
-            <li class="panel_item">
+        <div class="content shadow-lg mb-5 bg-body-tertiary rounded col-md-5 mx-auto" style="margin-top: -50px; ">
+          <form id="login_Frm2" name="login_Frm2" class="d-none" method="post" novalidate>
+            <ul class="panel_user">
+              <li class="panel_item">
 
-              <div class="inner_pane form2">
-                <h2 class="text-center m-5">공인중개사 로그인</h2>
-                <div class="col-md-8 mx-auto">
+                <div class="inner_pane form2">
+                  <h2 class="text-center m-5">공인중개사 로그인</h2>
+                  <div class="col-md-8 mx-auto">
 
-                  <div class="login_frm">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingInput2" name="agent_name" placeholder="아이디" required>
-                      <label for="floatingInput2">이름</label>
+                    <div class="login_frm">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput2" name="agent_name" placeholder="아이디" required>
+                        <label for="floatingInput2">이름</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingPassword2" name="agent_num" placeholder="공인중개사 번호" required>
+                        <label for="floatingPassword2">공인중개사 번호</label>
+                      </div>
                     </div>
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingPassword2" name="agent_num" placeholder="공인중개사 번호" required>
-                      <label for="floatingPassword2">공인중개사 번호</label>
-                    </div>
-                  </div>
 
-                  <div class="text-center m-5">
-                    <button class="btn btn-outline-success mx-1">로그인</button>
-                    <div class="mt-3">
-                      <button class="btn btn-link link-underline-secondary" style="color: gray;">아이디 찾기</button>
-                      <button class="btn btn-link link-underline-secondary" style="color: gray;">비밀번호 찾기</button>
+                    <div class="text-center m-5">
+                      <button class="btn btn-outline-success mx-1">로그인</button>
+                      <div class="mt-3">
+                        <button class="btn btn-link link-underline-secondary" style="color: gray;">아이디 찾기</button>
+                        <button class="btn btn-link link-underline-secondary" style="color: gray;">비밀번호 찾기</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-            </li>
-          </ul>
-        </form>
-
-          </div>
+              </li>
+            </ul>
+          </form>
 
         </div>
-        </div>
+
+<!--        </div>-->
+<!--        </div>-->
 
 
       </section>
@@ -114,85 +114,78 @@
 
   </th:block>
 
-<footer id="footer" class="footer dark-background">
-
-  <div class="container footer-top">
-    <div class="row gy-4">
-      <div class="col-lg-4 col-md-6 footer-about">
-        <a href="index.html" class="logo d-flex align-items-center">
-          <span class="sitename">Sailor</span>
-        </a>
-        <div class="footer-contact pt-3">
-          <p>A108 Adam Street</p>
-          <p>New York, NY 535022</p>
-          <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-          <p><strong>Email:</strong> <span>info@example.com</span></p>
-        </div>
-        <div class="social-links d-flex mt-4">
-          <a href=""><i class="bi bi-twitter-x"></i></a>
-          <a href=""><i class="bi bi-facebook"></i></a>
-          <a href=""><i class="bi bi-instagram"></i></a>
-          <a href=""><i class="bi bi-linkedin"></i></a>
-        </div>
-      </div>
-
-      <div class="col-lg-2 col-md-3 footer-links">
-        <h4>Useful Links</h4>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About us</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Terms of service</a></li>
-          <li><a href="#">Privacy policy</a></li>
-        </ul>
-      </div>
-
-      <div class="col-lg-2 col-md-3 footer-links">
-        <h4>Our Services</h4>
-        <ul>
-          <li><a href="#">Web Design</a></li>
-          <li><a href="#">Web Development</a></li>
-          <li><a href="#">Product Management</a></li>
-          <li><a href="#">Marketing</a></li>
-          <li><a href="#">Graphic Design</a></li>
-        </ul>
-      </div>
-
-      <div class="col-lg-4 col-md-12 footer-newsletter">
-        <h4>Our Newsletter</h4>
-        <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-        <form action="forms/newsletter.php" method="post" class="php-email-form">
-          <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-          <div class="loading">Loading</div>
-          <div class="error-message"></div>
-          <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-        </form>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="container copyright text-center mt-4">
-    <p>© <span>Copyright</span> <strong class="px-1 sitename">Sailor</strong> <span>All Rights Reserved</span></p>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you've purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a
-            href=“https://themewagon.com>ThemeWagon
-    </div>
-  </div>
-
-</footer>
 
 <!-- Scroll Top -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
+<!--<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i-->
+<!--        class="bi bi-arrow-up-short"></i></a>-->
 
 <!-- Preloader -->
-<div id="preloader"></div>
-</script>
-</body>
+<!--<div id="preloader"></div>-->
+  <!-- Main JS File -->
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+  let chgNavUser = document.getElementById('userLoginNav');
+  let chgNavAgent = document.getElementById('agentLoginNav');
+  let userLoginElement = document.getElementById('login_Frm');
+  let agentLoginElement = document.getElementById('login_Frm2');
+
+  // 요소가 존재하는지 확인
+  if (chgNavUser && chgNavAgent && userLoginElement && agentLoginElement) {
+    // 공인중개사 로그인 메뉴 클릭 시
+    chgNavAgent.addEventListener('click', (e) => {
+      agentLoginElement.classList.remove('d-none');
+      chgNavUser.classList.remove('active');
+      chgNavAgent.classList.add('active');
+      userLoginElement.classList.add('d-none');
+    });
+
+    // 일반 로그인 메뉴 클릭 시
+    chgNavUser.addEventListener('click', (e) => {
+      chgNavAgent.classList.remove('active');
+      chgNavUser.classList.add('active');
+      agentLoginElement.classList.add('d-none');
+      userLoginElement.classList.remove('d-none');
+    });
+  }
+
+  // 로그인 화면에서 회원가입 버튼 클릭 시 회원가입 페이지 이동
+  let gojoinFrm = document.querySelector('.join');
+  if (gojoinFrm) {
+    gojoinFrm.addEventListener('click', (e) => {
+      location.href = 'join';
+    });
+  }
+
+  // 아이디 찾기 버튼 클릭 시 팝업 창
+  let findID = document.getElementById('find_id');
+  if (findID) {
+    findID.addEventListener('click', (e) => {
+      window.open('/joinForm.html', '_blank', 'width=500,height=500');
+    });
+  }
+
+  // 비밀번호 찾기 클릭 시 팝업 창
+  let findPWd = document.getElementById('find_pwd');
+  if (findPWd) {
+    findPWd.addEventListener('click', (e) => {
+      window.open('/joinForm.html', '_blank', 'width=500,height=500');
+    });
+  }
+
+  // 로그인 버튼 눌렀을 때
+  agentLoginElement?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    clearMessages(); //에러메세지 초기화
+
+    // 입력 요소 유효성 검사
+    let isValid = validAgentLogin(e.target);
+    if(isValid) submitAgentLoginfrm(e.target);
+  });
+
+
+
+    </script>
+  </th:block>
 
 </html>

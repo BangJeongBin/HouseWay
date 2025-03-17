@@ -1,39 +1,39 @@
-let chgNavUser = document.getElementById('userLoginNav');
-let chgNavAgent = document.getElementById('agentLoginNav');
-let userLoginElement = document.getElementById('login_Frm');
-let agentLoginElement = document.getElementById('login_Frm2');
-
-// 공인중개사 로그인 메뉴 클릭 시
-chgNavAgent?.addEventListener('click', (e) => {
-    agentLoginElement.classList.remove('d-none');
-    chgNavUser.classList.remove('active');
-    chgNavAgent.classList.add('active');
-    userLoginElement.replaceWith(agentLoginElement);
-});
-// 일반 로그인 메뉴 클릭 시
-chgNavUser?.addEventListener('click', (e) => {
-    chgNavAgent.classList.remove('active');
-    chgNavUser.classList.add('active');
-    agentLoginElement.replaceWith(userLoginElement)
-});
-
-// 로그인 화면에서 회원가입 버튼 클릭 시 회원가입 페이지 이동
-let gojoinFrm = document.querySelector('.join');
-gojoinFrm?.addEventListener('click', (e) => {
-    location.href = 'join';
-});
-
-// 아이디 찾기 버튼 클릭 시 팝업 찯
-let findID = document.getElementById('find_id');
-findID?.addEventListener('click', (e) => {
-    let ret = window.open('/joinForm.html', '_blank', 'width=500,height=500');
-});
-
-// 비밀번호 찾기 클릭 시 팝업 창
-let findPWd = document.getElementById('find_pwd');
-findPWd?.addEventListener('click', (e) => {
-    let ret = window.open('/joinForm.html', '_blank', 'width=500,height=500');
-});
+// let chgNavUser = document.getElementById('userLoginNav');
+// let chgNavAgent = document.getElementById('agentLoginNav');
+// let userLoginElement = document.getElementById('login_Frm');
+// let agentLoginElement = document.getElementById('login_Frm2');
+//
+// // 공인중개사 로그인 메뉴 클릭 시
+// chgNavAgent?.addEventListener('click', (e) => {
+//     agentLoginElement.classList.remove('d-none');
+//     chgNavUser.classList.remove('active');
+//     chgNavAgent.classList.add('active');
+//     userLoginElement.replaceWith(agentLoginElement);
+// });
+// // 일반 로그인 메뉴 클릭 시
+// chgNavUser?.addEventListener('click', (e) => {
+//     chgNavAgent.classList.remove('active');
+//     chgNavUser.classList.add('active');
+//     agentLoginElement.replaceWith(userLoginElement)
+// });
+//
+// // 로그인 화면에서 회원가입 버튼 클릭 시 회원가입 페이지 이동
+// let gojoinFrm = document.querySelector('.join');
+// gojoinFrm?.addEventListener('click', (e) => {
+//     location.href = 'join';
+// });
+//
+// // 아이디 찾기 버튼 클릭 시 팝업 찯
+// let findID = document.getElementById('find_id');
+// findID?.addEventListener('click', (e) => {
+//     let ret = window.open('/joinForm.html', '_blank', 'width=500,height=500');
+// });
+//
+// // 비밀번호 찾기 클릭 시 팝업 창
+// let findPWd = document.getElementById('find_pwd');
+// findPWd?.addEventListener('click', (e) => {
+//     let ret = window.open('/joinForm.html', '_blank', 'width=500,height=500');
+// });
 
 
 //------------------------------ joinForm
@@ -62,11 +62,10 @@ const errorMessages = [
 ];
 // 입력 패턴
 const patterns = [
-    /^[a-z][a-z0-9]{5,17}$/,
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,18}$/,
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,18}$/,
-    /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
-    /^[가-힣]|[a-zA-Z]$/
+    /^[a-z][a-z0-9]{5,17}$/,  // 아이디 패턴
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,18}$/,  // 비밀번호 패턴
+    /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/, // 이메일 패턴
+    /^[가-힣|a-zA-Z]+$/ // 이름 패턴 (영문/한글)
 ];
 
 // 모든 error-message 요소의 내용을 초기화
@@ -79,24 +78,38 @@ function clearMessages() {
 const validInputs = (form) => {
     let isValid = true;
 
-    //회원가입 폼 안의 모든 input 요소 수집
+    // 회원가입 폼 안의 모든 input 요소 수집
     const inputs = form.querySelectorAll('input');
     console.log(inputs);
+
+    // 비밀번호와 비밀번호 확인 필드를 명확하게 구분
+    const passwordInput = inputs[2];  // 비밀번호 입력 필드 (3번째)
+    const confirmPasswordInput = inputs[3];  // 비밀번호 확인 필드 (4번째)
+
+    // 비밀번호 유효성 검사 (패턴을 사용)
+    if (!patterns[1].test(passwordInput.value)) {
+        displayErrorsMessages(passwordInput, errorMessages[2]);  // 3번째 오류 메시지
+        isValid = false;
+    }
+
+    // 비밀번호 확인이 비밀번호와 일치하는지 확인
+    if (passwordInput.value !== confirmPasswordInput.value) {
+        displayErrorsMessages(confirmPasswordInput, errorMessages[3]);  // 4번째 오류 메시지
+        isValid = false;
+    }
+
+    // 나머지 입력값 유효성 검사
     inputs.forEach((input, idx) => {
-        if (!input.checkValidity()) {
+        // 비밀번호와 비밀번호 확인 필드를 제외
+        if (idx !== 2 && idx !== 3 && !input.checkValidity()) {
             displayErrorsMessages(input, errorMessages[idx]);
             isValid = false;
         }
     });
 
-    //일치여부 검사
-    if (inputs[1].value !== inputs[2].value) {
-        displayErrorsMessages(inputs[2], errorMessages[2]);
-        isValid = false;
-    }
-
     return isValid;
 }
+
 
 // 에러메세지 출력될 요소 생성
 const displayErrorsMessages = (input, message) => {
@@ -208,16 +221,16 @@ const submitLoginfrm = async (frm) => {
 
 // --------------------
 
-// 로그인 버튼 눌렀을 때
-agentLoginElement?.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    clearMessages(); //에러메세지 초기화
-
-    // 입력 요소 유효성 검사
-    let isValid = validAgentLogin(e.target);
-    if(isValid) submitAgentLoginfrm(e.target);
-});
+// // 로그인 버튼 눌렀을 때
+// agentLoginElement?.addEventListener("submit", (e) => {
+//     e.preventDefault();
+//
+//     clearMessages(); //에러메세지 초기화
+//
+//     // 입력 요소 유효성 검사
+//     let isValid = validAgentLogin(e.target);
+//     if(isValid) submitAgentLoginfrm(e.target);
+// });
 
 // 로그인 화면 유효성 메세지
 const AgentloginMessages = [
